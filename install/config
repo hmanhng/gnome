@@ -27,7 +27,6 @@ git clone https://github.com/hmanhng/WindowsFonts.git $HOME/WindowsFonts && rm -
 
 sudo chsh $USER -s "/bin/fish" && \
 sudo systemctl enable acpid
-sudo systemctl enable ntpd
 sudo systemctl enable org.cups.cupsd.service
 sudo systemctl enable bluetooth
 sudo systemctl enable gdm

@@ -16,14 +16,14 @@ bat
 openssh
 wget
 reflector
-bluez blueman
-alsa-utils pavucontrol pulseaudio pulseaudio-alsa pulseaudio-bluetooth
+bluez
+alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth
 xdg-user-dirs
 udisks2 udiskie
-wireguard-tools 
+wireguard-tools
 #openresolv
 v2ray
-acpid ntp dbus cups cronie
+acpid dbus cups cronie
 
 htop
 fastfetch
