@@ -1,6 +1,6 @@
 gnome-shell gnome-tweaks gnome-control-center gnome-keyring
 gnome-terminal-transparency guake
-chrome-gnome-shell
+chrome-gnome-shell gnome-shell-extensions
 xf86-video-intel
 intel-media-driver
 intel-gpu-tools
@@ -16,9 +16,8 @@ reflector
 bluez
 alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth
 xdg-user-dirs
-udisks2 udiskie
-wireguard-tools
-#openresolv
+xclip
+wireguard-tools openresolv
 v2ray
 
 htop fastfetch
@@ -32,11 +31,10 @@ ttf-ubuntu-font-family
 ttf-iosevka-nerd
 
 #App
-eog evince nautilus
+eog evince nautilus file-roller
 vlc
 discord
 qbittorrent
 obs-studio
 google-chrome
 libreoffice-still-vi
-#engrampa
