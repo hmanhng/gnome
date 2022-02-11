@@ -1,6 +1,6 @@
 gnome-shell gnome-tweaks gnome-control-center gnome-keyring
 gnome-terminal-transparency guake
-chrome-gnome-shell gnome-shell-extensions
+chrome-gnome-shell
 xf86-video-intel
 intel-media-driver
 intel-gpu-tools
