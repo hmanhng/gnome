@@ -4,7 +4,7 @@ chrome-gnome-shell
 xf86-video-intel
 intel-media-driver
 intel-gpu-tools
-fish
+fish starship
 gdm
 
 #Pkg
