@@ -28,7 +28,7 @@ ookla-speedtest-bin
 
 #ThemesAndFont
 papirus-icon-theme
-ttf-ubuntu-font-family
+#ttf-ubuntu-font-family
 ttf-iosevka-nerd
 
 #App
