@@ -1,15 +1,15 @@
 #!/bin/bash
 
-git config --global user.email "hmanhng@icloud.com" #"$email"
-git config --global user.name "hmanhng"  #"$name"
+git config --global user.email "hmanhng@icloud.com"
+git config --global user.name "hmanhng"
 
 #Bamboo
-#cat bin/bamboo.txt | sudo tee -a /etc/profile
 ibus restart
 env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['xkb:us::eng', 'Bamboo']" && gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
 
 sudo sed -i 's/#AutoEnable=false/AutoEnable=true/g' /etc/bluetooth/main.conf
 sudo sed -i 's/Logo=1/Logo=0/g' /etc/libreoffice/sofficerc
+sudo sed -i 's/#WaylandEnable=false/WaylandEnable=false/g' /etc/gdm/custom.conf
 
 cp -rf dotfiles/. $HOME/
 sudo cp -rf $HOME/etc/* /etc && rm -rf $HOME/etc
@@ -21,16 +21,14 @@ git clone https://github.com/hmanhng/Wallpapers.git $HOME/Pictures/Wallpapers
 # Fonts ms
 git clone https://github.com/hmanhng/WindowsFonts.git $HOME/WindowsFonts && rm -rf $HOME/WindowsFonts/.git && sudo mv $HOME/WindowsFonts/ /usr/share/fonts/ && sudo chmod 644 /usr/share/fonts/WindowsFonts/* && fc-cache --force
 
-#sudo cp $HOME/Pictures/hmanhng.jpg /var/lib/AccountsService/icons/
-#cp $HOME/Pictures/hmanhng.jpg $HOME/.face
+sudo cp $HOME/Pictures/hmanhng.jpg /var/lib/AccountsService/icons/
+cp $HOME/Pictures/hmanhng.jpg $HOME/.face
 #sudo bash -c 'cat dotfiles/hmanhng > /var/lib/AccountsService/users/hmanhng' && rm $HOME/hmanhng
 
 sudo chsh $USER -s "/bin/fish" && \
-sudo systemctl enable acpid
-sudo systemctl enable org.cups.cupsd.service
 sudo systemctl enable bluetooth
 sudo systemctl enable gdm
-sudo systemctl enable systemd-timesyncd
+#sudo systemctl enable systemd-timesyncd
 sudo systemctl enable v2ray
 
 sudo bash -c 'echo 259:2 > /sys/power/resume'

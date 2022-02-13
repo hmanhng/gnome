@@ -11,17 +11,16 @@ gdm
 pacman-contrib
 neovim
 exa fd fzf ripgrep bat
-acpid dbus cups cronie
 openssh wget
 reflector
 bluez bluez-utils
-alsa-utils pulseaudio pulseaudio-alsa pulseaudio-bluetooth
-xdg-user-dirs
+pipewire pipewire-alsa pipewire-pulse pipewire-jack
+xdg-user-dirs-gtk
 xclip
 wireguard-tools openresolv
 v2ray
 
-htop fastfetch
+htop neofetch
 ibus ibus-bamboo
 npm clang
 ookla-speedtest-bin
@@ -32,7 +31,7 @@ papirus-icon-theme
 ttf-iosevka-nerd
 
 #App
-eog evince nautilus file-roller
+eog evince nautilus sushi file-roller
 vlc
 discord
 qbittorrent
