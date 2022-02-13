@@ -24,6 +24,7 @@ git clone https://github.com/hmanhng/WindowsFonts.git $HOME/WindowsFonts && rm -
 sudo cp $HOME/Pictures/hmanhng.jpg /var/lib/AccountsService/icons/
 cp $HOME/Pictures/hmanhng.jpg $HOME/.face
 sudo bash -c 'cat dotfiles/hmanhng > /var/lib/AccountsService/users/hmanhng' && rm $HOME/hmanhng
+sudo mv $HOME/gnome-shell-theme.gresource /usr/share/gnome-shell/
 
 sudo chsh $USER -s "/bin/fish" && \
 sudo systemctl enable bluetooth
