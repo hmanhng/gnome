@@ -194,11 +194,6 @@
       <summary>Enable Category Sub Menus</summary>
       <description>Enable Category Sub Menus.</description>
     </key>
-    <key type="b" name="disable-category-arrows">
-      <default>false</default>
-      <summary>disable the arrows on category menu items</summary>
-      <description>disable the arrows on category menu items</description>
-    </key>
     <key enum="org.gnome.shell.extensions.arcmenu.category-icon-type" name="category-icon-type">
       <default>'Full_Color'</default>
       <summary>Categroy icon type. Full_Color or Symbolic</summary>

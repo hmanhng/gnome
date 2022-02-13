@@ -79,7 +79,7 @@ var SoftwareManagerIDs = ['org.manjaro.pamac.manager.desktop', 'pamac-manager.de
 var Categories = [
     {CATEGORY: CategoryType.FAVORITES, NAME: _("Favorites"), ICON: 'emblem-favorite-symbolic', FULL_COLOR_ICON: 'emblem-favorite'},
     {CATEGORY: CategoryType.FREQUENT_APPS, NAME: _("Frequent Apps"), ICON: 'user-bookmarks-symbolic', FULL_COLOR_ICON: 'user-bookmarks'},
-    {CATEGORY: CategoryType.ALL_PROGRAMS, NAME: _("All Programs"), ICON: 'view-grid-symbolic', FULL_COLOR_ICON: 'view-grid-symbolic'},
+    {CATEGORY: CategoryType.ALL_PROGRAMS, NAME: _("All Apps"), ICON: 'view-grid-symbolic', FULL_COLOR_ICON: 'view-grid-symbolic'},
     {CATEGORY: CategoryType.PINNED_APPS, NAME: _("Pinned Apps"), ICON: 'view-pin-symbolic', FULL_COLOR_ICON: 'view-pin-symbolic'},
     {CATEGORY: CategoryType.RECENT_FILES, NAME: _("Recent Files"), ICON: 'document-open-recent-symbolic', FULL_COLOR_ICON: 'document-open-recent'}
 ]

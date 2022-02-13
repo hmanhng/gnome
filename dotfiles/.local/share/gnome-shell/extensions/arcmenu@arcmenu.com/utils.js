@@ -551,7 +551,7 @@ function createStylesheet(settings){
     let menuMargin = settings.get_int('menu-margin');
     let menuArrowSize = settings.get_int('menu-arrow-size');
     let leftPanelWidth = settings.get_int('menu-width');
-    let leftPanelWidthSmall = settings.get_int('menu-width') - 85;
+    let leftPanelWidthSmall = settings.get_int('menu-width') - 65;
     let rightPanelWidth = settings.get_int('right-panel-width');
     let rightPanelWidthPlus45 = settings.get_int('right-panel-width') + 45;
     let rightPanelWidthPlus70 = settings.get_int('right-panel-width') + 70;

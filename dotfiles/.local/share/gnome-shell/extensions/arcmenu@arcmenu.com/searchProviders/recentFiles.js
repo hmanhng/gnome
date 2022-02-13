@@ -3,6 +3,7 @@ const { Meta, Gtk, Gio, GLib, St, Shell } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
+const RecentFilesManager = Me.imports.recentFilesManager;
 const Gettext = imports.gettext.domain(Me.metadata['gettext-domain']);
 const _ = Gettext.gettext;
 
@@ -17,10 +18,9 @@ var RecentFilesSearchProvider = class {
     constructor() {
         this.id = 'arcmenu.recent-files';
         this.isRemoteProvider = true;
-        this.canLaunchSearch = true;
+        this.canLaunchSearch = false;
 
         this._recentFiles = [];
-        this.recentManager = new Gtk.RecentManager();
 
         this.appInfo = {
             get_description: () => _('Recent Files'),
@@ -35,9 +35,9 @@ var RecentFilesSearchProvider = class {
             const rf = this._getRecentFile(fileUri);
             return rf ? {
                 id: fileUri,
-                name: rf.item.get_display_name(),
-                description: rf.item.get_uri_display().replace(rf.item.get_display_name(), ''),
-                createIcon: (size) => createIcon(rf.item.get_mime_type(), size),
+                name: rf.get_display_name(),
+                description: rf.get_uri_display().replace(rf.get_display_name(), ''),
+                createIcon: (size) => createIcon(rf.get_mime_type(), size),
             } : undefined;
         }).filter(m => m?.name !== undefined && m?.name !== null);
 
@@ -49,16 +49,12 @@ var RecentFilesSearchProvider = class {
     }
 
     getInitialResultSet(terms, callback, _cancellable) {
-        this._recentFiles = this.recentManager.get_items().map(item => {
-            let file = Gio.File.new_for_uri(item.get_uri());
-            if(file !== null)
-                return {
-                    item,
-                    file
-                }
-        }).filter(rf => rf !== undefined);
-
-        callback(this._getFilteredFileUris(terms, this._recentFiles));
+        RecentFilesManager.cancelCurrentQueries();
+        this._recentFiles = [];
+        RecentFilesManager.filterRecentFiles(recentFile => {
+            this._recentFiles.push(recentFile);
+            callback(this._getFilteredFileUris(terms, this._recentFiles));
+        });
     }
 
     getSubsearchResultSet(previousResults, terms, callback, _cancellable) {
@@ -67,34 +63,40 @@ var RecentFilesSearchProvider = class {
     }
 
     activateResult(fileUri, _terms) {
-        const recentFile = this._getRecentFile(fileUri)?.file;
+        const recentFile = this._getRecentFile(fileUri);
         if (recentFile){
-            let launchContext = global.create_app_launch_context(0, -1);
-            Gio.AppInfo.launch_default_for_uri(recentFile.get_uri(), launchContext);
+            let context = global.create_app_launch_context(0, -1);
+
+            new Promise((resolve, reject) => {
+                Gio.AppInfo.launch_default_for_uri_async(recentFile.get_uri(), context, null, (o, res) => {
+                    try {
+                        Gio.AppInfo.launch_default_for_uri_finish(res);
+                        resolve();
+                    } catch (e) {
+                        Main.notifyError(_('Failed to open “%s”').format(recentFile.get_display_name()), e.message);
+                        reject(e);
+                    }
+                });
+            });
         }
     }
 
     launchSearch() {
-        let launchContext = global.create_app_launch_context(0, -1);
-        
-        Gio.AppInfo.launch_default_for_uri('recent:///', launchContext);
     }
 
     _getFilteredFileUris(terms, recentFiles) {
         terms = terms.map(term => term.toLowerCase());
         recentFiles = recentFiles.filter(rf => {
-            if (!rf.item.exists())
-                return false;
-            const fileName = rf.item.get_display_name()?.toLowerCase();
-            const uri = rf.item.get_uri()?.toLowerCase();
-            const fileDescription = rf.item.get_description()?.toLowerCase();
+            const fileName = rf.get_display_name()?.toLowerCase();
+            const uri = rf.get_uri()?.toLowerCase();
+            const fileDescription = rf.get_description()?.toLowerCase();
             return terms.some(term => fileName?.includes(term) || uri?.includes(term) || fileDescription?.includes(term));
         });
 
-        return recentFiles.map(rf => rf.file.get_uri());
+        return recentFiles.map(rf => rf.get_uri());
     }
 
     _getRecentFile(fileUri) {
-        return this._recentFiles.find(rf => rf.file.get_uri() === fileUri);
+        return this._recentFiles.find(rf => rf.get_uri() === fileUri);
     }
 }

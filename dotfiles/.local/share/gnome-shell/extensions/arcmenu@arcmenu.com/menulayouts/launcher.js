@@ -387,7 +387,7 @@ var createMenu = class extends BaseMenuLayout.BaseLayout{
     displayPinnedApps() {
         super._clearActorsFromBox();
         let label = this.createLabelRow(_("Pinned Apps"));
-        this.searchBox.hint_text = _("Type to search…");
+        this.searchBox.hint_text = _("Search…");
         this.applicationsBox.add_actor(label);
         this.layoutProperties.GridColumns = 5;
         super._displayAppList(this.pinnedAppsArray, Constants.CategoryType.PINNED_APPS, this.applicationsGrid);

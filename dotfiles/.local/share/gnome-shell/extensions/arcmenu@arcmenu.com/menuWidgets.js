@@ -656,6 +656,7 @@ var ArcMenuPopupBaseMenuItem = GObject.registerClass({
             this.activate(event);
             if(!(this instanceof CategoryMenuItem) && !(this instanceof ArcMenuButtonItem))
                 this.active = false;
+            return Clutter.EVENT_STOP;
         }
         if(event.get_button() == 3 && this.pressed){
             this.pressed = false;
@@ -665,6 +666,7 @@ var ArcMenuPopupBaseMenuItem = GObject.registerClass({
                 this.active = false;
                 this.hovered = true;
             }
+            return Clutter.EVENT_STOP;
         }
         return Clutter.EVENT_PROPAGATE;
     }
@@ -1434,11 +1436,7 @@ var PlasmaCategoryHeader = GObject.registerClass(class Arc_Menu_PlasmaCategoryHe
         this._menuLayout = menuLayout;
         this._layout = this._menuLayout.layout;
         this._settings = this._menuLayout._settings;
-        this._icon = new St.Icon({
-            gicon: Gio.icon_new_for_string('go-next-symbolic'),
-            style_class: 'popup-menu-icon',
-            icon_size: 12,
-        });
+
         this.backButton = new ArcMenuPopupBaseMenuItem(this._menuLayout);
         this.backButton.x_expand = false;
         this.backButton.x_align = Clutter.ActorAlign.CENTER;
@@ -1454,9 +1452,6 @@ var PlasmaCategoryHeader = GObject.registerClass(class Arc_Menu_PlasmaCategoryHe
         this.add_actor(this.backButton);
         this.backButton.connect("activate", () => this._menuLayout.displayCategories() );
 
-        this.add_actor(this._icon);
-        this._icon.hide();
-
         this.categoryLabel = new St.Label({
             text: '',
             y_expand: true,
@@ -1470,12 +1465,9 @@ var PlasmaCategoryHeader = GObject.registerClass(class Arc_Menu_PlasmaCategoryHe
         if(categoryText){
             this.categoryLabel.text = _(categoryText);
             this.categoryLabel.show();
-            this._icon.show();
         }
-        else{
+        else
             this.categoryLabel.hide();
-            this._icon.hide();
-        }
     }
 });
 
@@ -1543,17 +1535,24 @@ var BackMenuItem = GObject.registerClass(class Arc_Menu_BackMenuItem extends Arc
         this._layout = this._menuLayout.layout;
         this._settings = this._menuLayout._settings;
 
-        this._iconBin = new St.Bin();
+        this._iconBin = new St.Bin({
+            x_expand: false,
+            x_align: Clutter.ActorAlign.START,
+        });
         this.add_actor(this._iconBin);
 
         this._updateIcon();
 
         let backLabel = new St.Label({
             text: _("Back"),
+            x_expand: false,
+            x_align: Clutter.ActorAlign.START,
             y_expand: true,
-            y_align: Clutter.ActorAlign.CENTER
+            y_align: Clutter.ActorAlign.CENTER,
         });
         this.add_actor(backLabel);
+
+        
     }
 
     createIcon(){
@@ -1562,8 +1561,7 @@ var BackMenuItem = GObject.registerClass(class Arc_Menu_BackMenuItem extends Arc
 
         return new St.Icon({
             icon_name: 'go-previous-symbolic',
-            style_class: 'popup-menu-icon',
-            icon_size: iconSize
+            icon_size: iconSize,
         });
     }
 
@@ -1593,17 +1591,21 @@ var ViewAllPrograms = GObject.registerClass(class Arc_Menu_ViewAllPrograms exten
         this._menuLayout = menuLayout;
         this._settings = this._menuLayout._settings;
 
-        this._iconBin = new St.Bin();
-        this.add_actor(this._iconBin);
-
-        this._updateIcon();
-
         let backLabel = new St.Label({
-            text: _("All Programs"),
+            text: _("All Applications"),
+            x_expand: false,
+            x_align: Clutter.ActorAlign.START,
             y_expand: true,
-            y_align: Clutter.ActorAlign.CENTER
+            y_align: Clutter.ActorAlign.CENTER,
         });
         this.add_child(backLabel);
+
+        this._iconBin = new St.Bin({
+            x_expand: false,
+            x_align: Clutter.ActorAlign.START,
+        });
+        this.add_actor(this._iconBin);
+        this._updateIcon();
     }
 
     createIcon(){
@@ -1612,7 +1614,6 @@ var ViewAllPrograms = GObject.registerClass(class Arc_Menu_ViewAllPrograms exten
 
         return new St.Icon({
             icon_name: 'go-next-symbolic',
-            style_class: 'popup-menu-icon',
             icon_size: iconSize,
             x_align: Clutter.ActorAlign.START
         });
@@ -2364,8 +2365,6 @@ var CategoryMenuItem = GObject.registerClass(class Arc_Menu_CategoryMenuItem ext
         this._horizontalFlip = this._settings.get_boolean('enable-horizontal-flip');
         this._displayType = displayType;
         this.layoutProps = this._menuLayout.layoutProperties;
-        //if menu layout supports category hover activation, we want to invert this._arrowIcon when 'enable-horizontal-flip' is true.
-        this._invertArrowIcon = this.layoutProps.SupportsCategoryOnHover ? this._horizontalFlip : false;
 
         this._iconBin = new St.Bin();
         this.add_actor(this._iconBin);
@@ -2390,18 +2389,6 @@ var CategoryMenuItem = GObject.registerClass(class Arc_Menu_CategoryMenuItem ext
             this.y_expand = false;
             this.y_align = Clutter.ActorAlign.CENTER;
             this.remove_actor(this.label);
-        }
-
-        if(!this._settings.get_boolean("disable-category-arrows") && this._displayType !== Constants.DisplayType.BUTTON){
-            this._arrowIcon = new St.Icon({
-                icon_name:  this._invertArrowIcon ? 'go-previous-symbolic' : 'go-next-symbolic',
-                style_class: 'popup-menu-icon',
-                x_expand: this._invertArrowIcon ? false : true,
-                x_align: this._invertArrowIcon ? Clutter.ActorAlign.START : Clutter.ActorAlign.END,
-                icon_size: 12,
-                style: this._invertArrowIcon ? "padding-left: 6px;" : null
-            });
-            this._invertArrowIcon ? this.insert_child_at_index(this._arrowIcon, 0) : this.add_child(this._arrowIcon);
         }
 
         this.label_actor = this.label;
@@ -2456,19 +2443,10 @@ var CategoryMenuItem = GObject.registerClass(class Arc_Menu_CategoryMenuItem ext
                 x_align: Clutter.ActorAlign.END,
                 y_align: Clutter.ActorAlign.CENTER
             });
-            if(this._settings.get_boolean("disable-category-arrows") || this._invertArrowIcon)
-                this.add_child(this._indicator);
-            else{
-                this.insert_child_at_index(this._indicator, this.get_n_children() - 1);
-                if(this._arrowIcon)
-                    this._arrowIcon.x_expand = false;
-            }
+            this.add_child(this._indicator);
         }
-        else if(this._indicator && this.contains(this._indicator)){
-            if(this._arrowIcon)
-                this._arrowIcon.x_expand = true;
+        else if(this._indicator && this.contains(this._indicator))
             this.remove_child(this._indicator);
-        }
     }
 
     displayAppList(){
@@ -2716,7 +2694,7 @@ var CategorySubMenuItem = GObject.registerClass(class Arc_Menu_CategorySubMenuIt
         this.menu.actor.style = 'max-height: 250px;';
         this.menu.actor.overlay_scrollbars = true;
         this.menu.actor.style_class = 'popup-sub-menu ' + (this._menuLayout.disableFadeEffect ? '' : 'small-vfade');
-        this.menu._needsScrollbar = this._needsScrollbar.bind(this);
+        this.menu._needsScrollbar = () => this._needsScrollbar();
 
         this.menu.connect('open-state-changed', () => {
             if(!this.menu.isOpen){
@@ -2739,14 +2717,10 @@ var CategorySubMenuItem = GObject.registerClass(class Arc_Menu_CategorySubMenuIt
                 x_align: Clutter.ActorAlign.END,
                 y_align: Clutter.ActorAlign.CENTER
             });
-            if(this._settings.get_boolean("disable-category-arrows"))
-                this.actor.add_child(this._indicator);
-            else
-                this.actor.insert_child_at_index(this._indicator, this.actor.get_n_children() - 1);
+            this.actor.add_child(this._indicator);
         }
-        else if(this._indicator && this.actor.contains(this._indicator)){
+        else if(this._indicator && this.actor.contains(this._indicator))
             this.actor.remove_child(this._indicator);
-        }
     }
 
     _needsScrollbar() {
@@ -2760,6 +2734,14 @@ var CategorySubMenuItem = GObject.registerClass(class Arc_Menu_CategorySubMenuIt
             this.menu.actor.style = 'min-height:150px; max-height: 250px;';
         else
             this.menu.actor.style = 'max-height: 250px;';
+
+        this.menu.actor.vscrollbar_policy = St.PolicyType.AUTOMATIC;
+
+        if (needsScrollbar)
+            this.menu.actor.add_style_pseudo_class('scrolled');
+        else
+            this.menu.actor.remove_style_pseudo_class('scrolled');
+
         return needsScrollbar;
     }
 
@@ -2808,10 +2790,22 @@ var PlaceInfo = class Arc_Menu_PlaceInfo {
         this.icon = icon ? icon : null;
         this.gicon = icon ? null : this.getIcon();
     }
+
     launch(timestamp) {
-        let launchContext = global.create_app_launch_context(timestamp, -1);
-        Gio.AppInfo.launch_default_for_uri(this.file.get_uri(), launchContext);
+        let context = global.create_app_launch_context(timestamp, -1);
+        new Promise((resolve, reject) => {
+            Gio.AppInfo.launch_default_for_uri_async(this.file.get_uri(), context, null, (o, res) => {
+                try {
+                    Gio.AppInfo.launch_default_for_uri_finish(res);
+                    resolve();
+                } catch (e) {
+                    Main.notifyError(_('Failed to open “%s”').format(this._getFileName()), e.message);
+                    reject(e);
+                }
+            });
+        });
     }
+
     getIcon() {
         try {
             let info = this.file.query_info('standard::symbolic-icon', 0, null);
@@ -2827,6 +2821,7 @@ var PlaceInfo = class Arc_Menu_PlaceInfo {
             }
         }
     }
+
     _getFileName() {
         try {
             let info = this.file.query_info('standard::display-name', 0, null);
@@ -2839,7 +2834,6 @@ var PlaceInfo = class Arc_Menu_PlaceInfo {
     }
 
     destroy(){
-
     }
 };
 Signals.addSignalMethods(PlaceInfo.prototype);
@@ -2934,7 +2928,7 @@ Signals: {
 class Arc_Menu_SearchBox extends St.Entry {
     _init(menuLayout) {
         super._init({
-            hint_text: _("Type to search…"),
+            hint_text: _("Search…"),
             track_hover: true,
             can_focus: true,
             x_expand: true,

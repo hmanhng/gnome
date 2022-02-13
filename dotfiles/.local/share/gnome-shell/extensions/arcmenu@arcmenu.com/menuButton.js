@@ -239,7 +239,7 @@ var MenuButton = GObject.registerClass(class Arc_Menu_MenuButton extends PanelMe
     }
 
     createMenuLayout(){
-        this._forcedMenuLocation = false;
+        this._menuInForcedLocation = false;
         this.arcMenu.actor.style = null;
         this.arcMenu.removeAll();
         this.section = new PopupMenu.PopupMenuSection();
@@ -269,7 +269,7 @@ var MenuButton = GObject.registerClass(class Arc_Menu_MenuButton extends PanelMe
     }
 
     reloadMenuLayout(){
-        this._forcedMenuLocation = false;
+        this._menuInForcedLocation = false;
 
         this.MenuLayout.destroy();
         this.MenuLayout = null;
@@ -367,12 +367,13 @@ var MenuButton = GObject.registerClass(class Arc_Menu_MenuButton extends PanelMe
             return;
 
         if(forcedMenuLocation === Constants.ForcedMenuLocation.OFF){
+            if(!this._menuInForcedLocation)
+                return;
             this.arcMenu.sourceActor = this;
             this.arcMenu.focusActor = this;
             this.arcMenu._boxPointer.setPosition(this, 0.5);
             this.setMenuPositionAlignment();
-            this._forcedMenuLocation = false;
-            this.updateStyle();
+            this._menuInForcedLocation = false;
             return;
         }
 
@@ -386,7 +387,7 @@ var MenuButton = GObject.registerClass(class Arc_Menu_MenuButton extends PanelMe
             Main.uiGroup.add_actor(this.dummyWidget);
         }
 
-        if(!this._forcedMenuLocation){
+        if(!this._menuInForcedLocation){
             this.arcMenu.sourceActor = this.dummyWidget;
             this.arcMenu.focusActor = this.dummyWidget;
             this.arcMenu._boxPointer.setPosition(this.dummyWidget, 0.5);
@@ -394,7 +395,7 @@ var MenuButton = GObject.registerClass(class Arc_Menu_MenuButton extends PanelMe
             this.arcMenu.actor.style = "-arrow-base: 0px; -arrow-rise: 0px;";
             this.arcMenu._boxPointer.setSourceAlignment(0.5);
             this.arcMenu._arrowAlignment = 0.5;
-            this._forcedMenuLocation = true;
+            this._menuInForcedLocation = true;
         }
 
         let monitorIndex = Main.layoutManager.findIndexForActor(this);
@@ -425,16 +426,21 @@ var MenuButton = GObject.registerClass(class Arc_Menu_MenuButton extends PanelMe
         this.arcMenuContextMenu.actor.style_class = customStyle ? 'arc-menu-boxpointer': 'popup-menu-boxpointer';
         this.arcMenuContextMenu.actor.add_style_class_name(customStyle ? 'arc-menu' : 'popup-menu');
 
+        if(layout === Constants.MenuLayout.RAVEN){
+            this.MenuLayout?.updateStyle();
+            return;
+        }
+
         if(removeMenuArrow){
             this.arcMenu.actor.style = "-arrow-base:0px; -arrow-rise:0px; -boxpointer-gap: " + gapAdjustment + "px;";
             this.arcMenu.box.style = "margin:0px;";
         }  
-        else if(layout !== Constants.MenuLayout.RAVEN && forcedMenuLocation === Constants.ForcedMenuLocation.OFF){
+        else if(forcedMenuLocation === Constants.ForcedMenuLocation.OFF){
             this.arcMenu.actor.style = "-boxpointer-gap: " + gapAdjustment + "px;";
             this.arcMenu.box.style = null;
         }
-        if(this.MenuLayout)
-            this.MenuLayout.updateStyle();   
+
+        this.MenuLayout?.updateStyle();
     }
 
     vfunc_event(event){
@@ -486,7 +492,6 @@ var MenuButton = GObject.registerClass(class Arc_Menu_MenuButton extends PanelMe
                         this.dtpPanel.intellihide._revealPanel(true);
                         this.dtpPanel.intellihide.revealAndHold(1);
                     }
-                        
                     else if(!this.dtpPanel.panelBox.visible){
                         this.dtpPanel.panelBox.visible = true;
                         this.dtpNeedsHiding = true;

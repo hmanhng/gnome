@@ -194,6 +194,7 @@ var FrameBox = GObject.registerClass(class Arc_Menu_FrameBox extends Gtk.Frame {
     }
     show() {
         this._listBox.show();
+        super.show();
     }
     length() {
         return this._listBox.length;

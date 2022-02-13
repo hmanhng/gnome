@@ -42,6 +42,7 @@ var createMenu = class extends BaseMenuLayout.BaseLayout{
             GridColumns: 1,
             ColumnSpacing: 0,
             RowSpacing: 0,
+            DefaultMenuWidth: 450,
             VerticalMainBox: true,
             DefaultCategoryIconSize: Constants.MEDIUM_ICON_SIZE,
             DefaultApplicationIconSize: Constants.MEDIUM_ICON_SIZE,
@@ -104,7 +105,6 @@ var createMenu = class extends BaseMenuLayout.BaseLayout{
             style_class: this.disableFadeEffect ? 'margin-box' : 'margin-box small-vfade',
             overlay_scrollbars: true,
             reactive:true,
-            style: "width:450px;"
         });
         
         this.applicationsBox = new St.BoxLayout({ 
@@ -220,10 +220,22 @@ var createMenu = class extends BaseMenuLayout.BaseLayout{
             this._createPlaces(id);
             this.externalDevicesBox.add(this._sections[id]);
         }
+        this.updateWidth();
         this._createPowerItems();
         this.loadCategories();
         this.loadPinnedApps();
         this.setDefaultMenuView();
+    }
+
+    updateWidth(setDefaultMenuView){
+        const widthAdjustment = this._settings.get_int("menu-width-adjustment");
+        let menuWidth = this.layoutProperties.DefaultMenuWidth + widthAdjustment;
+        //Set a 300px minimum limit for the menu width
+        menuWidth = Math.max(300, menuWidth);
+        this.applicationsScrollBox.style = `width: ${menuWidth}px;`;
+        this.layoutProperties.MenuWidth = menuWidth;
+        if(setDefaultMenuView)
+            this.setDefaultMenuView();
     }
 
     setFrequentAppsList(categoryMenuItem){

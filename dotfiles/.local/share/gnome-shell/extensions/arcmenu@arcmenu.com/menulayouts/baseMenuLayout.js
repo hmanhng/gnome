@@ -34,6 +34,7 @@ const MenuLayouts = Me.imports.menulayouts;
 const MW = Me.imports.menuWidgets;
 const PlaceDisplay = Me.imports.placeDisplay;
 const PopupMenu = imports.ui.popupMenu;
+const RecentFilesManager = Me.imports.recentFilesManager;
 const Utils =  Me.imports.utils;
 
 //This class handles the core functionality of all the menu layouts.
@@ -365,13 +366,12 @@ var BaseLayout = class {
         }
         this._clearActorsFromBox(categoriesBox);
         
-        let isActiveMenuItemSet = false;
+        this._futureActiveItem = false;
 
         for(let categoryMenuItem of this.categoryDirectories.values()){
             categoriesBox.add_actor(categoryMenuItem.actor);	
-            if(!isActiveMenuItemSet){
+            if(!this._futureActiveItem){
                 this._futureActiveItem = categoryMenuItem;
-                isActiveMenuItemSet = true;
             }	 
         }
 
@@ -395,41 +395,26 @@ var BaseLayout = class {
 
     _loadRecentFiles(){
         if(!this.recentManager)
-            this.recentManager = new Gtk.RecentManager();
-
-        this._recentFiles = this.recentManager.get_items();
-
-        if(!this._recentFilesChangedID){
-            this._recentFilesChangedID = this.recentManager.connect('changed', () => {
-                this._recentFiles = this.recentManager.get_items();
-            });
-        }
+            this.recentManager = RecentFilesManager.getRecentManager();
     }
 
-    displayRecentFiles(box = this.applicationsBox){
-        this._clearActorsFromBox(box);
+    displayRecentFiles(box = this.applicationsBox, callback){
         const homeRegExp = new RegExp('^(' + GLib.get_home_dir() + ')');
-        let activeMenuItemSet = false;
-        for(let i = 0; i < this._recentFiles.length; i++){
-            let file = Gio.File.new_for_uri(this._recentFiles[i].get_uri()).get_path();
-
-            //In some edge-case instances, file will be null, causing a critical GJS error
-            //for example: an FTP mount with a file added, and the mount removed the
-            //recent files entry remains in the list and this.createMenuItem throws an error.
-            //
-            //Skip the file if it contains a null path
-            if(file == null){
-                continue;
-            }
-
-            let name = this._recentFiles[i].get_display_name();
-            let icon = Gio.content_type_get_symbolic_icon(this._recentFiles[i].get_mime_type()).to_string();
+        this._clearActorsFromBox(box);
+        this._futureActiveItem = false;
+        RecentFilesManager.filterRecentFiles(recentFile => {
+            let file = Gio.File.new_for_uri(recentFile.get_uri()).get_path();
+            let name = recentFile.get_display_name();
+            let icon = Gio.content_type_get_symbolic_icon(recentFile.get_mime_type()).to_string();
             let isContainedInCategory = true;
+
             let placeMenuItem = this.createMenuItem([name, icon, file], Constants.DisplayType.LIST, isContainedInCategory);
             placeMenuItem.style = "padding-right: 15px;";
-            placeMenuItem.description = this._recentFiles[i].get_uri_display().replace(homeRegExp, '~');
-            placeMenuItem.fileUri = this._recentFiles[i].get_uri();
+            placeMenuItem.description = recentFile.get_uri_display().replace(homeRegExp, '~');
+            placeMenuItem.fileUri = recentFile.get_uri();
+
             placeMenuItem._removeBtn = new MW.ArcMenuButtonItem(this, null, 'edit-delete-symbolic');
+            placeMenuItem._removeBtn.toggleMenuOnClick = false;
             placeMenuItem._removeBtn.x_align = Clutter.ActorAlign.END;
             placeMenuItem._removeBtn.x_expand = true;
             placeMenuItem._removeBtn.add_style_class_name("arcmenu-small-button");
@@ -437,20 +422,25 @@ var BaseLayout = class {
             placeMenuItem._removeBtn.connect('activate', () =>  {
                 try {
                     this.recentManager.remove_item(placeMenuItem.fileUri);
-                    box.remove_actor(placeMenuItem);
-                    placeMenuItem.destroy();
                 } catch(err) {
                     log(err);
                 }
+                
+                box.remove_actor(placeMenuItem);
+                placeMenuItem.destroy();
             });
+
             placeMenuItem.add(placeMenuItem._removeBtn);
             box.add_actor(placeMenuItem);
-            if(!activeMenuItemSet){
+
+            if(!this._futureActiveItem){
                 this._futureActiveItem = placeMenuItem;
-                activeMenuItemSet = true;
+                this.activeMenuItem = this._futureActiveItem;
             }
-        }
-        this.activeMenuItem = this._futureActiveItem;
+            
+            if(callback)
+                callback();
+        });
     }
 
     _displayPlaces() {
@@ -670,6 +660,7 @@ var BaseLayout = class {
     }   
 
     setActiveCategory(category, setActive = true){
+        this._futureActiveItem = category;
         this.activeMenuItem = category;
     }
 
@@ -683,6 +674,7 @@ var BaseLayout = class {
     }
 
     _clearActorsFromBox(box){
+        RecentFilesManager.cancelCurrentQueries();
         if(!box){
             box = this.applicationsBox;
             this.activeCategoryType = -1;
@@ -716,7 +708,7 @@ var BaseLayout = class {
         let count = 0;
         let top = -1;
         let left = 0;
-        let activeMenuItemSet = false;
+        this._futureActiveItem = false;
         let currentCharacter;
         let alphabetizeAllPrograms = this._settings.get_boolean("alphabetize-all-programs") && this.layoutProperties.DisplayType === Constants.DisplayType.LIST;
         let rtl = this.mainBox.get_text_direction() == Clutter.TextDirection.RTL;
@@ -787,9 +779,8 @@ var BaseLayout = class {
                     left--;
                 count++;
     
-                if(!activeMenuItemSet && grid === this.applicationsGrid){
+                if(!this._futureActiveItem && grid === this.applicationsGrid){
                     this._futureActiveItem = item;
-                    activeMenuItemSet = true;
                 }
             }
         }
@@ -952,6 +943,8 @@ var BaseLayout = class {
     }
 
     destroy(){
+        RecentFilesManager.cancelCurrentQueries();
+
         if(this._treeChangedId){
             this._tree.disconnect(this._treeChangedId);
             this._treeChangedId = null;
@@ -985,13 +978,6 @@ var BaseLayout = class {
             }
             this.placesManager.destroy();
             this.placesManager = null
-        }
-
-        if(this.recentManager){
-            if(this._recentFilesChangedID){
-                this.recentManager.disconnect(this._recentFilesChangedID);
-                this._recentFilesChangedID = null;
-            }
         }
 
         if(this._searchBoxChangedId){

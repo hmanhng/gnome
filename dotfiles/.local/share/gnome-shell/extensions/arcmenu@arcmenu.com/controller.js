@@ -111,7 +111,7 @@ var MenuSettingsController = class {
             this._settings.connect('changed::enable-activities-shortcut', this._reload.bind(this)),
             this._settings.connect('changed::enable-horizontal-flip', this._reload.bind(this)),
             this._settings.connect('changed::searchbar-default-bottom-location', this._reload.bind(this)),
-            this._settings.connect('changed::searchbar-default-top-location', this._plasmaMenuReloadExtension.bind(this)),
+            this._settings.connect('changed::searchbar-default-top-location', this._plasmaMenuReloadTheme.bind(this)),
             this._settings.connect('changed::searchbar-default-top-location', this._reload.bind(this)),
             this._settings.connect('changed::multi-lined-labels', this._reload.bind(this)),
             this._settings.connect('changed::apps-show-extra-details', this._reload.bind(this)),
@@ -121,7 +121,7 @@ var MenuSettingsController = class {
             this._settings.connect('changed::disable-scrollview-fade-effect', this._reload.bind(this)),
             this._settings.connect('changed::menu-height', this._updateMenuHeight.bind(this)),
             this._settings.connect('changed::menu-width-adjustment', this._updateMenuHeight.bind(this)),
-            this._settings.connect('changed::reload-theme', this._reloadExtension.bind(this)),
+            this._settings.connect('changed::reload-theme', this._reloadTheme.bind(this)),
             this._settings.connect('changed::pinned-app-list',this._updatePinnedApps.bind(this)),
             this._settings.connect('changed::enable-weather-widget-unity',this._updatePinnedApps.bind(this)),
             this._settings.connect('changed::enable-clock-widget-unity',this._updatePinnedApps.bind(this)),
@@ -146,8 +146,7 @@ var MenuSettingsController = class {
             this._settings.connect('changed::misc-item-icon-size', this._reload.bind(this)),
             this._settings.connect('changed::runner-position', this.updateLocation.bind(this)),
             this._settings.connect('changed::runner-show-frequent-apps', this._reload.bind(this)),
-            this._settings.connect('changed::enable-sub-menus', this._reload.bind(this)), 
-            this._settings.connect('changed::disable-category-arrows', this._reload.bind(this)),
+            this._settings.connect('changed::enable-sub-menus', this._reload.bind(this)),
             this._settings.connect('changed::show-activities-button', this._configureActivitiesButton.bind(this)),
             this._settings.connect('changed::force-menu-location', this._forceMenuLocation.bind(this)),
             this._settings.connect('changed::category-icon-type', this._reload.bind(this)),
@@ -173,7 +172,7 @@ var MenuSettingsController = class {
         } 
     }
 
-    _plasmaMenuReloadExtension(){
+    _plasmaMenuReloadTheme(){
         if(this._settings.get_enum('menu-layout') === Constants.MenuLayout.PLASMA){
             if(this._settings.get_boolean('reload-theme'))
                 this._settings.reset('reload-theme');
@@ -245,9 +244,10 @@ var MenuSettingsController = class {
         }
     }
 
-    _reloadExtension(){
-        if(this._settings.get_boolean('reload-theme')){
+    _reloadTheme(){
+        if(this.isPrimary && this._settings.get_boolean('reload-theme')) {
             this._settings.reset('reload-theme');
+
             let theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
             Utils.createStylesheet(this._settings);
             let stylesheet = Utils.getStylesheet();
@@ -255,7 +255,13 @@ var MenuSettingsController = class {
                 theme.unload_stylesheet(Me.stylesheet);
             Me.stylesheet = stylesheet;
             theme.load_stylesheet(Me.stylesheet);
-            this._updateStyle();
+
+            for (let i = 0; i < this._settingsControllers.length; i++) {
+                let menuButton = this._settingsControllers[i]._menuButton;
+                menuButton.updateStyle();
+            }
+            if(this.runnerMenu)
+                this.runnerMenu.updateStyle();
         }
     }
 

@@ -44,6 +44,7 @@ var createMenu = class extends BaseMenuLayout.BaseLayout{
             GridColumns: 1,
             ColumnSpacing: 0,
             RowSpacing: 0,
+            DefaultMenuWidth: 290,
             VerticalMainBox: true,
             DefaultCategoryIconSize: Constants.MEDIUM_ICON_SIZE,
             DefaultApplicationIconSize: Constants.EXTRA_SMALL_ICON_SIZE,
@@ -75,7 +76,6 @@ var createMenu = class extends BaseMenuLayout.BaseLayout{
             y_expand: true,
             vertical: true,
             y_align: Clutter.ActorAlign.FILL,
-            style_class: 'left-panel'
         });
 
         //Applications Box - Contains Favorites, Categories or programs
@@ -83,7 +83,7 @@ var createMenu = class extends BaseMenuLayout.BaseLayout{
             x_expand: true,
             y_expand: true,
             y_align: Clutter.ActorAlign.START,
-            style_class: 'left-panel ' + (this.disableFadeEffect ? '' : 'small-vfade'),
+            style_class: (this.disableFadeEffect ? '' : 'small-vfade'),
             overlay_scrollbars: true,
             reactive:true
         });
@@ -194,9 +194,21 @@ var createMenu = class extends BaseMenuLayout.BaseLayout{
         this.actionsBox.insert_child_at_index(separator, 0);
         this.quickBox.add(this.actionsScrollBox);
 
+        this.updateWidth();
         this.loadCategories();
         this.loadPinnedApps();
         this.setDefaultMenuView();
+    }
+
+    updateWidth(setDefaultMenuView){
+        const widthAdjustment = this._settings.get_int("menu-width-adjustment");
+        let menuWidth = this.layoutProperties.DefaultMenuWidth + widthAdjustment;
+        //Set a 175px minimum limit for the menu width
+        menuWidth = Math.max(175, menuWidth);
+        this.applicationsScrollBox.style = `width: ${menuWidth}px;`;
+        this.layoutProperties.MenuWidth = menuWidth;
+        if(setDefaultMenuView)
+            this.setDefaultMenuView();
     }
 
     _displayPlaces() {

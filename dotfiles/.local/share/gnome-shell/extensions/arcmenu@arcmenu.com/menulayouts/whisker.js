@@ -179,10 +179,6 @@ var createMenu = class extends BaseMenuLayout.BaseLayout{
         }
 
         super.loadCategories();
-        for(let categoryMenuItem of this.categoryDirectories.values()){
-            if(categoryMenuItem._arrowIcon)
-                categoryMenuItem.remove_actor(categoryMenuItem._arrowIcon);
-        }
     } 
 
     displayCategories(){

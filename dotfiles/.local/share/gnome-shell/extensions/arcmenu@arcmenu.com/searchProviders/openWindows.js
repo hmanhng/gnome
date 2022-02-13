@@ -36,7 +36,7 @@ var OpenWindowSearchProvider = class {
             return aw ? {
                 id: winId,
                 name: aw.window.title ?? aw.app.get_name(),
-                description: _("'%s' on Workspace %d").format(aw.app.get_name(), aw.window.get_workspace().index() + 1),
+                description: aw.window.get_workspace() ? _("'%s' on Workspace %d").format(aw.app.get_name(), aw.window.get_workspace().index() + 1) : aw.app.get_name(),
                 createIcon: (size) => createIcon(aw.app, size),
             } : undefined;
         }).filter(m => m?.name !== undefined && m?.name !== null);

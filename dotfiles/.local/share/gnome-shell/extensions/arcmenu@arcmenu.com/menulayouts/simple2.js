@@ -141,7 +141,9 @@ var createMenu = class extends BaseMenuLayout.BaseLayout{
 
     displayRecentFiles(){
         this._clearActorsFromBox();
+        this.applicationsGrid.remove_all_children();
         let categoryMenuItem = this.categoryDirectories.get(Constants.CategoryType.RECENT_FILES);
+
         let children = categoryMenuItem.menu.box.get_children();
         for (let i = 0; i < children.length; i++) {
             let actor = children[i];
@@ -149,7 +151,10 @@ var createMenu = class extends BaseMenuLayout.BaseLayout{
                 actor._delegate.menu.close();
             categoryMenuItem.menu.box.remove_actor(actor);
         }
-        super.displayRecentFiles(categoryMenuItem.menu.box);
+        super.displayRecentFiles(categoryMenuItem.menu.box, () => categoryMenuItem._needsScrollbar());
+        if(!categoryMenuItem.menu.box.contains(this.applicationsGrid))
+            categoryMenuItem.menu.box.add(this.applicationsGrid);
+
     }
 
     displayPinnedApps() {
