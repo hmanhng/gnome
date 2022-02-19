@@ -44,13 +44,6 @@ preload-engines=['xkb:us::eng', 'Bamboo']
 [org/gnome/control-center]
 last-panel='display'
 
-[org/gnome/desktop/background]
-color-shading-type='solid'
-picture-options='zoom'
-picture-uri='file:///home/hmanhng/.local/share/backgrounds/2022-02-19-13-52-40-2188651.jpg'
-primary-color='#000000000000'
-secondary-color='#000000000000'
-
 [org/gnome/desktop/input-sources]
 mru-sources=[('xkb', 'us'), ('ibus', 'Bamboo')]
 per-window=false
