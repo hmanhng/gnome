@@ -6,6 +6,7 @@ intel-media-driver
 intel-gpu-tools
 fish starship
 gdm
+mkinitcpio-firmware
 
 #Pkg
 pacman-contrib
@@ -29,6 +30,7 @@ ookla-speedtest-bin
 papirus-icon-theme
 #ttf-ubuntu-font-family
 ttf-iosevka-nerd
+cursor-breeze
 
 #App
 eog evince nautilus sushi file-roller
@@ -38,3 +40,4 @@ qbittorrent
 obs-studio
 google-chrome
 libreoffice-still-vi
+sublime-text-4
