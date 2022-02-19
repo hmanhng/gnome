@@ -1,7 +1,6 @@
 gdm gnome-shell gnome-tweaks gnome-control-center gnome-keyring gnome-menus chrome-gnome-shell gnome-terminal-transparency guake
 xf86-video-intel intel-media-driver intel-gpu-tools
 zsh starship
-qt5-wayland
 neovim
 pipewire pipewire-alsa pipewire-pulse pipewire-jack
 bluez bluez-utils
@@ -10,6 +9,7 @@ eog evince nautilus sushi file-roller
 xdg-user-dirs-gtk
 xclip
 mkinitcpio-firmware
+qt5-wayland xdg-desktop-portal xdg-desktop-portal-gnome
 
 #Pkg
 exa fd fzf ripgrep bat
