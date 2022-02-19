@@ -1,5 +1,5 @@
 gnome-shell gnome-tweaks gnome-control-center gnome-keyring gnome-menus
-gnome-terminal guake
+gnome-terminal-transparency guake
 chrome-gnome-shell
 xf86-video-intel
 intel-media-driver

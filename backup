@@ -2,3 +2,4 @@
 
 cp -r ~/.config/fish/ ./dotfiles/.config/
 cp -r ~/.config/nvim/ ./dotfiles/.config/
+rm -r dotfiles/.local/share/gnome-shell/extensions/* && cp -r $HOME/.local/share/gnome-shell/extensions/* dotfiles/.local/share/gnome-shell/extensions/
