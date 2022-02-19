@@ -29,7 +29,7 @@ sudo mv $HOME/gnome-shell-theme.gresource /usr/share/gnome-shell/
 # SETTINGS GNOME
 dconf load / < $HOME/saved_settings.dconf && rm $HOME/saved_settings.dconf
 
-sudo chsh $USER -s "/bin/zsh" && \
+#sudo chsh $USER -s "/bin/zsh" && \
 sudo systemctl enable bluetooth
 sudo systemctl enable gdm
 sudo systemctl enable v2ray

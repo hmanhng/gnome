@@ -5,6 +5,7 @@ export EDITOR="nvim"              # $EDITOR use Emacs in terminal
 export VISUAL="nvim"           # $VISUAL use Emacs in GUI mode
 export ZSH="$HOME/.oh-my-zsh"
 #ZSH_THEME="robbyrussell"
+export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 plugins=(git
     zsh-syntax-highlighting
     zsh-autosuggestions
