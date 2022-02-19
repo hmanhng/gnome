@@ -1,0 +1,39 @@
+gdm gnome-shell gnome-tweaks gnome-control-center gnome-keyring gnome-menus chrome-gnome-shell gnome-terminal-transparency guake
+xf86-video-intel intel-media-driver intel-gpu-tools
+zsh starship
+qt5-wayland
+neovim
+pipewire pipewire-alsa pipewire-pulse pipewire-jack
+bluez bluez-utils
+pacman-contrib
+eog evince nautilus sushi file-roller
+xdg-user-dirs-gtk
+xclip
+mkinitcpio-firmware
+
+#Pkg
+exa fd fzf ripgrep bat
+openssh wget
+reflector
+wireguard-tools openresolv
+v2ray
+
+htop neofetch
+ookla-speedtest-bin
+ibus ibus-bamboo
+npm clang
+
+#ThemesAndFont
+papirus-icon-theme
+ttf-ubuntu-font-family
+ttf-iosevka-nerd
+xcursor-breeze
+
+#App
+vlc
+discord
+qbittorrent
+obs-studio
+microsoft-edge-stable-bin
+libreoffice-still-vi
+sublime-text-4

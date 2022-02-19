@@ -4,8 +4,8 @@ git config --global user.email "hmanhng@icloud.com"
 git config --global user.name "hmanhng"
 
 #Bamboo
-ibus restart
-env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['xkb:us::eng', 'Bamboo']" && gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
+#ibus restart
+#env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['xkb:us::eng', 'Bamboo']" && gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
 
 sudo sed -i 's/#AutoEnable=false/AutoEnable=true/g' /etc/bluetooth/main.conf
 sudo sed -i 's/Logo=1/Logo=0/g' /etc/libreoffice/sofficerc
@@ -20,13 +20,16 @@ git clone https://github.com/hmanhng/Wallpapers.git $HOME/Pictures/Wallpapers
 # Fonts ms
 git clone https://github.com/hmanhng/WindowsFonts.git $HOME/WindowsFonts && rm -rf $HOME/WindowsFonts/.git && sudo mv $HOME/WindowsFonts/ /usr/share/fonts/ && sudo chmod 644 /usr/share/fonts/WindowsFonts/* && fc-cache --force
 
+# icon
 sudo cp $HOME/Pictures/hmanhng.jpg /var/lib/AccountsService/icons/
 cp $HOME/Pictures/hmanhng.jpg $HOME/.face
 sudo bash -c 'cat dotfiles/hmanhng > /var/lib/AccountsService/users/hmanhng' && rm $HOME/hmanhng
 sudo mv $HOME/gnome-shell-theme.gresource /usr/share/gnome-shell/
+
+# SETTINGS GNOME
 dconf load / < $HOME/saved_settings.dconf && rm $HOME/saved_settings.dconf
 
-sudo chsh $USER -s "/bin/fish" && \
+sudo chsh $USER -s "/bin/zsh" && \
 sudo systemctl enable bluetooth
 sudo systemctl enable gdm
 sudo systemctl enable v2ray
