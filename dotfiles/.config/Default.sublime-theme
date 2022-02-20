@@ -1,0 +1,33 @@
+[
+  {
+    "class": "sidebar_label",
+    "font.face": "Ubuntu",
+    "font.size": 14
+  },
+  {
+    "class": "sidebar_heading",
+    "font.face": "Ubuntu",
+    "font.size": 13.5
+  },
+  {
+    "class": "tab_label",
+    "font.face": "Ubuntu",
+    "font.size": 14
+  },
+  {
+    "class": "label_control",
+    "parents": [{"class": "status_bar"}],
+    "font.face": "Ubuntu",
+    "font.size": 14
+  },
+  {
+    "class": "quick_panel_label",
+    "font.face": "Ubuntu",
+    "font.size": 13
+  },
+  {
+    "class": "quick_panel_path_label",
+    "font.face": "Ubuntu",
+    "font.size": 13
+  }
+]
