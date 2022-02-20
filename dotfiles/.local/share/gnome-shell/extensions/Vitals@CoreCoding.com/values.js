@@ -199,39 +199,6 @@ var Values = GObject.registerClass({
         return format.format(value, ending);
     }
 
-    // From: https://programming.guide/the-worlds-most-copied-so-snippet.html
-/*
-    _humanReadableByteCount(bytes, si) {
-        int unit = (si) ? 1000 : 1024;
-        long absBytes = bytes == Long.MIN_VALUE ? Long.MAX_VALUE : Math.abs(bytes);
-        if (absBytes < unit) return bytes + " B";
-        int exp = (int) (Math.log(absBytes) / Math.log(unit));
-        long th = (long) (Math.pow(unit, exp) * (unit - 0.05));
-        if (exp < 6 && absBytes >= th - ((th & 0xfff) == 0xd00 ? 52 : 0)) exp++;
-        String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
-        if (exp > 4) {
-            bytes /= unit;
-            exp -= 1;
-        }
-        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
-    }
-*/
-
-    _setProgress(amount) {
-        let a = '00FF00';
-        let b = 'FF0000';
-
-        var ah = parseInt(a, 16),
-            ar = ah >> 16, ag = ah >> 8 & 0xff, ab = ah & 0xff,
-            bh = parseInt(b, 16),
-            br = bh >> 16, bg = bh >> 8 & 0xff, bb = bh & 0xff,
-            rr = ar + amount * (br - ar),
-            rg = ag + amount * (bg - ag),
-            rb = ab + amount * (bb - ab);
-
-        return 'color:#' + ((1 << 24) + (rr << 16) + (rg << 8) + rb | 0).toString(16).slice(1);
-    }
-
     returnIfDifferent(label, value, type, format, key) {
         let output = [];
 
@@ -249,30 +216,29 @@ var Values = GObject.registerClass({
             // process average values
             if (type == 'temperature' || type == 'voltage' || type == 'fan') {
                 let vals = Object.values(this._history[type]).map(x => parseFloat(x[1]));
-/*
-		if (type == 'fan') {
-		  filtered = vals.filter(item => item !== 0);
-		  vals = filtered;
-		}
-		else if (type == 'temperature') {
-		  filtered = vals.filter(item => item >= 0 && item < 130000);
-		  vals = filtered;
-		}
-*/
-                let sum = vals.reduce(function(a, b) { return a + b; });
+                let sum = vals.reduce((a, b) => a + b);
                 let avg = sum / vals.length;
                 avg = this._legible(avg, format);
 
                 output.push(['Average', avg, type, '__' + type + '_avg__']);
                 output.push([type, avg, type + '-group', '']);
-            } else if ((type == 'network-download' || type == 'network-upload') && format == 'speed') {
+            } else if ((type == 'network-rx' || type == 'network-tx') && format == 'speed') {
                 let vals = Object.values(this._history[type]).map(x => parseFloat(x[1]));
-                let max = Math.getMaxOfArray(vals);
-                max = this._legible(max, format);
-                output.push(['Maximum ' + (type.includes('-upload')?'tx':'rx'), max, type, '__' + type + '_max__']);
 
-                if (type == 'network-download')
+                // get highest bandwidth using interface
+                let max = this._legible(Math.getMaxOfArray(vals), format);
+
+                // appends rx or tx to Maximum
+                output.push(['Maximum ' + type.split('-')[1], max, type, '__' + type + '_max__']);
+
+                // append download speed to group itself
+                if (type == 'network-rx')
                     output.push([type, max, type + '-group', '']);
+
+                // appends total upload and download for all interfaces for #216
+                let sum = this._legible(vals.reduce((partialSum, a) => partialSum + a, 0), format);
+                output.push(['Total ' + type.split('-')[1], sum, type, '__' + type + '_sum__']);
+
             }
         }
 
@@ -291,8 +257,8 @@ var Values = GObject.registerClass({
             this._history[sensor + '-group'] = {};
 
             if (sensor == 'network') {
-                this._history[sensor + '-download'] = {};
-                this._history[sensor + '-upload'] = {};
+                this._history[sensor + '-rx'] = {};
+                this._history[sensor + '-tx'] = {};
             }
         }
     }

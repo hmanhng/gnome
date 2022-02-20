@@ -119,7 +119,9 @@ var Sensors = GObject.registerClass({
 
             new FileModule.File(sensor['path']).read().then(value => {
                 this._returnValue(callback, label, value, sensor['type'], sensor['format']);
-            }).catch(err => { });
+            }).catch(err => {
+                this._returnValue(callback, label, 'disabled', sensor['type'], sensor['format']);
+            });
         }
     }
 
@@ -200,21 +202,47 @@ var Sensors = GObject.registerClass({
             }
         }).catch(err => { });
 
-        // grab cpu frequency
+        // grab CPU information including frequency
         new FileModule.File('/proc/cpuinfo').read().then(lines => {
             lines = lines.split("\n");
 
+            let vendor_id = '';
+            let sockets = {};
+            let bogomips = '';
+            let cache = '';
+
             let freqs = [];
             for (let line of Object.values(lines)) {
+                // grab megahertz
                 let value = line.match(/^cpu MHz(\s+): ([+-]?\d+(\.\d+)?)/);
                 if (value) freqs.push(parseFloat(value[2]));
+
+                // grab cpu vendor
+                value = line.match(/^vendor_id(\s+): (\w+.*)/);
+                if (value) vendor_id = value[2];
+
+                // grab bogomips
+                value = line.match(/^bogomips(\s+): (\d*\.?\d*)$/);
+                if (value) bogomips = value[2];
+
+                // grab processor count
+                value = line.match(/^physical id(\s+): (\d+)$/);
+                if (value) sockets[value[2]] = 1;
+
+                // grab cache
+                value = line.match(/^cache size(\s+): (\d+) KB$/);
+                if (value) cache = value[2];
             }
 
             let max_hertz = Math.getMaxOfArray(freqs) * 1000 * 1000;
-            let sum = freqs.reduce(function(a, b) { return a + b; });
+            let sum = freqs.reduce((a, b) => a + b);
             let hertz = (sum / freqs.length) * 1000 * 1000;
             this._returnValue(callback, 'Frequency', hertz, 'processor', 'hertz');
             this._returnValue(callback, 'Boost', max_hertz, 'processor', 'hertz');
+            this._returnValue(callback, 'Vendor', vendor_id, 'processor', 'string');
+            this._returnValue(callback, 'Bogomips', bogomips, 'processor', 'string');
+            this._returnValue(callback, 'Sockets', Object.keys(sockets).length, 'processor', 'string');
+            this._returnValue(callback, 'Cache', cache, 'processor', 'memory');
         }).catch(err => { });
     }
 
@@ -334,37 +362,36 @@ var Sensors = GObject.registerClass({
 
     _queryNetwork(callback, diff) {
         // check network speed
+        let directions = ['tx', 'rx'];
         let netbase = '/sys/class/net/';
-        new FileModule.File(netbase).list().then(files => {
-            for (let key in files) {
-                let file = files[key];
 
-                if (typeof this._last_network[file] == 'undefined')
-                    this._last_network[file] = {};
+        new FileModule.File(netbase).list().then(interfaces => {
+            for (let iface of interfaces) {
+                if (typeof this._last_network[iface] == 'undefined')
+                    this._last_network[iface] = {};
 
-                new FileModule.File(netbase + file + '/statistics/tx_bytes').read().then(value => {
-                    let speed = 0;
-                    if (typeof this._last_network[file]['tx'] != 'undefined') {
-                        speed = (value - this._last_network[file]['tx']) / diff;
-                    }
+                for (let direction of directions) {
+                    // lo tx and rx are the same
+                    if (iface == 'lo' && direction == 'rx') continue;
 
-                    this._returnValue(callback, file + ' tx', speed, 'network-upload', 'speed');
+                    new FileModule.File(netbase + iface + '/statistics/' + direction + '_bytes').read().then(value => {
+                        let speed = 0;
+                        if (typeof this._last_network[iface][direction] != 'undefined') {
+                            speed = (value - this._last_network[iface][direction]) / diff;
+                        }
 
-                    if (value > 0 || (value == 0 && !this._settings.get_boolean('hide-zeros')))
-                        this._last_network[file]['tx'] = value;
-                }).catch(err => { });
+                        // don't append tx to lo
+                        let name = iface + ((iface == 'lo')?'':' ' + direction);
 
-                new FileModule.File(netbase + file + '/statistics/rx_bytes').read().then(value => {
-                    let speed = 0;
-                    if (typeof this._last_network[file]['rx'] != 'undefined') {
-                        speed = (value - this._last_network[file]['rx']) / diff;
-                    }
+                        // issue #217 - don't include 'lo' traffic in Maximum calculations in values.js
+                        // by not using network-rx or network-tx
+                        let type = 'network' + ((iface=='lo')?'':'-' + direction);
+                        this._returnValue(callback, name, speed, type, 'speed');
 
-                    this._returnValue(callback, file + ' rx', speed, 'network-download', 'speed');
-
-                    if (value > 0 || (value == 0 && !this._settings.get_boolean('hide-zeros')))
-                        this._last_network[file]['rx'] = value;
-                }).catch(err => { });
+                        if (value > 0 || (value == 0 && !this._settings.get_boolean('hide-zeros')))
+                            this._last_network[iface][direction] = value;
+                    }).catch(err => { });
+                }
             }
         }).catch(err => { });
 
@@ -403,23 +430,25 @@ var Sensors = GObject.registerClass({
     }
 
     _queryStorage(callback, diff) {
-        if (!hasGTop) return;
+        // display zfs arc status, if available
+        new FileModule.File('/proc/spl/kstat/zfs/arcstats').read().then(lines => {
+            let target = 0, maximum = 0, current = 0;
 
-        GTop.glibtop_get_fsusage(this.storage, this._settings.get_string('storage-path'));
+            let values = lines.match(/c(\s+)(\d+)(\s+)(\d+)/);
+            if (values) target = values[4];
 
-        let total = this.storage.blocks * this.storage.block_size;
-        let avail = this.storage.bavail * this.storage.block_size;
-        let free = this.storage.bfree * this.storage.block_size;
-        let used = total - free;
-        let reserved = (total - avail) - used;
+            values = lines.match(/c_max(\s+)(\d+)(\s+)(\d+)/);
+            if (values) maximum = values[4];
 
-        this._returnValue(callback, 'Total', total, 'storage', 'storage');
-        this._returnValue(callback, 'Used', used, 'storage', 'storage');
-        this._returnValue(callback, 'Reserved', reserved, 'storage', 'storage');
-        this._returnValue(callback, 'Free', avail, 'storage', 'storage');
-        this._returnValue(callback, 'storage', avail, 'storage-group', 'storage');
+            values = lines.match(/size(\s+)(\d+)(\s+)(\d+)/);
+            if (values) current = values[4];
 
-        // check disk stats
+            this._returnValue(callback, 'ARC Target', target, 'storage', 'storage');
+            this._returnValue(callback, 'ARC Maximum', maximum, 'storage', 'storage');
+            this._returnValue(callback, 'ARC Current', current, 'storage', 'storage');
+        }).catch(err => { });
+
+        // check disk performance stats
         new FileModule.File('/proc/diskstats').read().then(lines => {
             lines = lines.split("\n");
             for (let line of Object.values(lines)) {
@@ -437,6 +466,23 @@ var Sensors = GObject.registerClass({
                 }
             }
         }).catch(err => { });
+
+        // skip rest of stats if gtop not available
+        if (!hasGTop) return;
+
+        GTop.glibtop_get_fsusage(this.storage, this._settings.get_string('storage-path'));
+
+        let total = this.storage.blocks * this.storage.block_size;
+        let avail = this.storage.bavail * this.storage.block_size;
+        let free = this.storage.bfree * this.storage.block_size;
+        let used = total - free;
+        let reserved = (total - avail) - used;
+
+        this._returnValue(callback, 'Total', total, 'storage', 'storage');
+        this._returnValue(callback, 'Used', used, 'storage', 'storage');
+        this._returnValue(callback, 'Reserved', reserved, 'storage', 'storage');
+        this._returnValue(callback, 'Free', avail, 'storage', 'storage');
+        this._returnValue(callback, 'storage', avail, 'storage-group', 'storage');
     }
 
     _returnValue(callback, label, value, type, format) {

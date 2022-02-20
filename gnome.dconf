@@ -148,16 +148,14 @@ runner-menu-hotkey='Custom'
 toggle-runner-menu=['<Super>s']
 
 [org/gnome/shell/extensions/dash-to-dock]
-background-color='rgb(154,153,150)'
 background-opacity=0.69999999999999996
 click-action='minimize-or-previews'
-custom-background-color=false
-custom-theme-shrink=false
 dash-max-icon-size=40
 dock-position='LEFT'
 extend-height=true
 height-fraction=0.90000000000000002
 hot-keys=false
+intellihide-mode='MAXIMIZED_WINDOWS'
 running-indicator-style='DOTS'
 scroll-action='cycle-windows'
 transparency-mode='DYNAMIC'

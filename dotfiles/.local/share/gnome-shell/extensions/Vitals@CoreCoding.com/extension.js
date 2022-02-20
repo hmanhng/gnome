@@ -6,7 +6,6 @@ const Util = imports.misc.util;
 const Mainloop = imports.mainloop;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
-Me.imports.helpers.polyfills;
 const Sensors = Me.imports.sensors;
 const Gettext = imports.gettext.domain(Me.metadata['gettext-domain']);
 const _ = Gettext.gettext;
@@ -26,26 +25,17 @@ var VitalsMenuButton = GObject.registerClass({
         this._settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.vitals');
 
         this._sensorIcons = {
-            'temperature' : { 'icon': 'temperature-symbolic.svg',
-                       'alphabetize': true },
-                'voltage' : { 'icon': 'voltage-symbolic.svg',
-                       'alphabetize': true },
-                    'fan' : { 'icon': 'fan-symbolic.svg',
-                       'alphabetize': true },
-                 'memory' : { 'icon': 'memory-symbolic.svg',
-                       'alphabetize': true },
-              'processor' : { 'icon': 'cpu-symbolic.svg',
-                       'alphabetize': true },
-                 'system' : { 'icon': 'system-symbolic.svg',
-                       'alphabetize': true },
+            'temperature' : { 'icon': 'temperature-symbolic.svg' },
+                'voltage' : { 'icon': 'voltage-symbolic.svg' },
+                    'fan' : { 'icon': 'fan-symbolic.svg' },
+                 'memory' : { 'icon': 'memory-symbolic.svg' },
+              'processor' : { 'icon': 'cpu-symbolic.svg' },
+                 'system' : { 'icon': 'system-symbolic.svg' },
                 'network' : { 'icon': 'network-symbolic.svg',
-                       'alphabetize': true,
-                     'icon-download': 'network-download-symbolic.svg',
-                       'icon-upload': 'network-upload-symbolic.svg' },
-                'storage' : { 'icon': 'storage-symbolic.svg',
-                       'alphabetize': true },
-                'battery' : { 'icon': 'battery-symbolic.svg',
-                       'alphabetize': true }
+                     'icon-rx': 'network-download-symbolic.svg',
+                     'icon-tx': 'network-upload-symbolic.svg' },
+                'storage' : { 'icon': 'storage-symbolic.svg' },
+                'battery' : { 'icon': 'battery-symbolic.svg' }
         }
 
         this._warnings = [];
@@ -85,6 +75,11 @@ var VitalsMenuButton = GObject.registerClass({
             this._addSettingChangedSignal('show-' + sensor, this._showHideSensorsChanged.bind(this));
 
         this._initializeMenu();
+
+        // start off with fresh sensors
+        this._querySensors();
+
+        // start monitoring sensors
         this._initializeTimer();
     }
 
@@ -132,14 +127,20 @@ var VitalsMenuButton = GObject.registerClass({
         // custom round refresh button
         let refreshButton = this._createRoundButton('view-refresh-symbolic', _('Refresh'));
         refreshButton.connect('clicked', (self) => {
+            // force refresh by clearing history
             this._sensors.resetHistory();
             this._values.resetHistory();
+
+            // make sure timer fires at next full interval
             this._updateTimeChanged();
+
+            // refresh sensors now
+            this._querySensors();
         });
         customButtonBox.add_actor(refreshButton);
 
         // custom round monitor button
-        let monitorButton = this._createRoundButton('utilities-system-monitor-symbolic', _('System Monitor'));
+        let monitorButton = this._createRoundButton('org.gnome.SystemMonitor-symbolic', _('System Monitor'));
         monitorButton.connect('clicked', (self) => {
             this.menu._getTopMenu().close();
             Util.spawn(['gnome-system-monitor']);
@@ -165,6 +166,12 @@ var VitalsMenuButton = GObject.registerClass({
 
         // add buttons
         this.menu.addMenuItem(item);
+
+        // query sensors on menu open
+        this._menuStateChangeId = this.menu.connect('open-state-changed', (self, isMenuOpen) => {
+            if (isMenuOpen)
+                this._querySensors();
+        });
     }
 
     _createRoundButton(iconName) {
@@ -205,14 +212,13 @@ var VitalsMenuButton = GObject.registerClass({
     }
 
     _initializeTimer() {
-        // start off with fresh sensors
-        this._querySensors();
-
         // used to query sensors and update display
         let update_time = this._settings.get_int('update-time');
         this._sensors.update_time = update_time;
         this._refreshTimeoutId = Mainloop.timeout_add_seconds(update_time, (self) => {
-            this._querySensors();
+            // only update menu if we have hot sensors
+            if (Object.values(this._hotLabels).length > 0)
+                this._querySensors();
 
             // keep the timer running
             return true;
@@ -362,6 +368,7 @@ var VitalsMenuButton = GObject.registerClass({
                 this._sensorMenuItems[type] = this._groups[group];
             }
         } else {
+            // add item to group for the first time
             let sensor = { 'label': label, 'value': value, 'type': type }
             this._appendMenuItem(sensor, key);
         }
@@ -412,12 +419,13 @@ var VitalsMenuButton = GObject.registerClass({
         let i = Object.keys(this._sensorMenuItems[key]).length;
 
         // alphabetize the sensors for these categories
-        if (this._sensorIcons[type]['alphabetize'] && this._settings.get_boolean('alphabetize')) {
+        if (this._settings.get_boolean('alphabetize')) {
             let menuItems = this._groups[type].menu._getMenuItems();
             for (i = 0; i < menuItems.length; i++)
                 // use natural sort order for system load, etc
-                if (typeof menuItems[i] != 'undefined' && typeof menuItems[i].key != 'undefined' && menuItems[i].key.localeCompare(key, undefined, { numeric: true, sensitivity: 'base' }) > 0)
-                    break;
+                if (typeof menuItems[i] != 'undefined' && typeof menuItems[i].label != 'undefined' &&
+                    menuItems[i].label.localeCompare(item.label, undefined, { numeric: true, sensitivity: 'base' }) > 0)
+                        break;
         }
 
         this._groups[type].menu.addMenuItem(item, i);
@@ -461,7 +469,15 @@ var VitalsMenuButton = GObject.registerClass({
 
     _querySensors() {
         this._sensors.query((label, value, type, format) => {
-            let key = '_' + type.split('-')[0] + '_' + label.replace(' ', '_').toLowerCase() + '_';
+            let key = '_' + type.replace('-group', '') + '_' + label.replace(' ', '_').toLowerCase() + '_';
+
+            // if a sensor is disabled, gray it out
+            if (key in this._sensorMenuItems) {
+                this._sensorMenuItems[key].setSensitive((value!='disabled'));
+
+                // don't continue below, last known value is shown
+                if (value == 'disabled') return;
+            }
 
             let items = this._values.returnIfDifferent(label, value, type, format, key);
             for (let item of Object.values(items))
@@ -484,13 +500,6 @@ var VitalsMenuButton = GObject.registerClass({
 
     destroy() {
         this._destroyTimer();
-
-        // has already been deallocated, was causing silent crashes
-/*
-        for (let key in this._sensorMenuItems)
-            if (typeof this._sensorMenuItems[key] != 'undefined')
-                this._sensorMenuItems[key].destroy();
-*/
 
         for (let signal of Object.values(this._settingChangedSignals))
             this._settings.disconnect(signal);
