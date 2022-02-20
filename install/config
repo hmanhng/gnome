@@ -27,7 +27,7 @@ sudo bash -c 'cat dotfiles/hmanhng > /var/lib/AccountsService/users/hmanhng' && 
 sudo mv $HOME/gnome-shell-theme.gresource /usr/share/gnome-shell/
 
 # SETTINGS GNOME
-dconf load / < $HOME/saved_settings.dconf && rm $HOME/saved_settings.dconf
+dconf load / < $HOME/gnome.dconf && rm $HOME/gnome.dconf
 
 #sudo chsh $USER -s "/bin/zsh" && \
 sudo systemctl enable bluetooth

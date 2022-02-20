@@ -36,7 +36,7 @@ transparency=100
 allow-bold=true
 palette='#1c1c1f1f2424:#ffff6c6c6b6b:#9898bebe6565:#dada85854848:#ffff80808080:#c6c67878dddd:#56569999afaf:#fcfcfcfcfafa:#5b5b62626868:#dada85854848:#4d4cb5b4dbdb:#ececbebe7b7a:#fcfc98986767:#a9a9a1a1e1e1:#4646d9d9ffff:#dfdfdfdfdfdf:#dededededede:#333333333333'
 palette-name='Custom'
-style='Iosevka Term 13'
+style='Iosevka Term 13.5'
 
 [desktop/ibus/general]
 preload-engines=['xkb:us::eng', 'Bamboo']
@@ -60,22 +60,9 @@ icon-theme='Papirus'
 show-battery-percentage=true
 text-scaling-factor=1.1799999999999999
 
-[org/gnome/desktop/notifications]
-application-children=['org-gnome-extensions-desktop']
-
-[org/gnome/desktop/notifications/application/org-gnome-extensions-desktop]
-application-id='org.gnome.Extensions.desktop.desktop'
-
 [org/gnome/desktop/peripherals/touchpad]
 tap-to-click=true
 two-finger-scrolling-enabled=true
-
-[org/gnome/desktop/screensaver]
-color-shading-type='solid'
-picture-options='zoom'
-picture-uri='file:///home/hmanhng/.local/share/backgrounds/2022-02-19-13-52-40-2188651.jpg'
-primary-color='#000000000000'
-secondary-color='#000000000000'
 
 [org/gnome/desktop/search-providers]
 disable-external=true
@@ -123,7 +110,7 @@ home=['<Super>e']
 www=['<Super>w']
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
-binding='<Primary>grave'
+binding='<Primary>Escape'
 command='guake'
 name='guake'
 
@@ -135,7 +122,7 @@ name='gnome-terminal'
 [org/gnome/shell]
 command-history=['r']
 disabled-extensions=@as []
-enabled-extensions=['arch-update@RaphaelRochet', 'arcmenu@arcmenu.com', 'bluetooth-quick-connect@bjarosze.gmail.com', 'caffeine@patapon.info', 'clipboard-indicator@tudmotu.com', 'dash-to-dock@micxgx.gmail.com', 'hibernate-status@dromi', 'hide-universal-access@akiirui.github.io', 'impatience@gfxmonk.net', 'improved-workspace-indicator@michaelaquilina.github.io', 'netspeedsimplified@prateekmedia.extension', 'no-overview@fthx', 'sound-output-device-chooser@kgshank.net', 'trayIconsReloaded@selfmade.pl', 'Vitals@CoreCoding.com', 'wireguard-indicator@gregos.me', 'just-perfection-desktop@just-perfection', 'remove-alt-tab-delay@daase.net', 'vertical-overview@RensAlthuis.github.com', 'sound-percentage@maestroschan.fr']
+enabled-extensions=['arch-update@RaphaelRochet', 'arcmenu@arcmenu.com', 'bluetooth-quick-connect@bjarosze.gmail.com', 'caffeine@patapon.info', 'clipboard-indicator@tudmotu.com', 'dash-to-dock@micxgx.gmail.com', 'hibernate-status@dromi',  'improved-workspace-indicator@michaelaquilina.github.io', 'netspeedsimplified@prateekmedia.extension', 'sound-output-device-chooser@kgshank.net', 'trayIconsReloaded@selfmade.pl', 'Vitals@CoreCoding.com', 'wireguard-indicator@gregos.me', 'just-perfection-desktop@just-perfection', 'remove-alt-tab-delay@daase.net', 'sound-percentage@maestroschan.fr']
 welcome-dialog-last-shown-version='41.4'
 
 [org/gnome/shell/app-switcher]
