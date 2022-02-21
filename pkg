@@ -1,5 +1,5 @@
 gdm gnome-shell gnome-tweaks gnome-control-center gnome-keyring gnome-menus chrome-gnome-shell gnome-terminal-transparency guake
-xf86-video-intel intel-media-driver intel-gpu-tools
+intel-media-driver intel-gpu-tools
 zsh starship
 neovim
 pipewire pipewire-alsa pipewire-pulse pipewire-jack
