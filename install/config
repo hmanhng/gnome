@@ -26,14 +26,11 @@ cp $HOME/Pictures/hmanhng.jpg $HOME/.face
 sudo bash -c 'cat dotfiles/hmanhng > /var/lib/AccountsService/users/hmanhng' && rm $HOME/hmanhng
 sudo mv $HOME/gnome-shell-theme.gresource /usr/share/gnome-shell/
 
-# SETTINGS GNOME
-dconf load / < $HOME/gnome.dconf && rm $HOME/gnome.dconf
-
 #sudo chsh $USER -s "/bin/zsh" && \
 sudo systemctl enable bluetooth
 sudo systemctl enable gdm
 sudo systemctl enable v2ray
 
-sudo bash -c 'echo 259:1 > /sys/power/resume'
+sudo bash -c 'echo 259:2 > /sys/power/resume'
 sudo mkinitcpio -P
 sudo grub-mkconfig -o /boot/grub/grub.cfg

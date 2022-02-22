@@ -1,15 +1,13 @@
-gdm gnome-shell gnome-tweaks gnome-control-center gnome-keyring gnome-menus chrome-gnome-shell gnome-terminal-transparency guake
 intel-media-driver intel-gpu-tools
-zsh starship
-neovim
 pipewire pipewire-alsa pipewire-pulse pipewire-jack
 bluez bluez-utils
 pacman-contrib
-eog evince nautilus sushi file-roller
 xdg-user-dirs-gtk
 xclip
 mkinitcpio-firmware
 qt5-wayland xdg-desktop-portal xdg-desktop-portal-gnome
+neovim
+zsh starship
 
 #Pkg
 exa fd fzf ripgrep bat
@@ -24,7 +22,8 @@ ibus ibus-bamboo
 npm clang
 
 #ThemesAndFont
-papirus-icon-theme
+pop-gtk-theme
+pop-icon-theme
 ttf-ubuntu-font-family
 ttf-iosevka-nerd
 xcursor-breeze
