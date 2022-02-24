@@ -2,8 +2,7 @@
 
 sudo true
 git clone https://aur.archlinux.org/yay.git && cd yay/ && makepkg -si --noconfirm && cd .. && rm -rf yay/
-yay -Sy --needed --noconfirm $(cat pkg | egrep -v "^\s*(#|$)")
-yay -Sy --needed --noconfirm $(cat base | egrep -v "^\s*(#|$)")
+yay -Sy --needed --noconfirm $(cat base pkg | egrep -v "^\s*(#|$)")
 
 sh install/xdman
 sh install/zsh
