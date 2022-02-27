@@ -15,7 +15,7 @@ Install the extension from here: https://extensions.gnome.org/extension/4839/cli
 
 ## Tips
 
-TODO add screenshot or video
+![Tutorial screenshot](tutorial-screenshot.png)
 
 - Open the panel from anywhere with <kbd>Super</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd>
 - Modify shortcuts in settings or delete them by hitting backspace while editing a shortcut
@@ -28,6 +28,7 @@ TODO add screenshot or video
     the Nth favorited entry
   - <kbd>Ctrl</kbd> + <kbd>p/n</kbd> to navigate to the previous/next page
   - <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd> to open settings
+- Search uses [regex](https://regex101.com/?flavor=javascript)
 
 ## Install from source
 
