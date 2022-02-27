@@ -1,7 +1,7 @@
 intel-media-driver intel-gpu-tools
 pipewire pipewire-alsa pipewire-pulse pipewire-jack
 bluez bluez-utils
-pacman-contrib
+pacman-contrib archlinux-keyring
 xdg-user-dirs-gtk
 xclip
 mkinitcpio-firmware
