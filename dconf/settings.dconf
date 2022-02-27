@@ -1,0 +1,184 @@
+[org/gnome/desktop/interface]
+cursor-theme='Breeze_Snow'
+enable-animations=true
+enable-hot-corners=false
+font-antialiasing='grayscale'
+font-hinting='slight'
+gtk-im-module='ibus'
+gtk-theme='Pop'
+icon-theme='Pop'
+show-battery-percentage=true
+text-scaling-factor=1.24
+
+[org/gnome/desktop/peripherals/touchpad]
+edge-scrolling-enabled=false
+tap-to-click=true
+two-finger-scrolling-enabled=true
+
+[org/gnome/desktop/privacy]
+disable-microphone=false
+
+[org/gnome/desktop/search-providers]
+disable-external=true
+sort-order=['org.gnome.Contacts.desktop', 'org.gnome.Documents.desktop', 'org.gnome.Nautilus.desktop']
+
+[org/gnome/desktop/session]
+idle-delay=uint32 300
+
+[org/gnome/desktop/sound]
+allow-volume-above-100-percent=true
+theme-name='Pop'
+
+[org/gnome/desktop/wm/keybindings]
+begin-resize=['<Super>r']
+close=['<Super>q']
+move-to-workspace-1=['<Shift><Super>exclam']
+move-to-workspace-2=['<Shift><Super>at']
+move-to-workspace-3=['<Shift><Super>numbersign']
+move-to-workspace-4=['<Shift><Super>dollar']
+move-to-workspace-down=@as []
+move-to-workspace-up=@as []
+switch-applications=@as []
+switch-applications-backward=@as []
+switch-to-workspace-1=['<Super>1']
+switch-to-workspace-2=['<Super>2']
+switch-to-workspace-3=['<Super>3']
+switch-to-workspace-4=['<Super>4']
+switch-to-workspace-down=['<Primary><Super>Down', '<Primary><Super>j']
+switch-to-workspace-up=['<Primary><Super>Up', '<Primary><Super>k']
+switch-windows=['<Alt>Tab']
+switch-windows-backward=['<Shift><Alt>Tab']
+toggle-maximized=['<Super>m']
+
+[org/gnome/desktop/wm/preferences]
+button-layout='appmenu:minimize,maximize,close'
+workspace-names=@as []
+
+[org/gnome/file-roller/listing]
+list-mode='as-folder'
+name-column-width=250
+show-path=false
+sort-method='name'
+sort-type='ascending'
+
+[org/gnome/file-roller/ui]
+sidebar-width=200
+view-sidebar=true
+window-height=480
+window-width=600
+
+[org/gnome/mutter]
+workspaces-only-on-primary=false
+
+[org/gnome/nautilus/icon-view]
+default-zoom-level='standard'
+
+[org/gnome/nautilus/list-view]
+default-zoom-level='large'
+use-tree-view=false
+
+[org/gnome/nautilus/preferences]
+default-folder-viewer='list-view'
+search-filter-time-type='last_modified'
+search-view='list-view'
+show-image-thumbnails='local-only'
+
+[org/gnome/nautilus/window-state]
+initial-size=(1133, 800)
+maximized=false
+
+[org/gnome/settings-daemon/plugins/color]
+night-light-enabled=true
+night-light-temperature=uint32 3221
+
+[org/gnome/settings-daemon/plugins/media-keys]
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
+home=['<Super>e']
+rotate-video-lock-static=@as []
+screensaver=['<Super>Escape']
+terminal=['<Super>t']
+www=['<Super>w']
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
+binding='<Primary>Escape'
+command='guake'
+name='guake'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
+binding='<Super>Return'
+command='gnome-terminal'
+name='gnome-terminal'
+
+[org/gnome/shell]
+app-picker-layout=[{'adf2194f-1638-492b-8c51-406301e0f5fa': <{'position': <0>}>, 'discord.desktop': <{'position': <1>}>, 'org.gnome.DiskUtility.desktop': <{'position': <2>}>, 'cff62304-3715-45f2-a85e-69743cdaddf5': <{'position': <3>}>, 'c26f0245-29eb-4822-9e72-0c8a4ceee586': <{'position': <4>}>, 'gnome-control-center.desktop': <{'position': <5>}>, '06aa92c3-65ad-47a2-baa4-5d17f5f24f4d': <{'position': <6>}>, 'nvim.desktop': <{'position': <7>}>, 'org.gnome.FileRoller.desktop': <{'position': <8>}>, '5549c773-4fb1-4728-804b-87cbf54ec29b': <{'position': <9>}>}, {'com.obsproject.Studio.desktop': <{'position': <0>}>, 'org.qbittorrent.qBittorrent.desktop': <{'position': <1>}>, 'sublime_text.desktop': <{'position': <2>}>, 'xdman.desktop': <{'position': <3>}>, 'microsoft-edge.desktop': <{'position': <4>}>}]
+command-history=['gnome-session', 'gnome-session-properties', 'r']
+disable-user-extensions=false
+disabled-extensions=['appindicatorsupport@rgcjonas.gmail.com', 'alwaysshowworkspacethumbnails@alynx.one', 'material-shell@papyelgringo']
+enabled-extensions=['just-perfection-desktop@just-perfection', 'clipboard-history@alexsaveau.dev', 'ShutdownTimer@neumann', 'espresso@coadmunkee.github.com', 'sound-output-device-chooser@kgshank.net', 'trayIconsReloaded@selfmade.pl', 'caffeine@patapon.info', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'workspaces-bar@fthx', 'system-monitor-next@paradoxxx.zero.gmail.com', 'autohide-battery@sitnik.ru', 'hibernate-status@dromi', 'wg-indicator@dpf12110.gmail.com', 'tiling-assistant@leleat-on-github', 'remove-alt-tab-delay@daase.net', 'refresh-wifi@kgshank.net', 'smart-auto-move@khimaros.com', 'gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com']
+welcome-dialog-last-shown-version='41.4'
+
+[org/gnome/shell/app-switcher]
+current-workspace-only=true
+
+[org/gnome/shell/extensions/just-perfection]
+accessibility-menu=false
+activities-button=false
+animation=4
+app-menu=true
+dash=false
+dash-icon-size=48
+notification-banner-position=1
+panel=true
+show-apps-button=true
+startup-status=0
+theme=true
+workspace=true
+workspace-background-corner-size=0
+workspace-popup=false
+workspace-switcher-size=0
+
+[org/gnome/shell/extensions/system-monitor]
+battery-display=false
+center-display=false
+compact-display=false
+cpu-display=true
+cpu-graph-width=100
+cpu-individual-cores=false
+cpu-show-menu=true
+cpu-show-text=true
+cpu-style='digit'
+gpu-display=false
+icon-display=false
+memory-style='digit'
+move-clock=false
+net-show-menu=true
+net-show-text=true
+net-speed-in-bits=false
+net-style='digit'
+show-tooltip=false
+thermal-display=false
+
+[org/gnome/shell/extensions/trayIconsReloaded]
+applications='[]'
+icon-margin-horizontal=0
+icon-padding-horizontal=5
+icon-size=22
+invoke-to-workspace=true
+position-weight=-1
+tray-margin-left=0
+tray-margin-right=0
+wine-behavior=true
+
+[org/gnome/shell/extensions/wg-indicator]
+theme='color'
+
+[system/proxy]
+mode='none'
+
+[system/proxy/http]
+host=''
+port=0
+
+[system/proxy/socks]
+host='127.0.0.1'
+port=8080

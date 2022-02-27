@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #gnome settings
+dconf load / < dconf/settings.dconf
 dconf load / < dconf/guake.dconf
 dconf load / < dconf/terminal.dconf
 
