@@ -1,24 +1,11 @@
-intel-media-driver intel-gpu-tools
-pipewire pipewire-alsa pipewire-pulse pipewire-jack
-bluez bluez-utils
-pacman-contrib archlinux-keyring
-xdg-user-dirs-gtk
-xclip
-mkinitcpio-firmware
-qt5-wayland xdg-desktop-portal xdg-desktop-portal-gnome
-neovim
-zsh starship
-
 #Pkg
 exa fd fzf ripgrep bat
-openssh wget
-reflector
 wireguard-tools openresolv
 v2ray
 
 htop neofetch
 ookla-speedtest-bin
-ibus ibus-bamboo
+ibus-bamboo
 npm clang
 
 #ThemesAndFont

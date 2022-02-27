@@ -1,3 +1,14 @@
+intel-media-driver intel-gpu-tools
+pipewire pipewire-alsa pipewire-pulse pipewire-jack
+bluez bluez-utils
+pacman-contrib archlinux-keyring reflector
+xdg-user-dirs-gtk
+xclip
+mkinitcpio-firmware
+xdg-desktop-portal xdg-desktop-portal-gnome
+zsh starship
+openssh wget
+
 gdm
 gnome-shell
 gnome-tweaks
