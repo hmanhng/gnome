@@ -91,7 +91,7 @@ custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybin
 home=['<Super>e']
 rotate-video-lock-static=@as []
 screensaver=['<Super>Escape']
-terminal=['<Super>t']
+volume-step=5
 www=['<Super>w']
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
