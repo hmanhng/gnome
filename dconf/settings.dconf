@@ -20,14 +20,12 @@ disable-microphone=false
 
 [org/gnome/desktop/search-providers]
 disable-external=true
-sort-order=['org.gnome.Contacts.desktop', 'org.gnome.Documents.desktop', 'org.gnome.Nautilus.desktop']
 
 [org/gnome/desktop/session]
 idle-delay=uint32 300
 
 [org/gnome/desktop/sound]
 allow-volume-above-100-percent=true
-theme-name='Pop'
 
 [org/gnome/desktop/wm/keybindings]
 begin-resize=['<Super>r']
@@ -66,9 +64,6 @@ sidebar-width=200
 view-sidebar=true
 window-height=480
 window-width=600
-
-[org/gnome/mutter]
-workspaces-only-on-primary=false
 
 [org/gnome/nautilus/icon-view]
 default-zoom-level='standard'
