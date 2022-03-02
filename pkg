@@ -1,4 +1,5 @@
 #Pkg
+openssh wget
 exa fd fzf ripgrep bat
 wireguard-tools openresolv
 v2ray
@@ -23,3 +24,4 @@ obs-studio
 microsoft-edge-stable-bin
 libreoffice-still-vi
 sublime-text-4
+spotify-snap
