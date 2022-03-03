@@ -310,6 +310,25 @@
       <summary>Double Supper To App Grid</summary>
       <description>Double Supper To App Grid Status</description>
     </key>
+
+    <key type="b" name="world-clock">
+      <default>true</default>
+      <summary>World Clock Visibility in Clock Menu</summary>
+      <description>World Clock Visibility Status</description>
+    </key>
+
+    <key type="b" name="weather">
+      <default>true</default>
+      <summary>Weather Visibility in Clock Menu</summary>
+      <description>Weather Visibility Status</description>
+    </key>
+
+    <key type="i" name="panel-icon-size">
+      <default>0</default>
+      <range min="0" max="60"/>
+      <summary>0 means use Shell theme, 1 - 60 means panel icon size</summary>
+      <description>Panel Icon Size</description>
+    </key>
     
   </schema>
   

@@ -3,7 +3,7 @@
  *
  * @author     Javad Rahmatzadeh <j.rahmatzadeh@gmail.com>
  * @copyright  2020-2022
- * @license    GNU General Public License v3.0
+ * @license    GPL-3.0-only
  */
 
 /**
@@ -225,6 +225,18 @@ var Manager = class
         this._settings.connect('changed::double-super-to-appgrid', () => {
             this._applyDoubleSuperToAppgrid(false);
         });
+
+        this._settings.connect('changed::world-clock', () => {
+            this._applyWorldClock(false);
+        });
+
+        this._settings.connect('changed::weather', () => {
+            this._applyWeather(false);
+        });
+
+        this._settings.connect('changed::panel-icon-size', () => {
+            this._applyPanelIconSize(false);
+        });
     }
 
     /**
@@ -278,6 +290,9 @@ var Manager = class
         this._applyWorkspaceWrapAround(false);
         this._applyRippleBox(false);
         this._applyDoubleSuperToAppgrid(false);
+        this._applyWorldClock(false);
+        this._applyWeather(false);
+        this._applyPanelIconSize(false);
     }
 
     /**
@@ -331,6 +346,9 @@ var Manager = class
         this._applyWorkspaceWrapAround(true);
         this._applyRippleBox(true);
         this._applyDoubleSuperToAppgrid(true);
+        this._applyWorldClock(true);
+        this._applyWeather(true);
+        this._applyPanelIconSize(true);
     }
 
     /**
@@ -514,14 +532,19 @@ var Manager = class
     {
         let className = 'just-perfection';
         let fallbackClassName = 'just-perfection-gnome3';
+        let fourtySecondGenClassName = 'just-perfection-gnome4x-2nd-gen';
 
         if (forceOriginal || !this._settings.get_boolean('theme')) {
             this._api.UIStyleClassRemove(className);
             this._api.UIStyleClassRemove(fallbackClassName);
+            this._api.UIStyleClassRemove(fourtySecondGenClassName);
         } else {
             this._api.UIStyleClassAdd(className);
             if (this._shellVersion < 40) {
                 this._api.UIStyleClassAdd(fallbackClassName);
+            }
+            if (this._shellVersion >= 42) {
+                this._api.UIStyleClassAdd(fourtySecondGenClassName);
             }
         }
     }
@@ -810,19 +833,19 @@ var Manager = class
 
         if (forceOriginal) {
             this._api.animationSpeedSetDefault();
-            this._api.enablenAimationsSetDefault();
+            this._api.enableAnimationsSetDefault();
         } else if (animation === 0) {
             // disabled
             this._api.animationSpeedSetDefault();
-            this._api.enablenAimationsSet(false);
+            this._api.enableAnimationsSet(false);
         } else if (animation === 1) {
             // default speed
             this._api.animationSpeedSetDefault();
-            this._api.enablenAimationsSet(true);
+            this._api.enableAnimationsSet(true);
         } else if (factors[animation - 2] !== undefined) {
             // custom speed
             this._api.animationSpeedSet(factors[animation - 2]);
-            this._api.enablenAimationsSet(true);
+            this._api.enableAnimationsSet(true);
         }
     }
 
@@ -840,9 +863,9 @@ var Manager = class
         let label = this._settings.get_boolean('activities-button-label');
 
         if (forceOriginal) {
-            this._api.ativitiesButtonRemoveIcon();
+            this._api.activitiesButtonRemoveIcon();
         } else {
-            this._api.ativitiesButtonAddIcon(1, iconPath, monochrome, label);
+            this._api.activitiesButtonAddIcon(1, iconPath, monochrome, label);
         }
     }
 
@@ -1113,6 +1136,60 @@ var Manager = class
             this._api.doubleSuperToAppGridEnable();
         } else {
             this._api.doubleSuperToAppGridDisable();
+        }
+    }
+
+    /**
+     * apply world clock settings
+     *
+     * @param {boolean} forceOriginal force original shell setting
+     *
+     * @returns {void}
+     */
+    _applyWorldClock(forceOriginal)
+    {
+        let status = this._settings.get_boolean('world-clock');
+
+        if (forceOriginal || status) {
+            this._api.worldClocksShow();
+        } else {
+            this._api.worldClocksHide();
+        }
+    }
+
+    /**
+     * apply weather settings
+     *
+     * @param {boolean} forceOriginal force original shell setting
+     *
+     * @returns {void}
+     */
+    _applyWeather(forceOriginal)
+    {
+        let status = this._settings.get_boolean('weather');
+
+        if (forceOriginal || status) {
+            this._api.weatherShow();
+        } else {
+            this._api.weatherHide();
+        }
+    }
+
+    /**
+     * apply panel icon size settings
+     *
+     * @param {boolean} forceOriginal force original shell setting
+     *
+     * @returns {void}
+     */
+    _applyPanelIconSize(forceOriginal)
+    {
+        let size = this._settings.get_int('panel-icon-size');
+
+        if (forceOriginal || size === 0) {
+            this._api.panelIconSetDefaultSize();
+        } else {
+            this._api.panelIconSetSize(size);
         }
     }
 }
