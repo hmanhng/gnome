@@ -25,12 +25,11 @@ git clone https://github.com/hmanhng/Wallpapers.git $HOME/Pictures/Wallpapers
 git clone https://github.com/hmanhng/WindowsFonts.git $HOME/WindowsFonts && rm -rf $HOME/WindowsFonts/.git && sudo mv $HOME/WindowsFonts/ /usr/share/fonts/ && sudo chmod 644 /usr/share/fonts/WindowsFonts/* && fc-cache --force
 
 #GDM
-sudo cp $HOME/Pictures/hmanhng.jpg /var/lib/AccountsService/icons/
-cp $HOME/Pictures/hmanhng.jpg $HOME/.face
-sudo bash -c 'cat dotfiles/hmanhng > /var/lib/AccountsService/users/hmanhng' && rm $HOME/hmanhng
+sudo cp $HOME/Pictures/icon.jpg /var/lib/AccountsService/icons/
+cp $HOME/Pictures/icon.jpg $HOME/.face
+sudo bash -c 'cat dotfiles/bisu > /var/lib/AccountsService/users/bisu' && rm $HOME/bisu
 sudo mv $HOME/gnome-shell-theme.gresource /usr/share/gnome-shell/
 
-#sudo chsh $USER -s "/bin/zsh" && \
 sudo systemctl enable bluetooth
 sudo systemctl enable gdm
 sudo systemctl enable v2ray
