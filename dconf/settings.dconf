@@ -108,8 +108,7 @@ name='gnome-terminal'
 app-picker-layout=[{'adf2194f-1638-492b-8c51-406301e0f5fa': <{'position': <0>}>, 'discord.desktop': <{'position': <1>}>, 'org.gnome.DiskUtility.desktop': <{'position': <2>}>, 'cff62304-3715-45f2-a85e-69743cdaddf5': <{'position': <3>}>, 'c26f0245-29eb-4822-9e72-0c8a4ceee586': <{'position': <4>}>, 'gnome-control-center.desktop': <{'position': <5>}>, '06aa92c3-65ad-47a2-baa4-5d17f5f24f4d': <{'position': <6>}>, 'nvim.desktop': <{'position': <7>}>, 'org.gnome.FileRoller.desktop': <{'position': <8>}>, '5549c773-4fb1-4728-804b-87cbf54ec29b': <{'position': <9>}>}, {'com.obsproject.Studio.desktop': <{'position': <0>}>, 'org.qbittorrent.qBittorrent.desktop': <{'position': <1>}>, 'sublime_text.desktop': <{'position': <2>}>, 'xdman.desktop': <{'position': <3>}>, 'microsoft-edge.desktop': <{'position': <4>}>}]
 command-history=['gnome-session', 'gnome-session-properties', 'r']
 disable-user-extensions=false
-disabled-extensions=['appindicatorsupport@rgcjonas.gmail.com', 'alwaysshowworkspacethumbnails@alynx.one', 'material-shell@papyelgringo']
-enabled-extensions=['just-perfection-desktop@just-perfection', 'clipboard-history@alexsaveau.dev', 'ShutdownTimer@neumann', 'espresso@coadmunkee.github.com', 'sound-output-device-chooser@kgshank.net', 'trayIconsReloaded@selfmade.pl', 'caffeine@patapon.info', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'workspaces-bar@fthx', 'system-monitor-next@paradoxxx.zero.gmail.com', 'autohide-battery@sitnik.ru', 'hibernate-status@dromi', 'wg-indicator@dpf12110.gmail.com', 'tiling-assistant@leleat-on-github', 'remove-alt-tab-delay@daase.net', 'refresh-wifi@kgshank.net', 'smart-auto-move@khimaros.com', 'gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com']
+enabled-extensions=['just-perfection-desktop@just-perfection', 'clipboard-history@alexsaveau.dev', 'ShutdownTimer@neumann', 'espresso@coadmunkee.github.com', 'sound-output-device-chooser@kgshank.net', 'trayIconsReloaded@selfmade.pl', 'caffeine@patapon.info', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'workspaces-bar@fthx', 'autohide-battery@sitnik.ru', 'hibernate-status@dromi', 'wg-indicator@dpf12110.gmail.com', 'tiling-assistant@leleat-on-github', 'remove-alt-tab-delay@daase.net', 'refresh-wifi@kgshank.net', 'smart-auto-move@khimaros.com', 'gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com', 'sound-percentage@maestroschan.fr', 'system-monitor-next@paradoxxx.zero.gmail.com']
 welcome-dialog-last-shown-version='41.4'
 
 [org/gnome/shell/app-switcher]
@@ -118,19 +117,26 @@ current-workspace-only=true
 [org/gnome/shell/extensions/just-perfection]
 accessibility-menu=false
 activities-button=false
-animation=4
+aggregate-menu=true
+animation=3
 app-menu=true
+clock-menu=true
 dash=false
 dash-icon-size=48
+keyboard-layout=true
 notification-banner-position=1
+osd=true
 panel=true
 show-apps-button=true
 startup-status=0
 theme=true
+weather=true
 workspace=true
 workspace-background-corner-size=0
 workspace-popup=false
-workspace-switcher-size=0
+workspace-switcher-size=10
+workspaces-in-app-grid=true
+world-clock=true
 
 [org/gnome/shell/extensions/system-monitor]
 battery-display=false
@@ -166,6 +172,11 @@ wine-behavior=true
 
 [org/gnome/shell/extensions/wg-indicator]
 theme='color'
+
+[org/gnome/shell/keybindings]
+switch-to-application-2=@as []
+switch-to-application-3=@as []
+switch-to-application-4=@as []
 
 [system/proxy]
 mode='none'
