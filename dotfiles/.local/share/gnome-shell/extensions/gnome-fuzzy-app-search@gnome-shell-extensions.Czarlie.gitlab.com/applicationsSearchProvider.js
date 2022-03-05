@@ -1,12 +1,26 @@
 /* -*- mode: js2; js2-basic-offset: 4; indent-tabs-mode: nil -*- */
 
 // strict mode
-'use strict';
+"use strict";
 
 // import modules
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.applicationsUtils;
+
+const Translation = Me.imports.translation;
+const _ = Translation.translate;
+
+let MessageTray, notificationSource;
+try {
+    const Main = imports.ui.main;
+    MessageTray = imports.ui.messageTray;
+
+    notificationSource = new MessageTray.Source(Me.metadata.name, "search-symbolic");
+    Main.messageTray.add(notificationSource);
+} catch {
+    // imports.ui is not accessible from prefs.js
+}
 
 /**
  * Application search provider instance in
@@ -28,7 +42,6 @@ let search = null;
 // getInitialResultSet method in AppSearchProvider
 let getInitialResultSet, fuzzyGetInitialResultSet;
 if (provider) {
-
     /**
      * Original getInitialResultSet method
      *
@@ -38,7 +51,7 @@ if (provider) {
 
     /**
      * New getInitialResultSet method:
-     * append fuzzy search to results
+     * return fuzzy results if indexed, otherwise default ones
      *
      * @param  {Array}           terms
      * @param  {Function}        callback
@@ -46,20 +59,15 @@ if (provider) {
      * @return {Void}
      */
     fuzzyGetInitialResultSet = (terms, callback, cancellable) => {
-        let decorator = (result) => {
-            search.find(terms.join(' ')).forEach((item) => {
-                if (result.indexOf(item) === -1)
-                    result.push(item);
-            });
-
-            callback(result);
-        }
-
-        // calling original getInitialResultSet method with
-        // our own callback where we'll append new search
-        // results before executing original callback
-        getInitialResultSet.call(provider, terms, decorator, cancellable);
-    }
+        if (search.isReady()) {
+            search
+                .find(terms)
+                .then(callback)
+                .catch(() => {
+                    getInitialResultSet.call(provider, terms, callback, cancellable);
+                });
+        } else getInitialResultSet.call(provider, terms, callback, cancellable);
+    };
 }
 
 /**
@@ -69,8 +77,8 @@ if (provider) {
  * @return {String}
  */
 var description = () => {
-    return 'Applications';
-}
+    return "Applications";
+};
 
 /**
  * Can fuzzy search be added to
@@ -80,7 +88,7 @@ var description = () => {
  */
 var enabled = () => {
     return true;
-}
+};
 
 /**
  * Get search state
@@ -89,11 +97,10 @@ var enabled = () => {
  * @return {Boolean}
  */
 var getState = () => {
-    if (provider)
-        return provider.__proto__.getInitialResultSet === fuzzyGetInitialResultSet;
+    if (provider) return provider.__proto__.getInitialResultSet === fuzzyGetInitialResultSet;
 
     return false;
-}
+};
 
 /**
  * Set search state
@@ -102,17 +109,34 @@ var getState = () => {
  * @return {Void}
  */
 var setState = (state) => {
-    if (!provider)
-        return;
+    if (!provider) return;
 
-    if (!!state) {
+    if (state) {
         search = new Utils.Search();
         provider.__proto__.getInitialResultSet = fuzzyGetInitialResultSet;
-    }
-    else {
+
+        if (!search.isReady()) {
+            const waitNotification = new MessageTray.Notification(
+                notificationSource,
+                _("Indexing applications..."),
+                _("This may take a few minutes.")
+            );
+            waitNotification.setResident(true);
+            notificationSource.pushNotification(waitNotification);
+
+            search.setReadyCallback(() => {
+                const doneNotification = new MessageTray.Notification(
+                    notificationSource,
+                    _("Done indexing applications"),
+                    _("Application search is now fuzzy.")
+                );
+                // notify() is GObject.notify somehow, showNotification() doesn't work either (?)
+                notificationSource.pushNotification(doneNotification);
+            });
+        }
+    } else {
         provider.__proto__.getInitialResultSet = getInitialResultSet;
-        if (search)
-            search.destroy();
+        if (search) search.destroy();
         search = null;
     }
-}
+};

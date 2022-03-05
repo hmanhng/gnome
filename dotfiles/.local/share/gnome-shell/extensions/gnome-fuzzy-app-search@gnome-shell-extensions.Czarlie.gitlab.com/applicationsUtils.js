@@ -4,10 +4,26 @@
 "use strict";
 
 // import modules
-const Mainloop = imports.mainloop;
+const ExtensionUtils = imports.misc.extensionUtils;
+const Me = ExtensionUtils.getCurrentExtension();
+
+const IndexUtils = Me.imports.indexUtils;
+const Scorer = Me.imports.scorer;
+const Tokenizer = Me.imports.tokenizer;
+
 const Lang = imports.lang;
-const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
+
+const NAME_WEIGHT = 8;
+const KEYWORD_WEIGHT = 3;
+const DESCRIPTION_WEIGHT = 1;
+
+const N_GRAM_MAX_LENGTH = 6;
+
+let refreshingIndex = false;
+
+/* TODO Add power-off, logout, suspend, (hibernate?),
+        which aren't apps (?) but still show up in vanilla GNOME's results */
 
 /**
  * Get AppSearchProvider from registered
@@ -27,10 +43,13 @@ var provider = () => {
 
         let searchController;
 
+        // GNOME 3.xx
         if (Main.overview.viewSelector !== undefined)
-            searchController = Main.overview.viewSelector;  // GNOME 3.xx
+            searchController = Main.overview.viewSelector;
+        // GNOME >= 40
         else
-            searchController = Main.overview._overview.controls._searchController;  // GNOME >= 40
+            searchController =
+                Main.overview._overview.controls._searchController;
 
         searchController._searchResults._providers.forEach((item) => {
             if (!result && item instanceof AppDisplay.AppSearchProvider)
@@ -52,26 +71,40 @@ var Search = new Lang.Class({
      * @return {Void}
      */
     _init: function () {
-        // listen object - file/monitor list
-        this._listen = [...new Set(GLib.get_system_data_dirs())]
-            .map((path) => Gio.File.new_for_path(path + "/applications"))
-            .filter((file) => file.query_exists(null))
-            .map((file) => {
-                let monitor = file.monitor(Gio.FileMonitorFlags.NONE, null);
+        const stringTokenizer =
+            Tokenizer.getStringNgramTokenizer(N_GRAM_MAX_LENGTH);
+        const keywordsTokenizer =
+            Tokenizer.getKeywordArrayNgramTokenizer(N_GRAM_MAX_LENGTH);
 
-                // refresh on each directory change
-                monitor.connect(
-                    "changed",
-                    Lang.bind(this, this._handleMonitorChanged)
-                );
+        this.index = new IndexUtils.Index(
+            "applications",
+            ["id", "name", "display_name", "description", "keywords"],
+            Scorer.getTokenizedScorer([
+                {
+                    keys: ["name", "display_name"],
+                    weight: NAME_WEIGHT,
+                    tokenizer: stringTokenizer,
+                },
+                {
+                    key: "keywords",
+                    weight: KEYWORD_WEIGHT,
+                    tokenizer: keywordsTokenizer,
+                },
+                {
+                    key: "description",
+                    weight: DESCRIPTION_WEIGHT,
+                    tokenizer: stringTokenizer,
+                },
+            ]),
+            keywordsTokenizer
+        );
 
-                return {
-                    file: file,
-                    monitor: monitor,
-                };
-            });
-        this._interval = null;
-        this._data = {};
+        this._appInfoMonitorHandlerId = Gio.AppInfoMonitor.get().connect(
+            "changed",
+            Lang.bind(this, this._handleMonitorChanged)
+        );
+
+        this.refreshAgain = false;
 
         this.refresh();
     },
@@ -82,49 +115,7 @@ var Search = new Lang.Class({
      * @return {Void}
      */
     destroy: function () {
-        this._listen.forEach((item) => {
-            item.monitor.cancel();
-        });
-    },
-
-    /**
-     * Find all desktop files in path and append
-     * each id/name to result object
-     *
-     * @param  {String} path
-     * @return {Object}
-     */
-    _desktopFileObject: function (path) {
-        // @todo - async?
-        let dir = Gio.file_new_for_path(path);
-        let children = dir.enumerate_children("*", 0, null);
-        let result = {};
-
-        let info;
-        while ((info = children.next_file(null)) !== null) {
-            let id = info.get_name();
-            if (!id.match(/\.desktop$/)) continue;
-
-            let app = Gio.DesktopAppInfo.new(id);
-            if (!app || !app.should_show()) continue;
-
-            result[app.get_id()] = app.get_name();
-        }
-        children.close(null);
-
-        return result;
-    },
-
-    /**
-     * Data iterator
-     *
-     * @param  {Function} callback
-     * @return {Void}
-     */
-    forEach: function (callback) {
-        for (let id in this._data) {
-            callback.call(this, id, this._data[id]);
-        }
+        Gio.AppInfoMonitor.get().disconnect(this._appInfoMonitorHandlerId);
     },
 
     /**
@@ -133,142 +124,119 @@ var Search = new Lang.Class({
      * @return {Void}
      */
     refresh: function () {
-        let desktopFile = [];
-        this._listen.forEach((item) => {
-            desktopFile.push(this._desktopFileObject(item.file.get_path()));
-        });
+        // Prevent multiple calls of refresh() from happening at the same time,
+        // since writing index operations aren't thread-safe (for now, at least)
 
-        //this._data = Object.assign.apply(Object, desktopFile);
+        // refreshingIndex is not an attribute because the Search object may be
+        // discarded and swapped for a new instance during runtime (e.g. when
+        // disabling and re-enabling the provider in the extension settings)
+        if (refreshingIndex) {
+            this.refreshAgain = true;
+            return;
+        }
 
-        // @todo - Object.assign does not work
-        let result = {};
-        desktopFile.reverse().forEach((desktopObject) => {
-            for (let key in desktopObject) {
-                result[key] = desktopObject[key];
-            }
-        });
-        this._data = result;
+        this.refreshAgain = false;
+        refreshingIndex = true;
+
+        this.index
+            .updateIndex(
+                Gio.AppInfo.get_all()
+                    .filter((appInfo) => appInfo.should_show())
+                    .map(this._appInfoToObj)
+            )
+            .then(() => {
+                // If refresh() was called while another refresh was in progress, refresh again.
+                refreshingIndex = false;
+                if (this.refreshAgain) {
+                    this.refresh();
+                }
+            })
+            .catch((error) =>
+                logError(
+                    error,
+                    `${Me.metadata.uuid}: applications: refresh failed with error:`
+                )
+            );
     },
 
     /**
-     * Get the levenshtein distance between str1 and str2 without additions
+     * Get whether the Search object is fully initialized yet
      *
-     * @param  {String} str1
-     * @param  {String} str2
-     * @param  {Boolean} includeAdditions
-     * @return {Number}
+     * @return {boolean} Whether the Search object is ready to be used.
      */
-    _levenshteinDistance: function (
-        str1 = "",
-        str2 = "",
-        includeAdditions = true
-    ) {
-        const track = Array(str2.length + 1)
-            .fill(null)
-            .map(() => Array(str1.length + 1).fill(null));
-
-        for (let i = 0; i <= str1.length; i += 1) {
-            track[0][i] = i;
-        }
-        for (let j = 0; j <= str2.length; j += 1) {
-            track[j][0] = j;
-        }
-
-        for (let j = 1; j <= str2.length; j += 1) {
-            for (let i = 1; i <= str1.length; i += 1) {
-                const indicator = str1[i - 1] === str2[j - 1] ? 0 : 1;
-                track[j][i] = Math.min(
-                    track[j][i - 1] + 1, // deletion
-                    track[j - 1][i] + includeAdditions, // + 1, // insertion (no +1 because substrings should be matched too)
-                    track[j - 1][i - 1] + indicator // substitution
-                );
-            }
-        }
-        return track[str2.length][str1.length];
+    isReady: function () {
+        return this.index.isReady();
     },
 
     /**
-     * Get a score for a result based on its name and the query
+     * Get list of application ids by string query, split into terms
      *
-     * @param  {String} query
-     * @param  {String} name
-     * @return {Number}
+     * @async
+     *
+     * @param  {string[]} query - An array of search terms (split at whitespace)
+     *
+     * @return {string[]} - A promise resolving to an array of appinfo ID's
      */
-    _scoreResult: function (query, name) {
-        let totalTokenLength = 0;
-        let correctCharacters = 0;
-
-        let nameTokens = name.toLowerCase().split(" ");
-
-        query
-            .toLowerCase()
-            .split(" ")
-            .forEach((token, idx, array) => {
-                totalTokenLength += token.length;
-                correctCharacters += token.length;
-
-                let tokenDiffs = [];
-
-                nameTokens.forEach((nameToken) => {
-                    tokenDiffs.push(
-                        this._levenshteinDistance(
-                            token,
-                            nameToken,
-                            !(idx === array.length - 1)
-                        )
-                    );
-                });
-
-                correctCharacters -= Math.min(...tokenDiffs);
-            });
-
-        return correctCharacters / totalTokenLength;
+    find: async function (query) {
+        // 6 because GNOME only shows six results for application search
+        const appInfos = await this.index.find(query, 6);
+        return appInfos.map((appInfo) => appInfo.id);
     },
 
     /**
-     * Get list of application ids by string query
-     *
-     * @param  {String} query
-     * @return {Array}
+     * Function to be called once the Search is ready
+     * @callback readyCallback
      */
-    find: function (query) {
-        let result = [];
 
-        let scores = {};
+    /**
+     * Call a function when the Search is ready to be used.
+     *
+     * Overwrites any previous functions passed to this method.
+     *
+     * @param {readyCallback} callback - The function to call once the search is up and running
+     * @return {Void}
+     */
+    setReadyCallback: function (callback = () => {}) {
+        this.index.setReadyCallback(callback);
+    },
 
-        this.forEach((id, name) => {
-            let score = this._scoreResult(query, name);
-            if (score >= 0.65) {
-                result.push(id);
-                scores[id] = score;
-            }
-        });
+    /**
+     * A vanilla Object with the properties of a Gio.AppInfo object.
+     * Conveniently JSON-stringifiable.
+     *
+     * This doesn't use the conventional camelCase,
+     * but snake_case to at least be consistent with Gio.AppInfo.
+     *
+     * @typedef {Object} AppInfoObject
+     * @property {string} id - The ID of the appinfo (usually, filename of desktop file)
+     * @property {string} name - The name of the application
+     * @property {?string} display_name - The display name of the application
+     * @property {?string} description - A description of the application
+     * @property {string[]} keywords - Some keywords that can also be used to find the application
+     */
 
-        return result.sort((a, b) => scores[a] - scores[b]);
+    /**
+     * Extract all relevant data from an Gio.AppInfo and turn it into a vanilla Object.
+     *
+     * @param  {Gio.AppInfo} appInfo - The Gio.AppInfo to convert
+     * @return {AppInfoObject} A vanilla JS Object with all search-relevant keys
+     */
+    _appInfoToObj: function (appInfo) {
+        return {
+            id: appInfo.get_id(),
+            name: appInfo.get_name(),
+            display_name: appInfo.get_display_name(),
+            description: appInfo.get_description(),
+            keywords: appInfo.get_keywords ? appInfo.get_keywords() : [],
+        };
     },
 
     /**
      * File monitor changed event handler
      *
-     * @param  {Object} monitor
-     * @param  {Object} file
-     * @param  {Mixed}  otherFile
-     * @param  {Number} eventType
      * @return {Void}
      */
-    _handleMonitorChanged: function (monitor, file, otherFile, eventType) {
-        Mainloop.source_remove(this._interval);
-
-        // handle multiple changes as one with delay
-        this._interval = Mainloop.timeout_add(
-            1000,
-            () => {
-                this.refresh();
-
-                this._interval = null;
-                return !!this._interval;
-            },
-            null
-        );
+    _handleMonitorChanged: function () {
+        this.refresh();
     },
 });

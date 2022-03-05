@@ -13,16 +13,7 @@
   "original-author-html": "Franjo Filo &lt;<a href=\"mailto:fffilo666@gmail.com\">fffilo666@gmail.com</a>&gt;",
   "settings-schema": "org.gnome.shell.extensions.gnome-fuzzy-app-search",
   "shell-version": [
-    "3.18",
-    "3.20",
-    "3.22",
-    "3.24",
-    "3.21.2",
-    "3.26",
-    "3.28",
-    "3.30",
     "3.34",
-    "3.32",
     "3.36",
     "3.38",
     "40",
@@ -30,5 +21,5 @@
   ],
   "url": "https://gitlab.com/Czarlie/gnome-fuzzy-app-search",
   "uuid": "gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com",
-  "version": 3
+  "version": 11
 }

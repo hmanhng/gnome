@@ -7,7 +7,7 @@
 
 ### Install from extensions.gnome.org
 
-Go to the GNOME Extensions page of this extension and click on the switch to install.
+Go to [the GNOME Extensions page of this extension](https://extensions.gnome.org/extension/3956/gnome-fuzzy-app-search/) and click on the switch to install.
 
 ### Install from AUR
 
@@ -21,15 +21,12 @@ You can install GNOME Fuzzy App Search from the AUR package [`gnome-fuzzy-app-se
 
 ## How It Works
 
-The plugin injects its own callback to `getResultSet` method in each registered provider, appending new search results.
-This means that it does not remove Gnome's results, just adds new results to existing ones.
+The search query is split up into [n-grams](https://en.wikipedia.org/wiki/N-gram#n-grams_for_approximate_matching) and matched against an index of the applications you have on your system. A previous version used Levenshtein distances, but this was limited to application titles and didn't scale well (and had bugs).
 
-The search query is split up into words and [**Levenshtein distances**](https://en.wikipedia.org/wiki/Levenshtein_distance) to the words in the app names are calculated, scored and used to display fuzzy search results.
+This means: **it may take a little to build the index for the first time (while that happens, you'll get regular full-text search) but after that results are usually pretty good and pretty quick.**
 
-![fuzzy search enabled](screenshot_after.png "Fuzzy Search Enabled")
+![fuzzy search enabled](screenshot_after.png "GNOME search showing 'Calculator' for the query 'calxu'")
 
 ## Where is this project headed?
-
-Gnome 40 support is planned, but will probably be done at the same time as some restructuring, so I am putting it off for one or two weeks, May or June 2021. Updates on that here: #4. If you'd like it before then, I am always happy to approve of merge requests.
 
 Although [the extension this is forked from](https://github.com/fffilo/gnome-fuzzy-search) did have [plans](https://github.com/fffilo/gnome-fuzzy-search/issues/1#issuecomment-445189640) to extend more search providers, other providers currently aren't being actively developed by me, @Czarlie, but I am not entirely ruling it out. 
