@@ -132,7 +132,7 @@ class Extension {
 
     enable() {
     	this.workspaces_bar = new WorkspacesBar();
-    	Main.panel.addToStatusArea('workspaces-bar', this.workspaces_bar, 0, 'left');
+    	Main.panel.addToStatusArea('workspaces-bar', this.workspaces_bar, 0, 'right');
     }
 
     disable() {
