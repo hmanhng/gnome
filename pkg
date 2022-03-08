@@ -12,7 +12,7 @@ npm clang
 #ThemesAndFont
 pop-gtk-theme
 pop-icon-theme
-ttf-ubuntu-font-family
+#ttf-ubuntu-font-family
 ttf-iosevka-nerd
 xcursor-breeze
 
