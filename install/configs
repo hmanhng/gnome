@@ -21,8 +21,10 @@ sudo cp -rf $HOME/usr/* /usr && rm -rf $HOME/usr
 # Wallpapers
 git clone https://github.com/hmanhng/Wallpapers.git $HOME/Pictures/Wallpapers
 
-# Fonts ms
-git clone https://github.com/hmanhng/WindowsFonts.git $HOME/WindowsFonts && rm -rf $HOME/WindowsFonts/.git && sudo mv $HOME/WindowsFonts/ /usr/share/fonts/ && sudo chmod 644 /usr/share/fonts/WindowsFonts/* && fc-cache --force
+# Fonts
+git clone https://github.com/hmanhng/WindowsFonts.git $HOME/WindowsFonts && rm -rf $HOME/WindowsFonts/.git && sudo mv $HOME/WindowsFonts/ /usr/share/fonts/ && sudo chmod 644 /usr/share/fonts/WindowsFonts/*
+git clone https://github.com/hmanhng/fonts.git $HOME/.local/share/ && rm -rf $HOME/.local/share/fonts/.git
+fc-cache --force
 
 #GDM
 sudo cp $HOME/Pictures/icon.jpg /var/lib/AccountsService/icons/
