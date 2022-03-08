@@ -34,7 +34,6 @@ sudo mv $HOME/gnome-shell-theme.gresource /usr/share/gnome-shell/
 
 sudo systemctl enable bluetooth
 sudo systemctl enable gdm
-sudo systemctl enable v2ray
 
 sudo bash -c 'echo 259:2 > /sys/power/resume'
 sudo mkinitcpio -P

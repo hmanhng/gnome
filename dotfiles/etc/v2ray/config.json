@@ -22,23 +22,6 @@
         "udp": true,
         "allowTransparent": false
       }
-    },
-    {
-      "tag": "http",
-      "port": 8081,
-      "listen": "127.0.0.1",
-      "protocol": "http",
-      "sniffing": {
-        "enabled": false,
-        "destOverride": [
-          "http",
-          "tls"
-        ]
-      },
-      "settings": {
-        "udp": false,
-        "allowTransparent": false
-      }
     }
   ],
   "outbounds": [
@@ -48,11 +31,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "hmanhng.tk",
+            "address": "hmanhng.ml",
             "port": 80,
             "users": [
               {
-                "id": "14c8408a-8d1f-457d-956a-f58818330295",
+                "id": "2de8242e-e254-4198-8431-739606a3a108",
                 "alterId": 0,
                 "security": "auto"
               }
