@@ -6,7 +6,7 @@ yay -Sy --needed --noconfirm $(cat base | egrep -v "^\s*(#|$)")
 yay -Sy --needed --noconfirm $(cat pkg | egrep -v "^\s*(#|$)")
 
 sh install/xdman
-sh install/config
+sh install/configs
 sh install/neovim
 sh install/zsh
 
