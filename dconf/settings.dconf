@@ -18,6 +18,9 @@ two-finger-scrolling-enabled=true
 [org/gnome/desktop/privacy]
 disable-microphone=false
 
+[org/gnome/desktop/screensaver]
+picture-uri='file:///home/bisu/Pictures/Wallpapers/1218147.jpg'
+
 [org/gnome/desktop/search-providers]
 disable-external=true
 
@@ -69,7 +72,7 @@ window-width=600
 default-zoom-level='standard'
 
 [org/gnome/nautilus/list-view]
-default-zoom-level='large'
+default-zoom-level='small'
 use-tree-view=false
 
 [org/gnome/nautilus/preferences]
@@ -84,13 +87,12 @@ maximized=false
 
 [org/gnome/settings-daemon/plugins/color]
 night-light-enabled=true
-night-light-temperature=uint32 3221
+night-light-temperature=uint32 3700
 
 [org/gnome/settings-daemon/plugins/media-keys]
 custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
 home=['<Super>e']
 rotate-video-lock-static=@as []
-screensaver=['<Super>Escape']
 volume-step=5
 www=['<Super>w']
 
@@ -110,6 +112,7 @@ command-history=['gnome-session', 'gnome-session-properties', 'r']
 disable-user-extensions=false
 disabled-extensions=@as []
 enabled-extensions=['clipboard-history@alexsaveau.dev', 'ShutdownTimer@neumann', 'espresso@coadmunkee.github.com', 'sound-output-device-chooser@kgshank.net', 'trayIconsReloaded@selfmade.pl', 'caffeine@patapon.info', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'autohide-battery@sitnik.ru', 'hibernate-status@dromi', 'wg-indicator@dpf12110.gmail.com', 'tiling-assistant@leleat-on-github', 'remove-alt-tab-delay@daase.net', 'refresh-wifi@kgshank.net', 'smart-auto-move@khimaros.com', 'gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com', 'sound-percentage@maestroschan.fr', 'system-monitor-next@paradoxxx.zero.gmail.com', 'workspaces-bar@fthx', 'just-perfection-desktop@just-perfection']
+had-bluetooth-devices-setup=true
 welcome-dialog-last-shown-version='41.4'
 
 [org/gnome/shell/app-switcher]
