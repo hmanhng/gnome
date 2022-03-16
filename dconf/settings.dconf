@@ -1,3 +1,7 @@
+[com/ftpix/transparentbar]
+dark-full-screen=false
+transparency=50
+
 [org/gnome/desktop/interface]
 cursor-theme='Breeze_Snow'
 enable-animations=true
@@ -104,6 +108,9 @@ binding='<Super>Return'
 command='gnome-terminal'
 name='gnome-terminal'
 
+[org/gnome/settings-daemon/plugins/power]
+power-button-action='hibernate'
+
 [org/gnome/shell]
 command-history=['gnome-session', 'gnome-session-properties', 'r']
 disable-user-extensions=false
@@ -153,12 +160,6 @@ workspace-wrap-around=false
 workspaces-in-app-grid=true
 world-clock=true
 
-[org/gnome/shell/extensions/soft-brightness]
-builtin-monitor='eDP-1'
-current-brightness=1.0
-min-brightness=0.0
-use-backlight=true
-
 [org/gnome/shell/extensions/sp-tray]
 hidden-when-paused=true
 off='💤️'
@@ -171,7 +172,6 @@ change-lock-screen=true
 fetch-on-startup=false
 hours=0
 minutes=30
-timer-last-trigger=int64 1647463958280
 
 [org/gnome/shell/extensions/space-iflow-randomwallpaper/unsplash]
 unsplash-keyword='City china'
