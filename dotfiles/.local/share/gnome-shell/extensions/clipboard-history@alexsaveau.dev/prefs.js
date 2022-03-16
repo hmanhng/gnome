@@ -10,7 +10,7 @@ const _ = Gettext.domain(Me.uuid).gettext;
 
 var Fields = {
   HISTORY_SIZE: 'history-size',
-  PREVIEW_SIZE: 'preview-size',
+  WINDOW_WIDTH_PERCENTAGE: 'window-width-percentage',
   CACHE_FILE_SIZE: 'cache-size',
   CACHE_ONLY_FAVORITES: 'cache-only-favorites',
   NOTIFY_ON_COPY: 'notify-on-copy',
@@ -23,6 +23,7 @@ var Fields = {
   STRIP_TEXT: 'strip-text',
   PRIVATE_MODE: 'private-mode',
   PASTE_ON_SELECTION: 'paste-on-selection',
+  PROCESS_PRIMARY_SELECTION: 'process-primary-selection',
 };
 
 const SCHEMA_NAME = 'org.gnome.shell.extensions.clipboard-history';
@@ -51,11 +52,11 @@ class Prefs extends GObject.Object {
         step_increment: 100,
       }),
     });
-    this.field_preview_size = new Gtk.SpinButton({
+    this.window_width_percentage = new Gtk.SpinButton({
       adjustment: new Gtk.Adjustment({
-        lower: 10,
-        upper: 200,
-        step_increment: 10,
+        lower: 0,
+        upper: 100,
+        step_increment: 5,
       }),
     });
     this.field_cache_size = new Gtk.SpinButton({
@@ -85,6 +86,7 @@ class Prefs extends GObject.Object {
     this.field_confirm_clear_toggle = new Gtk.Switch();
     this.field_strip_text = new Gtk.Switch();
     this.field_paste_on_selection = new Gtk.Switch();
+    this.field_process_primary_selection = new Gtk.Switch();
     this.field_move_item_first = new Gtk.Switch();
     this.field_keybinding = createKeybindingWidget(Settings);
     addKeybinding(
@@ -128,8 +130,8 @@ class Prefs extends GObject.Object {
       hexpand: true,
       halign: Gtk.Align.START,
     });
-    let previewLabel = new Gtk.Label({
-      label: _('Item preview size (characters)'),
+    let windowWidthPercentageLabel = new Gtk.Label({
+      label: _('Window width (%)'),
       hexpand: true,
       halign: Gtk.Align.START,
     });
@@ -188,6 +190,11 @@ class Prefs extends GObject.Object {
       hexpand: true,
       halign: Gtk.Align.START,
     });
+    let processPrimarySelection = new Gtk.Label({
+      label: _('Process primary selection'),
+      hexpand: true,
+      halign: Gtk.Align.START,
+    });
 
     const addRow = ((main) => {
       let row = 0;
@@ -212,13 +219,14 @@ class Prefs extends GObject.Object {
       };
     })(this.main);
 
+    addRow(windowWidthPercentageLabel, this.window_width_percentage);
     addRow(sizeLabel, this.field_size);
-    addRow(previewLabel, this.field_preview_size);
     addRow(cacheSizeLabel, this.field_cache_size);
     addRow(cacheDisableLabel, this.field_cache_disable);
     addRow(moveFirstLabel, this.field_move_item_first);
     addRow(stripTextLabel, this.field_strip_text);
     addRow(pasteOnSelectionLabel, this.field_paste_on_selection);
+    addRow(processPrimarySelection, this.field_process_primary_selection);
     addRow(displayModeLabel, this.field_display_mode);
     addRow(disableDownArrowLabel, this.field_disable_down_arrow);
     addRow(topbarPreviewLabel, this.field_topbar_preview_size);
@@ -234,8 +242,8 @@ class Prefs extends GObject.Object {
       Gio.SettingsBindFlags.DEFAULT,
     );
     Settings.bind(
-      Fields.PREVIEW_SIZE,
-      this.field_preview_size,
+      Fields.WINDOW_WIDTH_PERCENTAGE,
+      this.window_width_percentage,
       'value',
       Gio.SettingsBindFlags.DEFAULT,
     );
@@ -296,6 +304,12 @@ class Prefs extends GObject.Object {
     Settings.bind(
       Fields.PASTE_ON_SELECTION,
       this.field_paste_on_selection,
+      'active',
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+    Settings.bind(
+      Fields.PROCESS_PRIMARY_SELECTION,
+      this.field_process_primary_selection,
       'active',
       Gio.SettingsBindFlags.DEFAULT,
     );
