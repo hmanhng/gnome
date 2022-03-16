@@ -2463,7 +2463,7 @@ function enable() {
         Schema.connect('changed::background', (schema, key) => {
             Background = color_from_string(Schema.get_string(key));
         });
-        Main.panel._addToPanelBox('system-monitor', tray, 0, panel);
+        Main.panel._addToPanelBox('system-monitor', tray, 2, panel);
 
         // The spacing adds a distance between the graphs/text on the top bar
         let spacing = Schema.get_boolean('compact-display') ? '1' : '4';
