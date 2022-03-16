@@ -6,6 +6,7 @@ xclip
 mkinitcpio-firmware
 xdg-desktop-portal xdg-desktop-portal-gnome
 zsh starship
+touchegg
 
 gdm
 gnome-shell
