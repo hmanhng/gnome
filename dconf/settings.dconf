@@ -18,11 +18,9 @@ two-finger-scrolling-enabled=true
 [org/gnome/desktop/privacy]
 disable-microphone=false
 
-[org/gnome/desktop/screensaver]
-picture-uri='file:///home/bisu/Pictures/Wallpapers/1218147.jpg'
-
 [org/gnome/desktop/search-providers]
 disable-external=true
+sort-order=['org.gnome.Contacts.desktop', 'org.gnome.Documents.desktop', 'org.gnome.Nautilus.desktop']
 
 [org/gnome/desktop/session]
 idle-delay=uint32 300
@@ -87,7 +85,7 @@ maximized=false
 
 [org/gnome/settings-daemon/plugins/color]
 night-light-enabled=true
-night-light-temperature=uint32 3700
+night-light-temperature=uint32 2729
 
 [org/gnome/settings-daemon/plugins/media-keys]
 custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
@@ -107,11 +105,8 @@ command='gnome-terminal'
 name='gnome-terminal'
 
 [org/gnome/shell]
-app-picker-layout=[{'adf2194f-1638-492b-8c51-406301e0f5fa': <{'position': <0>}>, 'discord.desktop': <{'position': <1>}>, 'org.gnome.DiskUtility.desktop': <{'position': <2>}>, 'cff62304-3715-45f2-a85e-69743cdaddf5': <{'position': <3>}>, 'c26f0245-29eb-4822-9e72-0c8a4ceee586': <{'position': <4>}>, 'gnome-control-center.desktop': <{'position': <5>}>, '06aa92c3-65ad-47a2-baa4-5d17f5f24f4d': <{'position': <6>}>, 'nvim.desktop': <{'position': <7>}>, 'org.gnome.FileRoller.desktop': <{'position': <8>}>, '5549c773-4fb1-4728-804b-87cbf54ec29b': <{'position': <9>}>}, {'com.obsproject.Studio.desktop': <{'position': <0>}>, 'org.qbittorrent.qBittorrent.desktop': <{'position': <1>}>, 'sublime_text.desktop': <{'position': <2>}>, 'xdman.desktop': <{'position': <3>}>, 'microsoft-edge.desktop': <{'position': <4>}>}]
 command-history=['gnome-session', 'gnome-session-properties', 'r']
 disable-user-extensions=false
-disabled-extensions=@as []
-enabled-extensions=['clipboard-history@alexsaveau.dev', 'ShutdownTimer@neumann', 'espresso@coadmunkee.github.com', 'sound-output-device-chooser@kgshank.net', 'trayIconsReloaded@selfmade.pl', 'caffeine@patapon.info', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'autohide-battery@sitnik.ru', 'hibernate-status@dromi', 'wg-indicator@dpf12110.gmail.com', 'tiling-assistant@leleat-on-github', 'remove-alt-tab-delay@daase.net', 'refresh-wifi@kgshank.net', 'smart-auto-move@khimaros.com', 'gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com', 'sound-percentage@maestroschan.fr', 'system-monitor-next@paradoxxx.zero.gmail.com', 'workspaces-bar@fthx', 'just-perfection-desktop@just-perfection']
 had-bluetooth-devices-setup=true
 welcome-dialog-last-shown-version='41.4'
 
@@ -158,6 +153,32 @@ workspace-wrap-around=false
 workspaces-in-app-grid=true
 world-clock=true
 
+[org/gnome/shell/extensions/soft-brightness]
+builtin-monitor='eDP-1'
+current-brightness=1.0
+min-brightness=0.0
+use-backlight=true
+
+[org/gnome/shell/extensions/sp-tray]
+hidden-when-paused=true
+off='💤️'
+paused='⏸️'
+position=1
+
+[org/gnome/shell/extensions/space-iflow-randomwallpaper]
+auto-fetch=true
+change-lock-screen=true
+fetch-on-startup=false
+hours=0
+minutes=30
+timer-last-trigger=int64 1647463958280
+
+[org/gnome/shell/extensions/space-iflow-randomwallpaper/unsplash]
+unsplash-keyword='City china'
+
+[org/gnome/shell/extensions/status-area-horizontal-spacing]
+hpadding=2
+
 [org/gnome/shell/extensions/system-monitor]
 battery-display=false
 center-display=false
@@ -178,6 +199,9 @@ net-speed-in-bits=false
 net-style='digit'
 show-tooltip=false
 thermal-display=false
+
+[org/gnome/shell/extensions/transparent-window-moving]
+window-opacity=230
 
 [org/gnome/shell/extensions/trayIconsReloaded]
 applications='[]'
