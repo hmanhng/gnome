@@ -1,7 +1,6 @@
 [com/ftpix/transparentbar]
 dark-full-screen=false
 transparency=50
-
 [org/gnome/desktop/interface]
 cursor-theme='Breeze_Snow'
 enable-animations=true
@@ -24,7 +23,6 @@ disable-microphone=false
 
 [org/gnome/desktop/search-providers]
 disable-external=true
-sort-order=['org.gnome.Contacts.desktop', 'org.gnome.Documents.desktop', 'org.gnome.Nautilus.desktop']
 
 [org/gnome/desktop/session]
 idle-delay=uint32 300
@@ -89,10 +87,10 @@ maximized=false
 
 [org/gnome/settings-daemon/plugins/color]
 night-light-enabled=true
-night-light-temperature=uint32 2729
+night-light-temperature=uint32 3700
 
 [org/gnome/settings-daemon/plugins/media-keys]
-custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']
 home=['<Super>e']
 rotate-video-lock-static=@as []
 volume-step=5
@@ -108,14 +106,17 @@ binding='<Super>Return'
 command='gnome-terminal'
 name='gnome-terminal'
 
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2]
+binding='<Alt>F1'
+command='rofi -terminal "gnome-terminal" -show drun -show-icons -location 1 -theme "themes" -font "Ubuntu 15"'
+name='rofi '
+
 [org/gnome/settings-daemon/plugins/power]
 power-button-action='hibernate'
 
 [org/gnome/shell]
-command-history=['gnome-session', 'gnome-session-properties', 'r']
 disable-user-extensions=false
 had-bluetooth-devices-setup=true
-welcome-dialog-last-shown-version='41.4'
 
 [org/gnome/shell/app-switcher]
 current-workspace-only=true
@@ -169,12 +170,13 @@ position=1
 [org/gnome/shell/extensions/space-iflow-randomwallpaper]
 auto-fetch=true
 change-lock-screen=true
-fetch-on-startup=false
+fetch-on-startup=true
+hide-panel-icon=false
 hours=0
 minutes=30
 
 [org/gnome/shell/extensions/space-iflow-randomwallpaper/unsplash]
-unsplash-keyword='City china'
+unsplash-keyword='City'
 
 [org/gnome/shell/extensions/status-area-horizontal-spacing]
 hpadding=2
