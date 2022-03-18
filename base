@@ -3,6 +3,8 @@ pipewire pipewire-alsa pipewire-pulse pipewire-jack
 bluez
 xdg-user-dirs-gtk
 xclip
+xcape
+rofi
 mkinitcpio-firmware
 xdg-desktop-portal xdg-desktop-portal-gnome
 zsh starship

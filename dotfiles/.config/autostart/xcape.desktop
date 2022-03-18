@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=xcape -e 'Super_L=Alt_L|F1'
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Xcape
+Name=Xcape
+Comment[en_US]=
+Comment=
