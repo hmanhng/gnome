@@ -1,6 +1,7 @@
 [com/ftpix/transparentbar]
 dark-full-screen=false
 transparency=50
+
 [org/gnome/desktop/interface]
 cursor-theme='Breeze_Snow'
 enable-animations=true
@@ -130,7 +131,7 @@ app-menu=true
 app-menu-icon=true
 background-menu=true
 clock-menu=true
-dash=true
+dash=false
 dash-icon-size=48
 double-super-to-appgrid=true
 gesture=true
@@ -143,10 +144,11 @@ panel-arrow=true
 panel-corner-size=0
 panel-in-overview=true
 ripple-box=true
-search=true
+search=false
 show-apps-button=true
 startup-status=0
 theme=true
+type-to-search=true
 weather=true
 window-demands-attention-focus=false
 window-picker-icon=true
@@ -155,7 +157,7 @@ window-preview-close-button=true
 workspace=true
 workspace-background-corner-size=0
 workspace-popup=true
-workspace-switcher-should-show=false
+workspace-switcher-should-show=true
 workspace-switcher-size=8
 workspace-wrap-around=false
 workspaces-in-app-grid=true
