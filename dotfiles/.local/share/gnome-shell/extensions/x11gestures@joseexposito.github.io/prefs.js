@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 José Expósito <jose.exposito89@gmail.com>
+ * Copyright 2021 - 2022 José Expósito <jose.exposito89@gmail.com>
  *
  * This file is part of gnome-shell-extension-x11gestures.
  *
@@ -16,6 +16,7 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+/* eslint-disable jsdoc/require-jsdoc */
 const { Gio, Gtk } = imports.gi;
 
 const ExtensionUtils = imports.misc.extensionUtils;

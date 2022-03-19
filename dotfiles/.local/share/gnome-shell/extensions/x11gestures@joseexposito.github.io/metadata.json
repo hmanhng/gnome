@@ -6,9 +6,10 @@
     "3.36",
     "3.38",
     "40",
-    "41"
+    "41",
+    "42"
   ],
   "url": "https://github.com/JoseExposito/gnome-shell-extension-x11gestures",
   "uuid": "x11gestures@joseexposito.github.io",
-  "version": 13
+  "version": 14
 }
