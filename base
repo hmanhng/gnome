@@ -13,9 +13,10 @@ touchegg
 gdm
 gnome-shell
 gnome-tweaks
+gnome-session-properties
 gnome-control-center
 gnome-keyring
-gnome-menus
+#gnome-menus
 chrome-gnome-shell
 gnome-terminal-transparency
 guake
