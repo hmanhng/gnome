@@ -1,3 +1,4 @@
 #!/bin/bash
-#Xdm
+
+#Xdman
 wget --no-check-certificate https://github.com/hmanhng/xdm/raw/main/xdm.sh && sudo sh ./xdm.sh && rm -f xdm.sh

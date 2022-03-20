@@ -19,7 +19,7 @@ sudo cp -rf $HOME/etc/* /etc && rm -rf $HOME/etc
 sudo cp -rf $HOME/usr/* /usr && rm -rf $HOME/usr
 
 # Wallpapers
-git clone https://github.com/hmanhng/Wallpapers.git $HOME/Pictures/Wallpapers
+#git clone https://github.com/hmanhng/Wallpapers.git $HOME/Pictures/Wallpapers
 
 # Fonts
 git clone https://github.com/hmanhng/WindowsFonts.git $HOME/WindowsFonts && rm -rf $HOME/WindowsFonts/.git && sudo mv $HOME/WindowsFonts/ /usr/share/fonts/ && sudo chmod 644 /usr/share/fonts/WindowsFonts/*
