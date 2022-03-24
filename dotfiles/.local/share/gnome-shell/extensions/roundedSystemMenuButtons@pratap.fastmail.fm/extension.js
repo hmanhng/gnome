@@ -222,7 +222,8 @@ _createMenu() {
             
         // SETTINGS BUTTON
 
-	let app = this._settingsApp = Shell.AppSystem.get_default().lookup_app('gnome-control-center.desktop');
+	let app = this._settingsApp = SHELL_MAJOR_VERSION >=42 ? Shell.AppSystem.get_default().lookup_app('org.gnome.Settings.desktop') :
+									Shell.AppSystem.get_default().lookup_app('gnome-control-center.desktop');
         if (app) {	
         this._settingsButton = this._createActionButton('org.gnome.Settings-symbolic', _('Settings'));
         this._settingsButton.connect('clicked', () => {
@@ -344,7 +345,7 @@ _getAvailableButtons() {
 						    	
 					const orderedArray = BUTTONS_ORDER.map((idx) => initialArray[idx - 1]);
 					
-					const filterdArray = orderedArray.filter(obj => obj !== null);
+					const filterdArray = orderedArray.filter(obj => obj != null);
 					
 						for (let i = 0; i < filterdArray.length; i++) {
 							item.remove_actor(filterdArray[i]);
@@ -389,6 +390,11 @@ _onDestroy() {
 	if(this._resetHoverTimeoutID) {
 	GLib.source_remove(this._resetHoverTimeoutID);
 	this._resetHoverTimeoutID = null;
+	}
+	
+	if(this._showLabelTimeoutID) {
+	GLib.source_remove(this._showLabelTimeoutID);
+	this._showLabelTimeoutID = null;
 	}
 	}
     	

@@ -4,9 +4,26 @@ const Gdk = imports.gi.Gdk;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 
+const initialArray = [
+	'ORIENTATION BUTTON',
+	'SETTINGS BUTTON',
+	'LOCK BUTTON',
+	'SUSPEND BUTTON',
+	'SWITCH_USER BUTTON',
+	'LOGOUT BUTTON',
+	'RESTART BUTTON',
+	'POWER BUTTON'
+    	]
+
 const GTK_VERSION = Gtk.get_major_version();
-        let add
-        GTK_VERSION == 4  ? add = 'append' : add = 'add';
+let add;
+let addRow;
+        if(GTK_VERSION == 4) {
+		add = 'append';
+		addRow = 'set_child';
+					} else {
+						add = 'add';
+						addRow = 'add'; }
 
 function init() {
 }
@@ -30,8 +47,7 @@ class PrefsWidget {
 		this.widget = new Gtk.Grid({ visible: true, column_homogeneous: true });
 		this.notebook = new Gtk.Notebook({ visible: true });
 		
-		this.commandsArray = {};
-		this.listBox = {};
+		this.listBox = [];
 		
 		this.listBox = new Gtk.ListBox({ visible: true });
 		this.listBox.set_selection_mode(0);
@@ -74,6 +90,9 @@ class PrefsWidget {
 	    	
 	    	// Arrange Button Order Page
 	    	
+	    	this.Buttons = [];
+		this.finalArray = [];
+	    	
 		let grid2 = new Gtk.Grid({
         	column_spacing: 12, row_spacing: 12,
         	column_homogeneous: true,
@@ -82,42 +101,191 @@ class PrefsWidget {
         	visible: true
     		});
     
-		let vbox2 = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10, visible: true });
+		//let topHbox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 20, visible: true });
+        	//grid.attach(topHbox, 0, 0, 2, 1);
+        
+        	this.listBox = new Gtk.ListBox({ visible: true });
+        	this.listBox.set_selection_mode(0);
+        	
+        	this._prepareRow(initialArray);
+        	this._saveOrder();
+        	this._removeListBox();
+        	
+        	let BUTTONS_ORDER = this._settings.get_value('buttons-order').deepUnpack();
+        	let FINALARRAY = [];
+
+		for (let i = 0; i < initialArray.length; i ++) {
+			let text = initialArray[BUTTONS_ORDER[i]-1]
+			FINALARRAY.push(text);
+			}
+
+        	this._prepareRow(FINALARRAY);
+        	
+        	grid2.attach(this.listBox, 0, 1, 1, 1);
+        	
+        	    	let RESET = new Gtk.Button();
+        		RESET.set_label("Reset 'Buttons Order' to Extensions Default.");
+        		RESET.connect("clicked", () => { 	this._removeListBox();
+	    							this._prepareRow(initialArray);
+	    							const value = new GLib.Variant('ai', [1, 2, 3, 4, 5, 6, 7, 8]);
+	    							this._settings.set_value('buttons-order', value);
+	    														});
+	    		
+        	grid2.attach(RESET, 0, 2, 1, 1);
     
-    		grid2.attach(vbox2, 0, 0, 3, 1);
-    
-    		vbox2[add](this._arrangeButtonOrder());
-    
-    		this.notebook.append_page(grid2, new Gtk.Label({ label: 'Arrange Button Order', visible: true, hexpand: true }));
+    		this.notebook.append_page(grid2, new Gtk.Label({ label: "Arrange 'Buttons Order'", visible: true, hexpand: true }));
+    		
+    }
+    		
+    		// End of Arrange Button Order Page
+    		
+_prepareRow(ARRAY) {
+
+		for(let i = 0; i < ARRAY.length; i++) {
+		
+	    		let row = new Gtk.ListBoxRow({ visible: true });
+	    		
+	    		let hbox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, visible: true });
+	    		
+	    		row[addRow](hbox);
+	    		
+	    		let TEXT = new Gtk.Button({ hexpand: true, margin_end: 10 });
+	    		TEXT.set_label(ARRAY[i]);
+	    		
+	    		let ImageButton = new Gtk.Button({ margin_end: 10 });
+	    		let B;
+	    		
+	    		let A = 'rotation-allowed-symbolic';
+	    		
+	  		GTK_VERSION == 4 ?
+	  		    B = 'org.gnome.Settings-symbolic' : B = 'system-settings-symbolic';
+	  		
+	    		let C = 'changes-prevent-symbolic';
+	    		let D = 'media-playback-pause-symbolic';
+	    		let E = 'system-switch-user-symbolic';
+	    		let F = 'system-log-out-symbolic';
+	    		let G = 'system-reboot-symbolic';
+	    		let H = 'system-shutdown-symbolic';
+	    		
+	    		if(TEXT.get_label() == initialArray[0])
+	    			GTK_VERSION == 4 ? ImageButton.set_icon_name(A) : ImageButton.set_image(new Gtk.Image({ icon_name: A }));
+	    		if(TEXT.get_label() == initialArray[1])
+	    			GTK_VERSION == 4 ? ImageButton.set_icon_name(B) : ImageButton.set_image(new Gtk.Image({ icon_name: B }));
+	    		if(TEXT.get_label() == initialArray[2])
+	    			GTK_VERSION == 4 ? ImageButton.set_icon_name(C) : ImageButton.set_image(new Gtk.Image({ icon_name: C }));
+	    		if(TEXT.get_label() == initialArray[3])
+	    			GTK_VERSION == 4 ? ImageButton.set_icon_name(D) : ImageButton.set_image(new Gtk.Image({ icon_name: D }));
+	    		if(TEXT.get_label() == initialArray[4])
+	    			GTK_VERSION == 4 ? ImageButton.set_icon_name(E) : ImageButton.set_image(new Gtk.Image({ icon_name: E }));
+	    		if(TEXT.get_label() == initialArray[5])
+	    			GTK_VERSION == 4 ? ImageButton.set_icon_name(F) : ImageButton.set_image(new Gtk.Image({ icon_name: F }));
+	    		if(TEXT.get_label() == initialArray[6])
+	    			GTK_VERSION == 4 ? ImageButton.set_icon_name(G) : ImageButton.set_image(new Gtk.Image({ icon_name: G }));
+	    		if(TEXT.get_label() == initialArray[7])
+	    			GTK_VERSION == 4 ? ImageButton.set_icon_name(H) : ImageButton.set_image(new Gtk.Image({ icon_name: H }));
+	    		
+	    		let upButton = new Gtk.Button({margin_end: 10});
+	    		GTK_VERSION == 4 ? upButton.set_icon_name('go-up-symbolic') : upButton.set_image(new Gtk.Image({ icon_name: 'go-up-symbolic' }));
+	    		upButton.connect("clicked", () => { this._moveUp(i) });
+	    		
+	    		let downButton = new Gtk.Button();
+	    		GTK_VERSION == 4 ? downButton.set_icon_name('go-down-symbolic') : downButton.set_image(new Gtk.Image({ icon_name: 'go-down-symbolic' }));
+	    		downButton.connect("clicked", () => { this._moveDown(i) });
+	    		
+	    		hbox[add](ImageButton);
+	    		hbox[add](TEXT);
+	    		hbox[add](upButton);
+	    		hbox[add](downButton);
+	    		
+	    		this.listBox[add](row)
+	    		}
+    		
+    }
+		
+_arraymove(array, fromIndex, toIndex) {
+    let element = array[fromIndex];
+        array.splice(fromIndex, 1);
+    array.splice(toIndex, 0, element);
+    }
+		
+_saveOrder () {
+
+	if(GTK_VERSION == 4) {
+		for (let i = 0; i < initialArray.length; i++) {	
+			let entry = this.listBox.get_row_at_index(i).get_child().get_first_child();
+			entry = entry.get_next_sibling();
+			let label = entry.get_label();
+			this.Buttons.push(label);
+				}
+		} else {
+			for (let i = 0; i < initialArray.length; i++) {	
+				let label = this.listBox.get_row_at_index(i).get_child().get_children()[1].get_label();
+				this.Buttons.push(label);
+				}
+		}	
+
+    }
+
+_removeListBox () {
+	if(GTK_VERSION == 4) {
+		let child = this.listBox.get_first_child();
+			while (child != null) {
+			    let next = child.get_next_sibling();
+			    this.listBox.remove(child);
+			    child = next;
+			}
+	} else {
+		this.listBox.foreach((element) => this.listBox.remove(element));
+			}
+    }
+		
+_moveUp (i) {
+	this.Buttons = [];
+	this._saveOrder();
+	
+	this._removeListBox();
+		
+	if(i == 0) { 
+		this._arraymove(this.Buttons, 0, 7);
+		} else {
+			this._arraymove(this.Buttons, i, i-1) }
+	
+        this._prepareRow(this.Buttons);
+        
+        this.finalArray = [];
+        
+        for (let i = 0; i < initialArray.length; i ++) {
+		let index = initialArray.indexOf(this.Buttons[i]) + 1;
+		this.finalArray.push(index);
 		}
+        
+        const value = new GLib.Variant('ai', this.finalArray);
+    	this._settings.set_value('buttons-order', value);
+    }
+    
+_moveDown (i) {
+	this.Buttons = [];
+	this._saveOrder();
+	
+	this._removeListBox();
 		
-_arrangeButtonOrder() {
-		let hbox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, margin_top: 5 });
-		let arrangeButtonOrderLabel = new Gtk.Label({ label: "Arrange the Buttons Order Assuming you have All the 8 Buttons\n\
-Orientation Button = 1 	Settings Button = 2 Lock Button = 3 Suspend Button = 4\n\
-Switch User Button = 5	Logout Button = 6 Restart Button = 7 Poweroff Button =8\n\
-for Example:\n\
-[2, 4, 6, 8, 1, 3, 5, 7]\n\
-[7, 5, 3, 1, 8, 6, 4, 2]", xalign: 0, hexpand: true });
+	if(i == 7) { 
+		this._arraymove(this.Buttons, 7, 0);
+		} else {
+			this._arraymove(this.Buttons, i, i+1) }
 	
-		hbox[add](arrangeButtonOrderLabel);
-	
-		let orderEntry = new Gtk.Entry();
-		const value = this._settings.get_value('buttons-order').deepUnpack().toString();
-		orderEntry.set_text('[' + value + ']');
-	    
-		orderEntry.connect('changed', (entry) => {
-					let string = entry.get_text();
-					let ARRAY_INTEGER = GLib.Variant.parse(new GLib.VariantType('ai'), string, null, null);
-					this._settings.set_value('buttons-order', ARRAY_INTEGER); });
-	
-		hbox[add](orderEntry);
-	
-		return hbox;
-	
-    		}
-		
-		// End of Arrange Button Order Page
+	this._prepareRow(this.Buttons);
+        
+        this.finalArray = [];
+        
+        for (let i = 0; i < initialArray.length; i ++) {
+		let index = initialArray.indexOf(this.Buttons[i]) + 1;
+		this.finalArray.push(index);
+		}
+        
+        const value = new GLib.Variant('ai', this.finalArray);
+    	this._settings.set_value('buttons-order', value);
+    }
 	
 _setButtonColor() {
         let rgba = new Gdk.RGBA();
