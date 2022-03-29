@@ -1,7 +1,7 @@
 #Base
 intel-media-driver intel-gpu-tools
 pipewire pipewire-alsa pipewire-pulse pipewire-jack
-bluez
+bluez bluez-utils
 xdg-user-dirs-gtk
 xclip
 xcape
