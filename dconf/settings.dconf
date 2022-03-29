@@ -1,6 +1,6 @@
 [com/ftpix/transparentbar]
 dark-full-screen=false
-transparency=50
+transparency=65
 
 [org/gnome/desktop/interface]
 cursor-theme='Breeze_Snow'
@@ -117,10 +117,21 @@ power-button-action='hibernate'
 
 [org/gnome/shell]
 disable-user-extensions=false
+disabled-extensions=@as []
+enabled-extensions=['volume-mixer@evermiss.net', 'caffeine@patapon.info', 'clipboard-history@alexsaveau.dev', 'color-picker@tuberry', 'ideapad@laurento.frittella', 'just-perfection-desktop@just-perfection', 'ProxySwitcher@flannaghan.com', 'randomwallpaper@iflow.space', 'refresh-wifi@kgshank.net', 'remove-alt-tab-delay@daase.net', 'rrc@ogarcia.me', 'roundedSystemMenuButtons@pratap.fastmail.fm', 'sound-output-device-chooser@kgshank.net', 'sound-percentage@maestroschan.fr', 'sp-tray@sp-tray.esenliyim.github.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor-next@paradoxxx.zero.gmail.com', 'transparent-window-moving@noobsai.github.com', 'trayIconsReloaded@selfmade.pl', 'user-id-in-top-panel@fthx', 'wg-indicator@dpf12110.gmail.com', 'workspaces-bar@fthx', 'x11gestures@joseexposito.github.io', 'hidetopbar@mathieu.bidon.ca', 'transparent-top-bar@ftpix.com']
 had-bluetooth-devices-setup=true
 
 [org/gnome/shell/app-switcher]
 current-workspace-only=true
+
+[org/gnome/shell/extensions/hidetopbar]
+animation-time-autohide=0.2
+enable-active-window=true
+enable-intellihide=true
+mouse-sensitive=true
+mouse-sensitive-fullscreen-window=false
+pressure-threshold=20
+show-in-overview=false
 
 [org/gnome/shell/extensions/just-perfection]
 accessibility-menu=false
@@ -178,7 +189,7 @@ hours=0
 minutes=30
 
 [org/gnome/shell/extensions/space-iflow-randomwallpaper/unsplash]
-unsplash-keyword='City'
+unsplash-keyword='lofi'
 
 [org/gnome/shell/extensions/status-area-horizontal-spacing]
 hpadding=2
