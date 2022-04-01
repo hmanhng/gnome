@@ -290,6 +290,30 @@ var PrefsKeys = class
         );
 
         this.setKey(
+            'visibility',
+            'calendar',
+            'GtkSwitch',
+            true,
+            {
+                default: true,
+                minimal: true,
+                superminimal: true,
+            }
+        );
+
+        this.setKey(
+            'visibility',
+            'events-button',
+            'GtkSwitch',
+            true,
+            {
+                default: true,
+                minimal: true,
+                superminimal: true,
+            }
+        );
+
+        this.setKey(
             'icons',
             'app-menu-icon',
             'GtkSwitch',

@@ -165,6 +165,19 @@ var API = class
     }
 
     /**
+     * get signal id of the event
+     *
+     * @param {Gtk.Widget} widget to find signal in
+     * @param {string} signalName signal name
+     *
+     * @returns {number}
+     */
+    _getSignalId(widget, signalName)
+    {
+        return this._gobject.signal_handler_find(widget, { signalId: signalName });
+    }
+
+    /**
      * get the css classname for API
      *
      * @param {string} type possible types
@@ -195,6 +208,7 @@ var API = class
      *  no-weather
      *  no-world-clocks
      *  panel-icon-size
+     *  no-events-button
      *
      * @returns {string}
      */
@@ -230,6 +244,7 @@ var API = class
             'no-weather',
             'no-world-clocks',
             'panel-icon-size',
+            'no-events-button',
         ];
 
         if (!possibleTypes.includes(type)) {
@@ -402,11 +417,11 @@ var API = class
             this._timeoutIds['emitPanelPositionChanged']
             = this._glib.timeout_add(this._glib.PRIORITY_IDLE, duration, () => {
                 delete(this._timeoutIds['emitPanelPositionChanged']);
-                panelBox.hide();
+                this._main.panel.height++;
                 this._timeoutIds['emitPanelPositionChangedIn2']
                 = this._glib.timeout_add(this._glib.PRIORITY_IDLE, 20, () => {
+                    this._main.panel.height--;
                     delete(this._timeoutIds['emitPanelPositionChangedIn2']);
-                    panelBox.show();
                     return this._glib.SOURCE_REMOVE;
                 });
                 return this._glib.SOURCE_REMOVE;
@@ -956,6 +971,8 @@ var API = class
             }
             this._workspaceSwitcherPopup.WorkspaceSwitcherPopup.prototype._show
             = this._originals['workspaceSwitcherPopupShow'];
+
+            return;
         }
 
         if (!this._originals['workspaceSwitcherPopupDisplay']) {
@@ -981,6 +998,8 @@ var API = class
             this._workspaceSwitcherPopup.WorkspaceSwitcherPopup.prototype._show = () => {
                return false;
             };
+
+            return;
         }
 
         if (!this._originals['workspaceSwitcherPopupDisplay']) {
@@ -1968,8 +1987,12 @@ var API = class
 
         // since removing '_windowDemandsAttentionId' doesn't have any effect
         // we remove the original signal and re-connect it on disable
-        display.disconnect(
-            this._main.windowAttentionHandler._windowDemandsAttentionId);
+        let signalId
+        = (this._shellVersion < 42)
+        ? this._main.windowAttentionHandler._windowDemandsAttentionId
+        : this._getSignalId(global.display, 'window-demands-attention');
+
+        display.disconnect(signalId);
     }
 
     /**
@@ -2198,17 +2221,22 @@ var API = class
         const State = this._messageTray.State;
         const ANIMATION_TIME = this._messageTray.ANIMATION_TIME;
         const Clutter = this._clutter;
+        const SHELL_VERSION = this._shellVersion;
 
         messageTray._hideNotification = function (animate) {
             this._notificationFocusGrabber.ungrabFocus();
 
-            if (this._bannerClickedId) {
-                this._banner.disconnect(this._bannerClickedId);
-                this._bannerClickedId = 0;
-            }
-            if (this._bannerUnfocusedId) {
-                this._banner.disconnect(this._bannerUnfocusedId);
-                this._bannerUnfocusedId = 0;
+            if (SHELL_VERSION >= 42) {
+                this._banner.disconnectObject(this);
+            } else {
+                if (this._bannerClickedId) {
+                    this._banner.disconnect(this._bannerClickedId);
+                    this._bannerClickedId = 0;
+                }
+                if (this._bannerUnfocusedId) {
+                    this._banner.disconnect(this._bannerUnfocusedId);
+                    this._bannerUnfocusedId = 0;
+                }
             }
 
             this._resetNotificationLeftTimeout();
@@ -2647,25 +2675,7 @@ var API = class
             return;
         }
 
-        let [ok, signalId, detail] = this._gobject.signal_parse_name(
-            'overlay-key',
-            global.display,
-            true
-        );
-
-        if (!ok) {
-            return;
-        }
-
-        this._overlayKeyOldSignalId = this._gobject.signal_handler_find(
-            global.display,
-            this._gobject.SignalMatchType.ID,
-            signalId,
-            detail,
-            null,
-            null,
-            null
-        );
+        this._overlayKeyOldSignalId = this._getSignalId(global.display, 'overlay-key');
 
         if (!this._overlayKeyOldSignalId) {
             return;
@@ -2790,6 +2800,46 @@ var API = class
     worldClocksHide()
     {
         this.UIStyleClassAdd(this._getAPIClassname('no-world-clocks'));
+    }
+
+    /**
+     * show events button in date menu
+     *
+     * @returns {void}
+     */
+    eventsButtonShow()
+    {
+        this.UIStyleClassRemove(this._getAPIClassname('no-events-button'));
+    }
+
+    /**
+     * hide events button in date menu
+     *
+     * @returns {void}
+     */
+    eventsButtonHide()
+    {
+        this.UIStyleClassAdd(this._getAPIClassname('no-events-button'));
+    }
+
+    /**
+     * show calendar in date menu
+     *
+     * @returns {void}
+     */
+    calendarShow()
+    {
+        this._main.panel.statusArea.dateMenu._calendar.show();
+    }
+
+    /**
+     * hide calendar in date menu
+     *
+     * @returns {void}
+     */
+    calendarHide()
+    {
+        this._main.panel.statusArea.dateMenu._calendar.hide();
     }
 
     /**

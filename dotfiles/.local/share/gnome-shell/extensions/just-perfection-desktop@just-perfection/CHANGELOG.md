@@ -6,6 +6,23 @@ We go to the next version after each release on [GNOME Shell Extensions website]
 
 ## [Unreleased]
 
+## [20.0.0 Hayez] - 2022-04-01
+
+### Fixed
+
+- Dynamic workspaces getting disabled by workspace popup.
+- Flickering panel after Unlock.
+- Notification banner position on GNOME Shell 42.
+- Window demands attention focus on GNOME Shell 42.
+- French translation by [@GeoffreyCoulaud](https://gitlab.gnome.org/GeoffreyCoulaud).
+- Italian translation by [@svityboy](https://gitlab.gnome.org/svityboy).
+
+### Added
+
+- Events visibility in clock menu.
+- Calendar visibility in clock menu.
+- Dutch translation by [@Vistaus](https://gitlab.gnome.org/Vistaus).
+
 ## [19.0.0 Ancher] - 2022-03-02
 
 ### Fixed

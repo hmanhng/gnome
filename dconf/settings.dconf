@@ -2,6 +2,15 @@
 dark-full-screen=false
 transparency=65
 
+[desktop/ibus/general]
+preload-engines=['xkb:us::eng', 'Bamboo']
+
+[org/gnome/desktop/input-sources]
+mru-sources=[('ibus', 'Bamboo'), ('xkb', 'us')]
+per-window=false
+sources=[('xkb', 'us'), ('ibus', 'Bamboo')]
+xkb-options=@as []
+
 [org/gnome/desktop/interface]
 cursor-theme='Breeze_Snow'
 enable-animations=true
@@ -118,11 +127,16 @@ power-button-action='hibernate'
 [org/gnome/shell]
 disable-user-extensions=false
 disabled-extensions=@as []
-enabled-extensions=['volume-mixer@evermiss.net', 'caffeine@patapon.info', 'clipboard-history@alexsaveau.dev', 'color-picker@tuberry', 'ideapad@laurento.frittella', 'just-perfection-desktop@just-perfection', 'ProxySwitcher@flannaghan.com', 'randomwallpaper@iflow.space', 'refresh-wifi@kgshank.net', 'remove-alt-tab-delay@daase.net', 'rrc@ogarcia.me', 'roundedSystemMenuButtons@pratap.fastmail.fm', 'sound-output-device-chooser@kgshank.net', 'sound-percentage@maestroschan.fr', 'sp-tray@sp-tray.esenliyim.github.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor-next@paradoxxx.zero.gmail.com', 'transparent-window-moving@noobsai.github.com', 'trayIconsReloaded@selfmade.pl', 'user-id-in-top-panel@fthx', 'wg-indicator@dpf12110.gmail.com', 'workspaces-bar@fthx', 'x11gestures@joseexposito.github.io', 'hidetopbar@mathieu.bidon.ca', 'transparent-top-bar@ftpix.com']
+enabled-extensions=['volume-mixer@evermiss.net', 'caffeine@patapon.info', 'clipboard-history@alexsaveau.dev', 'color-picker@tuberry', 'ideapad@laurento.frittella', 'just-perfection-desktop@just-perfection', 'ProxySwitcher@flannaghan.com', 'randomwallpaper@iflow.space', 'refresh-wifi@kgshank.net', 'remove-alt-tab-delay@daase.net', 'rrc@ogarcia.me', 'roundedSystemMenuButtons@pratap.fastmail.fm', 'sound-output-device-chooser@kgshank.net', 'sound-percentage@maestroschan.fr', 'sp-tray@sp-tray.esenliyim.github.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor-next@paradoxxx.zero.gmail.com', 'transparent-window-moving@noobsai.github.com', 'trayIconsReloaded@selfmade.pl', 'user-id-in-top-panel@fthx', 'wg-indicator@dpf12110.gmail.com', 'workspaces-bar@fthx', 'x11gestures@joseexposito.github.io', 'hidetopbar@mathieu.bidon.ca', 'transparent-top-bar@ftpix.com', 'bluetooth-quick-connect@bjarosze.gmail.com']
 had-bluetooth-devices-setup=true
 
 [org/gnome/shell/app-switcher]
 current-workspace-only=true
+
+[org/gnome/shell/extensions/caffeine]
+nightlight-control='never'
+show-notifications=false
+user-enabled=true
 
 [org/gnome/shell/extensions/hidetopbar]
 animation-time-autohide=0.2
@@ -136,6 +150,8 @@ show-in-overview=false
 [org/gnome/shell/extensions/just-perfection]
 accessibility-menu=false
 activities-button=false
+activities-button-icon-monochrome=false
+activities-button-label=false
 aggregate-menu=true
 animation=3
 app-menu=true
@@ -148,12 +164,13 @@ double-super-to-appgrid=true
 gesture=true
 hot-corner=false
 keyboard-layout=true
-notification-banner-position=1
+notification-banner-position=2
 osd=true
 panel=true
 panel-arrow=true
 panel-corner-size=0
 panel-in-overview=true
+power-icon=true
 ripple-box=true
 search=false
 show-apps-button=true
@@ -162,15 +179,15 @@ theme=true
 type-to-search=true
 weather=true
 window-demands-attention-focus=false
-window-picker-icon=true
+window-picker-icon=false
 window-preview-caption=true
 window-preview-close-button=true
 workspace=true
 workspace-background-corner-size=0
-workspace-popup=true
+workspace-popup=false
 workspace-switcher-should-show=true
-workspace-switcher-size=8
-workspace-wrap-around=false
+workspace-switcher-size=10
+workspace-wrap-around=true
 workspaces-in-app-grid=true
 world-clock=true
 
