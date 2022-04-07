@@ -3,7 +3,7 @@ const UPower = imports.gi.UPowerGlib;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
-var UPowerBatteryProvider = class {
+class UPowerBatteryProvider {
     constructor(logger) {
         this._upower_client = UPower.Client.new();
         this._logger = logger;

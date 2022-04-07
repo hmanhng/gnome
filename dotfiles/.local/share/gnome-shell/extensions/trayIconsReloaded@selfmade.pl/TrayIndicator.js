@@ -79,7 +79,6 @@ var TrayIndicator = GObject.registerClass(
 			});
 
 			button.connect("button-release-event", (actor, event) => {
-				this.menu.close();
 				switch (event.get_button()) {
 					case 1:
 						this._appManager.leftClick(icon, event);
@@ -90,6 +89,14 @@ var TrayIndicator = GObject.registerClass(
 					case 3:
 						icon.click(event);
 						break;
+				}
+				if (this._appManager.isWine(icon)) {
+					GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1, () => {
+						this.menu.close();
+						return GLib.SOURCE_REMOVE;
+					});
+				} else {
+					this.menu.close();
 				}
 			});
 

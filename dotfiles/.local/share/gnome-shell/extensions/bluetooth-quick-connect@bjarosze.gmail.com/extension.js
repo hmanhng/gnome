@@ -74,18 +74,13 @@ class BluetoothQuickConnect {
             GLib.spawn_command_line_sync("bluetoothctl --version");
             this._logger.info('Test succeeded');
         } catch (error) {
-            Main.notifyError(_('Bluetooth Quick Connect'), _(`Error trying to execute "bluetoothctl"`));
+            Main.notifyError(_('Bluetooth quick connect'), _(`Error trying to execute "bluetoothctl"`));
             this._logger.info('Test failed');
         }
     }
 
     _connectControllerSignals() {
         this._logger.info('Connecting bluetooth controller signals');
-
-        this._connectSignal(this._controller, 'default-adapter-changed', (ctrl) => {
-            this._logger.info('Default adapter changed event');
-            this._refresh();
-        });
 
         this._connectSignal(this._controller, 'device-inserted', (ctrl, device) => {
             this._logger.info(`Device inserted event: ${device.name}`);
@@ -98,7 +93,9 @@ class BluetoothQuickConnect {
 
         this._connectSignal(this._controller, 'device-changed', (ctrl, device) => {
             this._logger.info(`Device changed event: ${device.name}`);
-            if (device.isPaired)
+            if (device.isDefault)
+                this._refresh();
+            else if (device.isPaired)
                 this._syncMenuItem(device);
             else
                 this._logger.info(`Skipping change event for unpaired device ${device.name}`);
