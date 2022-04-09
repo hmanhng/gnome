@@ -138,15 +138,6 @@ nightlight-control='never'
 show-notifications=false
 user-enabled=true
 
-[org/gnome/shell/extensions/hidetopbar]
-animation-time-autohide=0.2
-enable-active-window=true
-enable-intellihide=true
-mouse-sensitive=true
-mouse-sensitive-fullscreen-window=false
-pressure-threshold=20
-show-in-overview=true
-
 [org/gnome/shell/extensions/just-perfection]
 accessibility-menu=false
 activities-button=false
@@ -210,27 +201,6 @@ unsplash-keyword='lofi'
 
 [org/gnome/shell/extensions/status-area-horizontal-spacing]
 hpadding=2
-
-[org/gnome/shell/extensions/system-monitor]
-battery-display=false
-center-display=false
-compact-display=false
-cpu-display=true
-cpu-graph-width=100
-cpu-individual-cores=false
-cpu-show-menu=true
-cpu-show-text=true
-cpu-style='digit'
-gpu-display=false
-icon-display=false
-memory-style='digit'
-move-clock=false
-net-show-menu=true
-net-show-text=true
-net-speed-in-bits=false
-net-style='digit'
-show-tooltip=false
-thermal-display=false
 
 [org/gnome/shell/extensions/transparent-window-moving]
 window-opacity=230
