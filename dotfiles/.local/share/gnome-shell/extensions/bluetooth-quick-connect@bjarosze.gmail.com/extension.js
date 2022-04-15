@@ -20,7 +20,11 @@ const GLib = imports.gi.GLib;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const UiExtension = Me.imports.ui;
-const Bluetooth = Me.imports.bluetooth;
+
+const Bluetooth = imports.gi.GnomeBluetooth.Client.prototype.get_devices === undefined ?
+    Me.imports.bluetooth_legacy :
+    Me.imports.bluetooth;
+
 const Utils = Me.imports.utils;
 const Settings = Me.imports.settings.Settings;
 const BatteryProvider = Me.imports.power.UPowerBatteryProvider;
@@ -74,13 +78,18 @@ class BluetoothQuickConnect {
             GLib.spawn_command_line_sync("bluetoothctl --version");
             this._logger.info('Test succeeded');
         } catch (error) {
-            Main.notifyError(_('Bluetooth quick connect'), _(`Error trying to execute "bluetoothctl"`));
+            Main.notifyError(_('Bluetooth Quick Connect'), _(`Error trying to execute "bluetoothctl"`));
             this._logger.info('Test failed');
         }
     }
 
     _connectControllerSignals() {
         this._logger.info('Connecting bluetooth controller signals');
+
+        this._connectSignal(this._controller, 'default-adapter-changed', (ctrl) => {
+            this._logger.info('Default adapter changed event');
+            this._refresh();
+        });
 
         this._connectSignal(this._controller, 'device-inserted', (ctrl, device) => {
             this._logger.info(`Device inserted event: ${device.name}`);
@@ -93,9 +102,7 @@ class BluetoothQuickConnect {
 
         this._connectSignal(this._controller, 'device-changed', (ctrl, device) => {
             this._logger.info(`Device changed event: ${device.name}`);
-            if (device.isDefault)
-                this._refresh();
-            else if (device.isPaired)
+            if (device.isPaired)
                 this._syncMenuItem(device);
             else
                 this._logger.info(`Skipping change event for unpaired device ${device.name}`);
@@ -221,4 +228,5 @@ function enable() {
 
 function disable() {
     bluetoothQuickConnect.disable();
+    bluetoothQuickConnect = null;
 }
