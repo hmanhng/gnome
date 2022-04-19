@@ -1,7 +1,3 @@
-[com/ftpix/transparentbar]
-dark-full-screen=false
-transparency=65
-
 [desktop/ibus/general]
 preload-engines=['xkb:us::eng', 'Bamboo']
 
@@ -62,28 +58,8 @@ switch-windows-backward=['<Shift><Alt>Tab']
 toggle-maximized=['<Super>m']
 
 [org/gnome/desktop/wm/preferences]
-button-layout='appmenu:minimize,maximize,close'
+button-layout=':'
 workspace-names=@as []
-
-[org/gnome/file-roller/listing]
-list-mode='as-folder'
-name-column-width=250
-show-path=false
-sort-method='name'
-sort-type='ascending'
-
-[org/gnome/file-roller/ui]
-sidebar-width=200
-view-sidebar=true
-window-height=480
-window-width=600
-
-[org/gnome/nautilus/icon-view]
-default-zoom-level='standard'
-
-[org/gnome/nautilus/list-view]
-default-zoom-level='small'
-use-tree-view=false
 
 [org/gnome/nautilus/preferences]
 default-folder-viewer='list-view'
@@ -94,6 +70,7 @@ show-image-thumbnails='local-only'
 [org/gnome/nautilus/window-state]
 initial-size=(1133, 800)
 maximized=false
+sidebar-width=192
 
 [org/gnome/settings-daemon/plugins/color]
 night-light-enabled=true
@@ -126,8 +103,6 @@ power-button-action='hibernate'
 
 [org/gnome/shell]
 disable-user-extensions=false
-disabled-extensions=@as []
-enabled-extensions=['volume-mixer@evermiss.net', 'caffeine@patapon.info', 'clipboard-history@alexsaveau.dev', 'color-picker@tuberry', 'ideapad@laurento.frittella', 'just-perfection-desktop@just-perfection', 'ProxySwitcher@flannaghan.com', 'randomwallpaper@iflow.space', 'refresh-wifi@kgshank.net', 'remove-alt-tab-delay@daase.net', 'rrc@ogarcia.me', 'roundedSystemMenuButtons@pratap.fastmail.fm', 'sound-output-device-chooser@kgshank.net', 'sound-percentage@maestroschan.fr', 'sp-tray@sp-tray.esenliyim.github.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor-next@paradoxxx.zero.gmail.com', 'transparent-window-moving@noobsai.github.com', 'trayIconsReloaded@selfmade.pl', 'user-id-in-top-panel@fthx', 'wg-indicator@dpf12110.gmail.com', 'workspaces-bar@fthx', 'x11gestures@joseexposito.github.io', 'hidetopbar@mathieu.bidon.ca', 'transparent-top-bar@ftpix.com', 'bluetooth-quick-connect@bjarosze.gmail.com']
 had-bluetooth-devices-setup=true
 
 [org/gnome/shell/app-switcher]
