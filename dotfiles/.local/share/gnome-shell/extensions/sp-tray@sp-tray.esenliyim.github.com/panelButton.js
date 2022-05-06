@@ -318,18 +318,27 @@ var SpTrayButton = GObject.registerClass(
         }
 
         isReallySpotify(metadata) {
+            // There must be a 'trackid' field in the dbus reply, and it must start with either 'spotify:' or '/com/spotify'
             if (metadata["mpris:trackid"]) {
                 let trackId = metadata["mpris:trackid"].get_string()[0];
-                return trackId.startsWith("spotify:");
+                return trackId.startsWith("spotify:") || trackId.startsWith("/com/spotify")
             } else {
-                log("this isn't spotify!?");
+                // it's not spotify
                 return false;
             }
         }
 
         _getTrackType(trackid) {
-            let first = trackid.indexOf(":");
-            return trackid.substring(first + 1, trackid.indexOf(":", first + 1));
+            let trackType = "";
+            
+            if (trackid.startsWith("spotify:")) {
+                let first = trackid.indexOf(":");
+                trackType = trackid.substring(first + 1, trackid.indexOf(":", first + 1));
+            }
+            else if (trackid.startsWith("/com/spotify")) {
+                trackType = trackid.split("/")[3];
+            }
+            return trackType;    
         }
     }
 );

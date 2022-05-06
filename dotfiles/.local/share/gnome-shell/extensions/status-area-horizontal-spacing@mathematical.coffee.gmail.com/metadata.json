@@ -7,9 +7,10 @@
   "settings-schema": "org.gnome.shell.extensions.status-area-horizontal-spacing",
   "shell-version": [
     "40",
-    "41"
+    "41",
+    "42"
   ],
   "url": "https://gitlab.com/p91paul/status-area-horizontal-spacing-gnome-shell-extension",
   "uuid": "status-area-horizontal-spacing@mathematical.coffee.gmail.com",
-  "version": 20
+  "version": 21
 }

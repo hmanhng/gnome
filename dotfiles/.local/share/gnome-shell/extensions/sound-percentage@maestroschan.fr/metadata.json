@@ -5,7 +5,8 @@
 	"shell-version": [
 		"3.36",
 		"40.5",
-		"41.1"
+		"41.1",
+        "42.1"
 	],
 	"url": "https://github.com/maoschanz/sound-percentage-gs-extension",
 	"uuid": "sound-percentage@maestroschan.fr",

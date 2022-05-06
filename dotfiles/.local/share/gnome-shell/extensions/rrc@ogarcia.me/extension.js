@@ -1,2 +1,0 @@
-function enable() {}
-function disable() {}
