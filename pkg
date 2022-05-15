@@ -2,7 +2,7 @@
 openssh wget
 exa fd fzf ripgrep bat
 wireguard-tools openresolv
-v2ray
+clash-for-windows-bin
 
 htop neofetch
 ookla-speedtest-bin
