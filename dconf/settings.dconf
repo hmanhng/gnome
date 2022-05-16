@@ -1,3 +1,116 @@
+[apps/guake/general]
+compat-delete='delete-sequence'
+display-n=0
+display-tab-names=0
+gtk-use-system-default-theme=true
+hide-tabs-if-one-tab=false
+history-size=1000
+max-tab-name-length=100
+mouse-display=true
+open-tab-cwd=true
+prompt-on-quit=true
+quick-open-command-line='gedit %(file_path)s'
+restore-tabs-notify=true
+restore-tabs-startup=true
+save-tabs-when-changed=true
+schema-version='3.8.6.dev0'
+scroll-keystroke=true
+start-at-login=true
+tab-close-buttons=true
+use-audible-bell=true
+use-default-font=false
+use-popup=false
+use-scrollbar=true
+use-trayicon=false
+window-halignment=0
+window-height=32
+window-losefocus=false
+window-refocus=false
+window-tabbar=true
+window-width=76
+
+[apps/guake/style/background]
+transparency=100
+
+[apps/guake/style/font]
+allow-bold=true
+palette='#1c1c1f1f2424:#ffff6c6c6b6b:#9898bebe6565:#dada85854848:#ffff80808080:#c6c67878dddd:#56569999afaf:#fcfcfcfcfafa:#5b5b62626868:#dada85854848:#4d4cb5b4dbdb:#ececbebe7b7a:#fcfc98986767:#a9a9a1a1e1e1:#4646d9d9ffff:#dfdfdfdfdfdf:#dededededede:#333333333333'
+palette-name='Custom'
+style='Iosevka Term 13.5'
+
+[io/github/realmazharhussain/GdmSettings]
+never-applied=false
+
+[io/github/realmazharhussain/GdmSettings/appearance]
+background-color='rgb(153,193,241)'
+background-image='/home/bisu/Pictures/AeEvWsb.png'
+background-type='Image'
+cursor-theme='Breeze_Snow'
+icon-theme='Pop'
+shell-theme='Pop'
+
+[io/github/realmazharhussain/GdmSettings/fonts]
+antialiasing='grayscale'
+font='Cantarell 11'
+hinting='slight'
+scaling-factor=1.0
+
+[io/github/realmazharhussain/GdmSettings/misc]
+disable-restart-buttons=false
+disable-user-list=false
+enable-logo=true
+enable-welcome-message=true
+logo='/home/bisu/Pictures/untitled-1.webp'
+welcome-message='Hello guy !!!'
+
+[io/github/realmazharhussain/GdmSettings/night-light]
+night-light-enabled=true
+night-light-end-hour=6
+night-light-end-minute=0
+night-light-schedule-automatic=true
+night-light-start-hour=20
+night-light-start-minute=0
+night-light-temperature=uint32 3700
+
+[io/github/realmazharhussain/GdmSettings/pointing/mouse]
+inverse-scrolling=false
+mouse-speed=0.0
+pointer-acceleration='default'
+
+[io/github/realmazharhussain/GdmSettings/pointing/touchpad]
+disable-while-typing=true
+natural-scrolling=true
+tap-to-click=true
+touchpad-speed=0.0
+two-finger-scrolling=true
+
+[io/github/realmazharhussain/GdmSettings/sound]
+event-sounds=true
+feedback-sounds=false
+over-amplification=true
+sound-theme='freedesktop'
+
+[io/github/realmazharhussain/GdmSettings/tools]
+top-bar-tweaks=true
+
+[io/github/realmazharhussain/GdmSettings/top-bar]
+change-top-bar-background-color=true
+change-top-bar-text-color=true
+disable-top-bar-arrows=false
+disable-top-bar-rounded-corners=false
+show-battery-percentage=true
+show-seconds=false
+show-weekday=false
+time-format='24h'
+top-bar-background-color='rgb(0,0,0)'
+top-bar-text-color='rgb(250,250,250)'
+
+[io/github/realmazharhussain/GdmSettings/window-state]
+height=uint32 987
+last-visited-page='tools'
+paned-position=uint32 195
+width=uint32 1532
+
 [org/gnome/desktop/input-sources]
 mru-sources=[('ibus', 'Bamboo'), ('xkb', 'us')]
 per-window=false
@@ -59,50 +172,8 @@ toggle-maximized=['<Super>m']
 button-layout=':'
 workspace-names=@as []
 
-[org/gnome/eog/ui]
-sidebar=false
-
-[org/gnome/eog/view]
-background-color='rgb(0,0,0)'
-use-background-color=true
-
-[org/gnome/evince/default]
-window-ratio=(1.0079358146473232, 0.71268217938210454)
-
-[org/gnome/file-roller/dialogs/extract]
-recreate-folders=true
-skip-newer=false
-
-[org/gnome/file-roller/listing]
-list-mode='as-folder'
-name-column-width=683
-show-path=false
-sort-method='name'
-sort-type='ascending'
-
-[org/gnome/file-roller/ui]
-sidebar-width=200
-view-sidebar=true
-window-height=763
-window-width=1440
-
-[org/gnome/nautilus/icon-view]
-default-zoom-level='standard'
-
-[org/gnome/nautilus/list-view]
-default-zoom-level='small'
-use-tree-view=false
-
-[org/gnome/nautilus/preferences]
-default-folder-viewer='list-view'
-search-filter-time-type='last_modified'
-search-view='list-view'
-show-image-thumbnails='local-only'
-
-[org/gnome/nautilus/window-state]
-initial-size=(1133, 800)
-maximized=false
-sidebar-width=192
+[org/gnome/mutter]
+dynamic-workspaces=false
 
 [org/gnome/settings-daemon/plugins/color]
 night-light-enabled=true
@@ -143,8 +214,9 @@ current-workspace-only=true
 
 [org/gnome/shell/extensions/caffeine]
 nightlight-control='never'
+restore-state=true
 show-notifications=false
-user-enabled=false
+user-enabled=true
 
 [org/gnome/shell/extensions/clipboard-history]
 notify-on-copy=true
@@ -236,6 +308,25 @@ switch-to-application-1=@as []
 switch-to-application-2=@as []
 switch-to-application-3=@as []
 switch-to-application-4=@as []
+
+[org/gnome/terminal/legacy/profiles:]
+list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9']
+
+[org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+background-color='rgb(51,51,51)'
+background-transparency-percent=5
+bold-is-bright=true
+default-size-columns=90
+font='Iosevka Term 14'
+foreground-color='rgb(222,222,222)'
+palette=['rgb(28,31,36)', 'rgb(255,108,107)', 'rgb(152,190,101)', 'rgb(218,133,72)', 'rgb(255,128,128)', 'rgb(198,120,221)', 'rgb(86,153,175)', 'rgb(252,252,250)', 'rgb(91,98,104)', 'rgb(218,133,72)', 'rgb(77,181,219)', 'rgb(236,190,123)', 'rgb(252,152,103)', 'rgb(169,161,225)', 'rgb(70,217,255)', 'rgb(223,223,223)']
+use-system-font=false
+use-theme-colors=false
+use-transparent-background=false
+visible-name='hmanhng'
+
+[org/gnome/tweaks]
+show-extensions-notice=false
 
 [system/proxy]
 mode='none'

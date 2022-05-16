@@ -8,18 +8,12 @@ dconf load / < dconf/terminal.dconf
 git config --global user.email "hmanhng@icloud.com"
 git config --global user.name "hmanhng"
 
-#Bamboo
-env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['xkb:us::eng', 'Bamboo']" && gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
-
 sudo sed -i 's/#AutoEnable=false/AutoEnable=true/g' /etc/bluetooth/main.conf
 sudo sed -i 's/Logo=1/Logo=0/g' /etc/libreoffice/sofficerc
 
 cp -rf dotfiles/. $HOME/
 sudo cp -rf $HOME/etc/* /etc && rm -rf $HOME/etc
 sudo cp -rf $HOME/usr/* /usr && rm -rf $HOME/usr
-
-# Wallpapers
-#git clone https://github.com/hmanhng/Wallpapers.git $HOME/Pictures/Wallpapers
 
 # Fonts
 git clone https://github.com/hmanhng/WindowsFonts.git $HOME/WindowsFonts && rm -rf $HOME/WindowsFonts/.git && sudo mv $HOME/WindowsFonts/ /usr/share/fonts/ && sudo chmod 644 /usr/share/fonts/WindowsFonts/*
@@ -30,7 +24,6 @@ fc-cache --force
 sudo cp $HOME/Pictures/icon.jpg /var/lib/AccountsService/icons/
 cp $HOME/Pictures/icon.jpg $HOME/.face
 sudo bash -c 'cat dotfiles/bisu > /var/lib/AccountsService/users/bisu' && rm $HOME/bisu
-sudo mv $HOME/gnome-shell-theme.gresource /usr/share/gnome-shell/
 
 sudo systemctl enable bluetooth
 sudo systemctl enable gdm
