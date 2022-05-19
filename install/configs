@@ -28,6 +28,7 @@ sudo bash -c 'cat dotfiles/bisu > /var/lib/AccountsService/users/bisu' && rm $HO
 sudo systemctl enable bluetooth
 sudo systemctl enable gdm
 sudo systemctl enable touchegg
+sudo systemctl enable systemd-timesyncd
 
 sudo bash -c 'echo 259:2 > /sys/power/resume'
 sudo mkinitcpio -P
