@@ -38,6 +38,76 @@ palette='#1c1c1f1f2424:#ffff6c6c6b6b:#9898bebe6565:#dada85854848:#ffff80808080:#
 palette-name='Custom'
 style='Iosevka Term 13.5'
 
+[io/github/realmazharhussain/GdmSettings]
+never-applied=false
+
+[io/github/realmazharhussain/GdmSettings/appearance]
+background-color='rgb(40,40,40)'
+background-image='/home/bisu/Pictures/AeEvWsb - Imgur.png'
+background-type='Image'
+cursor-theme='Breeze_Snow'
+icon-theme='Pop'
+shell-theme='default'
+
+[io/github/realmazharhussain/GdmSettings/fonts]
+antialiasing='grayscale'
+font='Cantarell 11'
+hinting='slight'
+scaling-factor=0.99999999999999989
+
+[io/github/realmazharhussain/GdmSettings/misc]
+disable-restart-buttons=false
+disable-user-list=false
+enable-logo=false
+enable-welcome-message=false
+logo=''
+welcome-message=''
+
+[io/github/realmazharhussain/GdmSettings/night-light]
+night-light-enabled=true
+night-light-end-hour=6
+night-light-end-minute=0
+night-light-schedule-automatic=true
+night-light-start-hour=20
+night-light-start-minute=0
+night-light-temperature=uint32 3700
+
+[io/github/realmazharhussain/GdmSettings/pointing/mouse]
+inverse-scrolling=false
+mouse-speed=0.0
+pointer-acceleration='default'
+
+[io/github/realmazharhussain/GdmSettings/pointing/touchpad]
+disable-while-typing=true
+natural-scrolling=true
+tap-to-click=true
+touchpad-speed=0.0
+two-finger-scrolling=true
+
+[io/github/realmazharhussain/GdmSettings/sound]
+event-sounds=true
+feedback-sounds=false
+over-amplification=true
+sound-theme='freedesktop'
+
+[io/github/realmazharhussain/GdmSettings/top-bar]
+change-top-bar-background-color=true
+change-top-bar-text-color=true
+disable-top-bar-arrows=false
+disable-top-bar-rounded-corners=false
+show-battery-percentage=true
+show-seconds=false
+show-weekday=false
+time-format='24h'
+top-bar-background-color='rgb(0,0,0)'
+top-bar-text-color='rgb(250,250,250)'
+
+[io/github/realmazharhussain/GdmSettings/window-state]
+height=uint32 622
+last-visited-page='appearance'
+paned-position=uint32 195
+width=uint32 922
+
 [org/gnome/desktop/input-sources]
 mru-sources=[('ibus', 'Bamboo'), ('xkb', 'us')]
 per-window=false
@@ -241,15 +311,20 @@ list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9']
 
 [org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
 background-color='rgb(51,51,51)'
-background-transparency-percent=5
+background-transparency-percent=6
 bold-is-bright=true
+custom-command=''
 default-size-columns=90
 font='Iosevka Term 14'
 foreground-color='rgb(222,222,222)'
+login-shell=false
 palette=['rgb(28,31,36)', 'rgb(255,108,107)', 'rgb(152,190,101)', 'rgb(218,133,72)', 'rgb(255,128,128)', 'rgb(198,120,221)', 'rgb(86,153,175)', 'rgb(252,252,250)', 'rgb(91,98,104)', 'rgb(218,133,72)', 'rgb(77,181,219)', 'rgb(236,190,123)', 'rgb(252,152,103)', 'rgb(169,161,225)', 'rgb(70,217,255)', 'rgb(223,223,223)']
+scroll-on-output=false
+scrollbar-policy='never'
+use-custom-command=false
 use-system-font=false
 use-theme-colors=false
-use-transparent-background=false
+use-transparent-background=true
 visible-name='hmanhng'
 
 [org/gnome/tweaks]
