@@ -10,4 +10,4 @@ sh install/configs
 sh install/neovim
 sh install/zsh
 
-#End
+# End

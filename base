@@ -1,4 +1,4 @@
-#Base
+# Base
 intel-media-driver intel-gpu-tools
 pipewire pipewire-alsa pipewire-pulse pipewire-jack
 bluez bluez-utils
@@ -17,7 +17,7 @@ gnome-tweaks
 gnome-session-properties
 gnome-control-center
 gnome-keyring
-#gnome-menus
+# gnome-menus
 chrome-gnome-shell
 gnome-terminal-transparency
 guake

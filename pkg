@@ -1,8 +1,7 @@
-#Pkg
+# Pkg
 reflector
 openssh wget
 exa fd fzf ripgrep bat
-wireguard-tools openresolv
 clash-for-windows-bin
 
 htop neofetch
@@ -10,19 +9,19 @@ ookla-speedtest-bin
 ibus-bamboo
 npm clang rust
 
-#ThemesAndFont
+# ThemesAndFont
 pop-gtk-theme
 pop-icon-theme
-#ttf-ubuntu-font-family
+# ttf-ubuntu-font-family
 ttf-iosevka-nerd
 xcursor-breeze
 
-#App
+# App
 vlc
 discord
 qbittorrent
 obs-studio
 microsoft-edge-stable-bin
-libreoffice-still-vi
-visual-studio-code-bin
-spotify spotify-remove-ad-banner spotify-adblock
+libreoffice-still
+# visual-studio-code-bin
+spotify
