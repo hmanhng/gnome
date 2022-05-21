@@ -1,12 +1,9 @@
 ### EXPORT
-export PATH=$HOME/.dotnet/tools:$PATH
-export PATH=$HOME/.local/bin:$PATH
-
 export LIBVA_DRIVER_NAME="iHD"
 export TERM="xterm-256color"                      # getting proper colors
 export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
-export EDITOR="nvim"              # $EDITOR use Emacs in terminal
-export VISUAL="nvim"           # $VISUAL use Emacs in GUI mode
+export EDITOR="lvim"              # $EDITOR use Emacs in terminal
+export VISUAL="lvim"           # $VISUAL use Emacs in GUI mode
 export ZSH="$HOME/.oh-my-zsh"
 #ZSH_THEME="robbyrussell"
 export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
@@ -41,6 +38,10 @@ fi
 
 if [ -d "$HOME/Applications" ] ;
   then PATH="$HOME/Applications:$PATH"
+fi
+
+if [ -d "$HOME/.dotnet//tools" ] ;
+  then PATH="$HOME/.dotnet/tools:$PATH"
 fi
 
 ### CHANGE TITLE OF TERMINALS
@@ -122,8 +123,8 @@ up () {
 }
 
 # vim and emacs
-alias vi="nvim"
-alias vim="nvim"
+alias vi="lvim"
+alias vim="lvim"
 
 # root privileges
 alias suvi="sudoedit"

@@ -1,35 +1,27 @@
 -- general
 vim.opt.cmdheight = 1
+vim.opt.wrap = true
+vim.wo.foldmethod = "indent"
+-- vim.wo.foldnestmax = 10
+-- vim.wo.foldlevel = 2
+vim.wo.linebreak = true
+vim.wo.list = true
+vim.wo.listchars = "tab:>-,trail:~,extends:>,precedes:<"
 lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.colorscheme = "onedarker"
--- lvim.transparent_window = true
--- to disable icons and use a minimalist setup, uncomment the following
--- lvim.use_icons = false
-
--- lualine
-lvim.builtin.lualine.style = "lvim"
-local components = require("lvim.core.lualine.components")
-lvim.builtin.lualine.options.component_separators = { left = '', right = '' }
-lvim.builtin.lualine.options.section_separators = { left = '', right = '' }
-lvim.builtin.lualine.sections.lualine_a = { "mode" }
-lvim.builtin.lualine.sections.lualine_y = {
-  components.spaces
-}
-lvim.builtin.lualine.sections.lualine_z = {
-  components.location,
-  components.scrollbar
-}
-lvim.builtin.treesitter.rainbow = { enable = true, extended_mode = true, max_file_lines = nil }
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
--- add your own keymapping
+vim.cmd([[
+  nnoremap <ESC><ESC> :silent! nohls<CR>
+  noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+  noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+  nnoremap <leader>l :bnext<CR>
+  nnoremap <leader>h :bprevious<CR>
+]])
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
--- unmap a default keymapping
--- lvim.keys.normal_mode["<C-Up>"] = false
--- edit a default keymapping
--- lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
+lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
@@ -60,6 +52,21 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 --   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
 --   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
 -- }
+
+-- lualine
+lvim.builtin.lualine.style = "lvim"
+local components = require("lvim.core.lualine.components")
+lvim.builtin.lualine.options.component_separators = { left = '', right = '' }
+lvim.builtin.lualine.options.section_separators = { left = '', right = '' }
+lvim.builtin.lualine.sections.lualine_a = { "mode" }
+lvim.builtin.lualine.sections.lualine_y = {
+  components.spaces
+}
+lvim.builtin.lualine.sections.lualine_z = {
+  components.location,
+  components.scrollbar
+}
+lvim.builtin.treesitter.rainbow = { enable = true, extended_mode = true, max_file_lines = nil }
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
