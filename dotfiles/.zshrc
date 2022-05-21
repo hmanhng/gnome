@@ -1,11 +1,9 @@
 ### EXPORT
-export LIBVA_DRIVER_NAME="iHD"
 export TERM="xterm-256color"                      # getting proper colors
 export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 export EDITOR="lvim"              # $EDITOR use Emacs in terminal
 export VISUAL="lvim"           # $VISUAL use Emacs in GUI mode
 export ZSH="$HOME/.oh-my-zsh"
-#ZSH_THEME="robbyrussell"
 export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 plugins=(git
     zsh-syntax-highlighting
