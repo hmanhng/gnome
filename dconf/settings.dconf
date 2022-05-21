@@ -338,8 +338,8 @@ mode='none'
 
 [system/proxy/http]
 host='127.0.0.1'
-port=8080
+port=7890
 
 [system/proxy/socks]
 host='127.0.0.1'
-port=8080
+port=7890
