@@ -1,4 +1,3 @@
-" => General Settings {{{
 set nocompatible                " be iMproved, required
 filetype off                    " required
 
@@ -46,5 +45,4 @@ set updatetime=750
 set shortmess+=c
 
 set fillchars+=vert:\           " Removes pipes
-autocmd VimEnter * :silent exec "!kill -s SIGWINCH $PPID"     
-"}}}
+autocmd VimEnter * :silent exec "!kill -s SIGWINCH $PPID"

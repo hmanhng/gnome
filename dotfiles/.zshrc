@@ -1,5 +1,7 @@
 ### EXPORT
 export PATH=$HOME/.dotnet/tools:$PATH
+export PATH=$HOME/.local/bin:$PATH
+
 export LIBVA_DRIVER_NAME="iHD"
 export TERM="xterm-256color"                      # getting proper colors
 export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"

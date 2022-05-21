@@ -1,4 +1,3 @@
-" Remaps {{{
 " Command maps {{{
 cnoremap jk <c-c>
 " }}}
@@ -92,6 +91,5 @@ inoremap <leader>ct </<Esc>2F<lyiwf/pa><Esc>F<i
 inoremap <leader>cst </<Esc>2F<lyiwf/pa><Esc>F<i<CR><CR><Esc>kS
 "markdown code - puts cursor in middle of ```
 inoremap ``` ``````<esc>3ha<cr><cr><esc>kS<tab>
-" }}}
 " }}}
 " }}}
