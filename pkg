@@ -7,7 +7,8 @@ clash-for-windows-bin
 htop neofetch
 ookla-speedtest-bin
 ibus-bamboo
-nodejs-lts-galliu npm clang rust
+clang
+dotnet-sdk
 
 # ThemesAndFont
 pop-gtk-theme
