@@ -1,5 +1,5 @@
 #!/bin/bash
 
 cp $HOME/.zshrc ./dotfiles/
-cp -r ~/.config/nvim/ ./dotfiles/.config/
+rm -r dotfiles/.config/nvim && cp -r ~/.config/nvim/ ./dotfiles/.config/
 rm -r dotfiles/.local/share/gnome-shell/extensions/* && cp -r $HOME/.local/share/gnome-shell/extensions/* dotfiles/.local/share/gnome-shell/extensions/

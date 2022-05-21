@@ -33,10 +33,10 @@ let g:lightline#bufferline#composed_number_map = {
      \ 5: '5.', 6: '6.', 7: '7.', 8: '8.', 9: '9.'}
 
 " Lightline
-"hi LightlineMiddle_active ctermbg=9
-"hi LightlineRight_active_1 ctermbg=9
-"hi LightlineRight_active_2 ctermbg=9
-"hi LightlineLeft_active_1 ctermbg=9
+" hi LightlineMiddle_active ctermbg=9
+" hi LightlineRight_active_1 ctermbg=9
+" hi LightlineRight_active_2 ctermbg=9
+" hi LightlineLeft_active_1 ctermbg=9
 
 
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)

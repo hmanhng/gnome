@@ -1,5 +1,7 @@
-"Coc.nvim 
-let g:coc_global_extensions = ['coc-clangd']
+" Coc.nvim
+let g:coc_global_extensions = ['coc-clangd', 'coc-explorer', 'coc-json']
+
+map <silent> <C-\> :CocCommand explorer <CR>
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.

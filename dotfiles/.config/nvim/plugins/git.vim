@@ -10,4 +10,4 @@ let g:gitgutter_sign_modified = 'm'
 let g:gitgutter_sign_removed = 'd'
 let g:gitgutter_sign_removed_first_line = 'rf'
 let g:gitgutter_sign_modified_removed = 'mr'
-"}}}
+" }}}
