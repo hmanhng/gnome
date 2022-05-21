@@ -17,10 +17,10 @@ let g:gruvbox_material_better_performance = 1
 let g:gruvbox_material_palette = 'mix'
 
 " Vim
-let g:onedark_config = {
-    \ 'style': 'warm',
-\}
-colorscheme gruvbox-material
+" let g:onedark_config = {
+"     \ 'style': 'warm',
+" \}
+colorscheme onedark
 hi LineNr guifg=#b3b3b3
 hi CursorLineNr guifg=#fc9867 guibg=#4B4B4B
 hi CursorLine guibg=none

@@ -7,7 +7,7 @@ yay -Sy --needed $(cat pkg | egrep -v "^\s*(#|$)")
 
 sh install/xdman
 sh install/configs
-sh install/neovim
+# sh install/neovim
 sh install/zsh
 
 # End

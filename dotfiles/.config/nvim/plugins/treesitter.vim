@@ -28,22 +28,9 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     additional_vim_regex_highlighting = false,
   },
-    matchup = {
-    enable = true,              -- mandatory, false will disable the whole extension
+  --  matchup = {
+  --  enable = true,              -- mandatory, false will disable the whole extension
     --disable = { "c", "ruby" },  -- optional, list of language that will be disabled
-  },
+  -- },
 }
 EOF
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  matchup = {
-    enable = true,              -- mandatory, false will disable the whole extension
-    disable = { "c", "ruby" },  -- optional, list of language that will be disabled
-    -- [options]
-  },
-}
-EOF
-augroup matchup_matchparen_highlight
-  autocmd!
-  autocmd ColorScheme * hi MatchParen guifg=red
-augroup END
