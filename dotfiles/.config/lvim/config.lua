@@ -2,9 +2,9 @@
 vim.opt.cmdheight = 1
 vim.opt.wrap = true
 vim.wo.foldmethod = "indent"
-vim.wo.cursorlineopt = "both"
 -- vim.wo.foldnestmax = 10
 -- vim.wo.foldlevel = 2
+vim.wo.cursorlineopt = "both"
 vim.wo.linebreak = true
 vim.wo.list = true
 vim.wo.listchars = "tab:>-,trail:~,extends:>,precedes:<"
@@ -68,7 +68,6 @@ lvim.builtin.treesitter.ensure_installed = {
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
-lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.treesitter.rainbow = { enable = true, extended_mode = true, max_file_lines = nil }
 lvim.builtin.treesitter.matchup.enable = true
 
