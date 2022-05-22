@@ -5,13 +5,13 @@ git clone https://aur.archlinux.org/yay.git && cd yay/ && makepkg -si --noconfir
 yay -Sy --needed $(cat base pkg | egrep -v "^\s*(#|$)")
 
 sh install/xdman
-sh install/neovim
 sh install/configs
 sh install/zsh
 
-# install node,npm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-nvm install --lts
-
 # install csharp-ls
 dotnet tool install --global csharp-ls
+
+# install node, npm, neovim
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+nvm install --lts
+sh install/neovim

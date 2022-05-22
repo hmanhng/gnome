@@ -9,6 +9,7 @@ ookla-speedtest-bin
 ibus-bamboo
 clang
 dotnet-sdk
+rust
 
 # ThemesAndFont
 pop-gtk-theme
