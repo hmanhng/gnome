@@ -3,6 +3,7 @@
 sudo true
 git clone https://aur.archlinux.org/yay.git && cd yay/ && makepkg -si --noconfirm && cd .. && rm -rf yay/
 yay -Sy --needed $(cat base pkg | egrep -v "^\s*(#|$)")
+curl -fsSL https://fnm.vercel.app/install | bash
 
 #Xdman
 wget --no-check-certificate https://github.com/hmanhng/xdm/raw/main/xdm.sh && sudo sh ./xdm.sh && rm -f xdm.sh
@@ -27,10 +28,10 @@ sudo cp $HOME/Pictures/icon.jpg /var/lib/AccountsService/icons/
 cp $HOME/Pictures/icon.jpg $HOME/.face
 sudo bash -c 'cat dotfiles/bisu > /var/lib/AccountsService/users/bisu' && rm $HOME/bisu
 
+sudo systemctl enable systemd-timesyncd
 sudo systemctl enable bluetooth
 sudo systemctl enable gdm
 sudo systemctl enable touchegg
-sudo systemctl enable systemd-timesyncd
 
 sudo bash -c 'echo 259:2 > /sys/power/resume'
 sudo mkinitcpio -P
@@ -39,9 +40,5 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 # gnome settings
 dconf load / < settings.dconf
 
-# install neovim
-curl -fsSL https://fnm.vercel.app/install | bash
-bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) -y
-fnm install 16.15.0
-npm i -g bash-language-server
-dotnet tool install --global csharp-ls
+# Zsh
+sudo chsh $USER -s "/bin/zsh"
