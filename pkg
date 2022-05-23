@@ -1,4 +1,5 @@
 # Pkg
+stow
 reflector
 openssh wget
 exa fd fzf ripgrep bat
