@@ -1,16 +1,20 @@
 # Pkg
 stow
+man-db
 reflector
-openssh wget
+openssh
+wget
 exa fd fzf ripgrep bat
 clash-for-windows-bin
+nftables
 
-htop neofetch
-ookla-speedtest-bin
-ibus-bamboo
 clang
 dotnet-sdk
 rust
+
+ibus-bamboo
+htop neofetch
+ookla-speedtest-bin
 
 # ThemesAndFont
 pop-gtk-theme

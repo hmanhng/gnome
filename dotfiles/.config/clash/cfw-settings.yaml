@@ -1,0 +1,15 @@
+showNewVersionIcon: true
+hideAfterStartup: true
+randomControllerPort: true
+runTimeFormat: "hh : mm : ss"
+trayOrders:
+  - - icon
+  - - status
+    - traffic
+    - text
+hideTrayIcon: false
+connProxy: 2
+connProfile: true
+connMode: true
+connChainType: 2
+shortcutTun: ""
