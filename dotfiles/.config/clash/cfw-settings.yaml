@@ -13,3 +13,4 @@ connProfile: true
 connMode: true
 connChainType: 2
 shortcutTun: ""
+randomMixedPort: true

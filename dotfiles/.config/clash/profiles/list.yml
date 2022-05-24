@@ -1,16 +1,16 @@
 files:
-  - time: 1653307572676.yml
-    name: V2board
-    url: https://hmanhng.tk/api/v1/client/subscribe?token=a9486fc1d38df19a80ccdcfe160d2910
+  - time: 1653380620390.yml
+    name: V2Board
+    url: https://hmanhng.tk/api/v1/client/subscribe?token=725b5b033a4ed18db41d3f4fb01803c0
     selected:
       - name: GLOBAL
-        now: Việt Nam
-      - name: V2board
+        now: Singapore
+      - name: V2Board
         now: 自动选择
     interval: 24
     subInfo:
       upload: 0
       download: 0
-      total: 1073740750258176
-    mode: global
+      total: 1073741824000
+    mode: direct
 index: 0
