@@ -4,6 +4,7 @@ sudo true
 git clone https://aur.archlinux.org/yay.git && cd yay/ && makepkg -si --noconfirm && cd .. && rm -rf yay/
 yay -Sy --needed $(cat base pkg | egrep -v "^\s*(#|$)")
 curl -fsSL https://fnm.vercel.app/install | bash
+source ~/.bashrc && fnm install 16.15.0
 
 #Xdman
 wget --no-check-certificate https://github.com/hmanhng/xdm/raw/main/xdm.sh && sudo sh ./xdm.sh && rm -f xdm.sh
@@ -39,6 +40,14 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # gnome settings
 dconf load / < settings.dconf
+
+# lunarvim
+bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) -y
+npm i -g bash-language-server
+dotnet tool install --global csharp-ls
+
+# dotfiles
+git clone https://github.com/hmanhng/dotfile.git ~/dotfiles && cd ~/dotfiles && ./install.sh
 
 # Zsh
 sudo chsh $USER -s "/bin/zsh"

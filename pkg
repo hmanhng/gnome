@@ -4,7 +4,7 @@ man-db
 reflector
 openssh
 wget
-exa fd fzf ripgrep bat
+exa fd fzf ripgrep bat zoxide
 clash-for-windows-bin
 nftables
 
