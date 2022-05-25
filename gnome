@@ -3,8 +3,12 @@
 sudo true
 git clone https://aur.archlinux.org/yay.git && cd yay/ && makepkg -si --noconfirm && cd .. && rm -rf yay/
 yay -Sy --needed $(cat base pkg | egrep -v "^\s*(#|$)")
+echo "Install fnm" && read a
 curl -fsSL https://fnm.vercel.app/install | bash
-source ~/.bashrc && fnm install 16.15.0
+echo "Install node" && read a
+source ~/.bashrc
+fnm install 16.15.0
+echo "Install done" && read a
 
 #Xdman
 wget --no-check-certificate https://github.com/hmanhng/xdm/raw/main/xdm.sh && sudo sh ./xdm.sh && rm -f xdm.sh
