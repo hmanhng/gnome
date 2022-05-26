@@ -276,9 +276,13 @@ fetch-on-startup=true
 hide-panel-icon=false
 hours=0
 minutes=30
+source='wallhaven'
 
 [org/gnome/shell/extensions/space-iflow-randomwallpaper/unsplash]
 unsplash-keyword='lofi'
+
+[org/gnome/shell/extensions/space-iflow-randomwallpaper/wallhaven]
+wallhaven-keyword='lofi'
 
 [org/gnome/shell/extensions/status-area-horizontal-spacing]
 hpadding=2
@@ -361,14 +365,3 @@ left=uint32 100
 maximized=false
 top=uint32 136
 width=uint32 1014
-
-[system/proxy]
-mode='none'
-
-[system/proxy/http]
-host='127.0.0.1'
-port=7890
-
-[system/proxy/socks]
-host='127.0.0.1'
-port=7890
