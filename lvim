@@ -5,3 +5,4 @@ fnm install 16.15.0
 bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) -y
 npm i -g bash-language-server
 dotnet tool install --global csharp-ls
+mv ~/.config/lvim-old ~/.config/lvim

@@ -2,10 +2,12 @@
 
 sudo true
 git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd .. && rm -rf yay-bin
-yay -Sy --needed --batchinstall --removemake --nodiffmenu --skipchecksums --skippgpcheck $(cat base pkg | egrep -v "^\s*(#|$)")
+yay -Sy --needed --batchinstall --removemake --nodiffmenu --noconfirm $(cat base pkg | egrep -v "^\s*(#|$)")
 echo "Install fnm" && read a
 curl -fsSL https://fnm.vercel.app/install | bash
 echo "Install node" && read a
+source ~/.bashrc
+source ~/.bashrc
 source ~/.bashrc
 fnm install 16.15.0
 echo "Install done" && read a
