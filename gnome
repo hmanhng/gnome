@@ -6,9 +6,7 @@ yay -Sy --needed --batchinstall --removemake --nodiffmenu --noconfirm $(cat base
 echo "Install fnm" && read a
 curl -fsSL https://fnm.vercel.app/install | bash
 echo "Install node" && read a
-alias a='source ~/.bashrc'
-a
-fnm install 16.15.0
+~/.fnm/fnm install 16.15.0
 echo "Install done" && read a
 
 #Xdman
@@ -45,6 +43,11 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # gnome settings
 dconf load / < settings.dconf
+
+# lunarvim
+bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) -y
+npm i -g bash-language-server
+dotnet tool install --global csharp-ls
 
 # dotfiles
 git clone https://github.com/hmanhng/dotfile.git ~/dotfiles && cd ~/dotfiles && ./install.sh
