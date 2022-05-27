@@ -43,7 +43,7 @@ never-applied=false
 
 [io/github/realmazharhussain/GdmSettings/appearance]
 background-color='rgb(40,40,40)'
-background-image='/home/bisu/Pictures/AeEvWsb - Imgur.png'
+background-image='/home/bisu/Pictures/1653560838573_wallhaven-l3wx2p.png'
 background-type='Image'
 cursor-theme='Breeze_Snow'
 icon-theme='Pop'
@@ -53,7 +53,7 @@ shell-theme='default'
 antialiasing='grayscale'
 font='Cantarell 11'
 hinting='slight'
-scaling-factor=0.99999999999999989
+scaling-factor=1.0
 
 [io/github/realmazharhussain/GdmSettings/misc]
 disable-restart-buttons=false
@@ -103,10 +103,10 @@ top-bar-background-color='rgb(0,0,0)'
 top-bar-text-color='rgb(250,250,250)'
 
 [io/github/realmazharhussain/GdmSettings/window-state]
-height=uint32 622
+height=uint32 744
 last-visited-page='appearance'
 paned-position=uint32 195
-width=uint32 922
+width=uint32 1044
 
 [org/gnome/desktop/input-sources]
 mru-sources=[('ibus', 'Bamboo'), ('xkb', 'us')]
@@ -204,7 +204,8 @@ power-button-action='hibernate'
 [org/gnome/shell]
 disable-extension-version-validation=true
 disable-user-extensions=false
-enabled-extensions=['volume-mixer@evermiss.net', 'caffeine@patapon.info', 'clipboard-history@alexsaveau.dev', 'color-picker@tuberry', 'ideapad@laurento.frittella', 'just-perfection-desktop@just-perfection', 'ProxySwitcher@flannaghan.com', 'refresh-wifi@kgshank.net', 'remove-alt-tab-delay@daase.net', 'rrc@ogarcia.me', 'roundedSystemMenuButtons@pratap.fastmail.fm', 'sound-output-device-chooser@kgshank.net', 'sound-percentage@maestroschan.fr', 'sp-tray@sp-tray.esenliyim.github.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor-next@paradoxxx.zero.gmail.com', 'transparent-window-moving@noobsai.github.com', 'trayIconsReloaded@selfmade.pl', 'user-id-in-top-panel@fthx', 'wg-indicator@dpf12110.gmail.com', 'workspaces-bar@fthx', 'x11gestures@joseexposito.github.io', 'bluetooth-quick-connect@bjarosze.gmail.com', 'randomwallpaper@iflow.space', 'user-theme@gnome-shell-extensions.gcampax.github.com']
+disabled-extensions=@as []
+enabled-extensions=['caffeine@patapon.info', 'clipboard-history@alexsaveau.dev', 'just-perfection-desktop@just-perfection', 'refresh-wifi@kgshank.net', 'remove-alt-tab-delay@daase.net', 'roundedSystemMenuButtons@pratap.fastmail.fm', 'sound-output-device-chooser@kgshank.net', 'sound-percentage@maestroschan.fr', 'sp-tray@sp-tray.esenliyim.github.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor-next@paradoxxx.zero.gmail.com', 'transparent-window-moving@noobsai.github.com', 'trayIconsReloaded@selfmade.pl', 'user-id-in-top-panel@fthx', 'workspaces-bar@fthx', 'x11gestures@joseexposito.github.io', 'bluetooth-quick-connect@bjarosze.gmail.com', 'randomwallpaper@iflow.space', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'extension-list@tu.berry', 'color-picker@tuberry', 'ideapad@laurento.frittella']
 
 [org/gnome/shell/app-switcher]
 current-workspace-only=true
@@ -218,6 +219,13 @@ user-enabled=true
 [org/gnome/shell/extensions/clipboard-history]
 notify-on-copy=true
 private-mode=false
+
+[org/gnome/shell/extensions/extension-list]
+button-icon=uint32 2
+debug-button=true
+hide-disabled=false
+unpin-button=false
+unpin-list=['x11gestures@joseexposito.github.io', 'workspaces-bar@fthx', 'volume-mixer@evermiss.net', 'user-id-in-top-panel@fthx', 'trayIconsReloaded@selfmade.pl', 'transparent-window-moving@noobsai.github.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'sp-tray@sp-tray.esenliyim.github.com', 'sound-percentage@maestroschan.fr', 'sound-output-device-chooser@kgshank.net', 'roundedSystemMenuButtons@pratap.fastmail.fm', 'remove-alt-tab-delay@daase.net', 'refresh-wifi@kgshank.net', 'color-picker@tuberry', 'bluetooth-quick-connect@bjarosze.gmail.com', 'caffeine@patapon.info', 'clipboard-history@alexsaveau.dev']
 
 [org/gnome/shell/extensions/just-perfection]
 accessibility-menu=false
@@ -282,7 +290,7 @@ source='wallhaven'
 unsplash-keyword='lofi'
 
 [org/gnome/shell/extensions/space-iflow-randomwallpaper/wallhaven]
-wallhaven-keyword='lofi'
+wallhaven-keyword='chill'
 
 [org/gnome/shell/extensions/status-area-horizontal-spacing]
 hpadding=2
@@ -312,6 +320,10 @@ switch-to-application-1=@as []
 switch-to-application-2=@as []
 switch-to-application-3=@as []
 switch-to-application-4=@as []
+
+[org/gnome/terminal/legacy/keybindings]
+copy='<Primary>c'
+paste='<Primary>v'
 
 [org/gnome/terminal/legacy/profiles:]
 list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9']

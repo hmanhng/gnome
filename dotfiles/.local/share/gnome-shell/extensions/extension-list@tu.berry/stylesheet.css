@@ -1,0 +1,23 @@
+.extension-list-item {
+    /* max-width: 30em; */
+}
+
+.extension-list-label {
+    max-width: 30em;
+}
+
+.extension-list-label:error {
+    color: red;
+}
+
+.extension-list-label:outdate {
+    color: orange;
+}
+
+.extension-list-setting-button {
+    padding: 0 0.5em;
+}
+
+.extension-list-button:hover {
+    color: deepskyblue;
+}
