@@ -321,10 +321,6 @@ switch-to-application-2=@as []
 switch-to-application-3=@as []
 switch-to-application-4=@as []
 
-[org/gnome/terminal/legacy/keybindings]
-copy='<Primary>c'
-paste='<Primary>v'
-
 [org/gnome/terminal/legacy/profiles:]
 list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9']
 
