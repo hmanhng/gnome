@@ -3,6 +3,19 @@
 sudo true
 git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd .. && rm -rf yay-bin
 yay -Sy --needed --batchinstall --removemake --nodiffmenu --noconfirm $(cat base pkg | egrep -v "^\s*(#|$)")
+flatpak install flathub org.videolan.VLC
+flatpak install flathub com.obsproject.Studio
+flatpak install flathub com.discordapp.Discord
+flatpak install flathub org.qbittorrent.qBittorrent
+flatpak install flathub com.spotify.Client
+flatpak install flathub com.microsoft.Edge
+flatpak install flathub nl.hjdskes.gcolor3
+flatpak install flathub org.libreoffice.LibreOffice
+flatpak install flathub org.gnome.FileRoller
+flatpak install flathub org.gnome.eog
+flatpak install flathub org.gnome.Evince
+flatpak install flathub org.xfce.mousepad
+
 echo "Install fnm" && read a
 curl -fsSL https://fnm.vercel.app/install | bash
 echo "Install node" && read a
