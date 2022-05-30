@@ -18,7 +18,6 @@ flatpak install flathub org.xfce.mousepad                           #Mousepad
 
 echo "Install fnm" && read a
 curl -fsSL https://fnm.vercel.app/install | bash
-echo "Install node" && read a
 ~/.fnm/fnm install 16.15.0
 echo "Install done" && read a
 
