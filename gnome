@@ -3,18 +3,18 @@
 sudo true
 git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd .. && rm -rf yay-bin
 yay -Sy --needed --batchinstall --removemake --nodiffmenu --noconfirm $(cat base pkg | egrep -v "^\s*(#|$)")
-flatpak install flathub org.videolan.VLC
-flatpak install flathub com.obsproject.Studio
-flatpak install flathub com.discordapp.Discord
-flatpak install flathub org.qbittorrent.qBittorrent
-flatpak install flathub com.spotify.Client
-flatpak install flathub com.microsoft.Edge
-flatpak install flathub nl.hjdskes.gcolor3
-flatpak install flathub org.libreoffice.LibreOffice
-flatpak install flathub org.gnome.FileRoller
-flatpak install flathub org.gnome.eog
-flatpak install flathub org.gnome.Evince
-flatpak install flathub org.xfce.mousepad
+flatpak install flathub org.videolan.VLC                            #Vlv
+flatpak install flathub com.obsproject.Studio                       #Obs
+flatpak install flathub com.discordapp.Discord                      #Discord
+flatpak install flathub org.qbittorrent.qBittorrent                 #Qbittorrent
+flatpak install flathub com.spotify.Client                          #Spotify
+flatpak install flathub com.microsoft.Edge                          #Edge
+flatpak install flathub nl.hjdskes.gcolor3                          #ColorPicker
+flatpak install flathub org.libreoffice.LibreOffice                 #LibreOffice
+flatpak install flathub org.gnome.FileRoller                        #FileRoller
+flatpak install flathub org.gnome.eog                               #Eog
+flatpak install flathub org.gnome.Evince                            #Evince
+flatpak install flathub org.xfce.mousepad                           #Mousepad
 
 echo "Install fnm" && read a
 curl -fsSL https://fnm.vercel.app/install | bash
@@ -29,7 +29,6 @@ git config --global user.email "hmanhng@icloud.com"
 git config --global user.name "hmanhng"
 
 sudo sed -i 's/#AutoEnable=false/AutoEnable=true/g' /etc/bluetooth/main.conf
-sudo sed -i 's/Logo=1/Logo=0/g' /etc/libreoffice/sofficerc
 
 cp -rf dotfiles/. $HOME/
 sudo cp -rf $HOME/etc/* /etc && rm -rf $HOME/etc
