@@ -24,9 +24,6 @@ curl -fsSL https://fnm.vercel.app/install | bash
 ~/.fnm/fnm install 16.15.0
 echo "Install done" && read a
 
-#Xdman
-wget --no-check-certificate https://github.com/hmanhng/xdm/raw/main/xdm.sh && sudo sh ./xdm.sh && rm -f xdm.sh
-
 git config --global user.email "hmanhng@icloud.com"
 git config --global user.name "hmanhng"
 
