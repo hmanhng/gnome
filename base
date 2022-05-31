@@ -10,6 +10,7 @@ mkinitcpio-firmware
 xdg-desktop-portal xdg-desktop-portal-gnome
 zsh starship
 touchegg
+flatpak
 
 gdm
 gnome-shell
