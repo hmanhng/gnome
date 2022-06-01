@@ -45,8 +45,6 @@ wget https://github.com/NyaMisty/AltServer-Linux/releases/download/v0.0.5/AltSer
 wget https://github.com/kapitainsky/RcloneBrowser/releases/download/1.8.0/rclone-browser-1.8.0-a0b66c6-linux-x86_64.AppImage -O ~/Applications/rclone-browser.AppImage
 wget https://github.com/realmazharhussain/gdm-settings/releases/download/v0.5.3/Login_Manager_Settings-nodeps.AppImage -O ~/Applications/gdm-settings.AppImage
 
-chmod a+x ~/Applications/*
-
 #GDM
 sudo cp ~/Pictures/icon.jpg /var/lib/AccountsService/icons/
 cp ~/Pictures/icon.jpg ~/.face
