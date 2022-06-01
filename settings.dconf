@@ -204,8 +204,8 @@ power-button-action='hibernate'
 [org/gnome/shell]
 disable-extension-version-validation=true
 disable-user-extensions=false
-disabled-extensions=@as []
-enabled-extensions=['caffeine@patapon.info', 'clipboard-history@alexsaveau.dev', 'just-perfection-desktop@just-perfection', 'refresh-wifi@kgshank.net', 'remove-alt-tab-delay@daase.net', 'roundedSystemMenuButtons@pratap.fastmail.fm', 'sound-output-device-chooser@kgshank.net', 'sound-percentage@maestroschan.fr', 'sp-tray@sp-tray.esenliyim.github.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor-next@paradoxxx.zero.gmail.com', 'transparent-window-moving@noobsai.github.com', 'trayIconsReloaded@selfmade.pl', 'user-id-in-top-panel@fthx', 'workspaces-bar@fthx', 'x11gestures@joseexposito.github.io', 'bluetooth-quick-connect@bjarosze.gmail.com', 'randomwallpaper@iflow.space', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'extension-list@tu.berry', 'color-picker@tuberry', 'ideapad@laurento.frittella']
+disabled-extensions=['user-id-in-top-panel@fthx']
+enabled-extensions=['caffeine@patapon.info', 'clipboard-history@alexsaveau.dev', 'just-perfection-desktop@just-perfection', 'refresh-wifi@kgshank.net', 'remove-alt-tab-delay@daase.net', 'roundedSystemMenuButtons@pratap.fastmail.fm', 'sound-output-device-chooser@kgshank.net', 'sound-percentage@maestroschan.fr', 'sp-tray@sp-tray.esenliyim.github.com', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor-next@paradoxxx.zero.gmail.com', 'transparent-window-moving@noobsai.github.com', 'trayIconsReloaded@selfmade.pl', 'workspaces-bar@fthx', 'x11gestures@joseexposito.github.io', 'bluetooth-quick-connect@bjarosze.gmail.com', 'randomwallpaper@iflow.space', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'extension-list@tu.berry', 'color-picker@tuberry', 'ideapad@laurento.frittella', 'volume-mixer@evermiss.net']
 
 [org/gnome/shell/app-switcher]
 current-workspace-only=true

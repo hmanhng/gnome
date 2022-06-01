@@ -6,13 +6,11 @@
     "fthx"
   ],
   "shell-version": [
-    "3.36",
-    "3.38",
     "40",
     "41",
     "42"
   ],
   "url": "",
   "uuid": "user-id-in-top-panel@fthx",
-  "version": 6
+  "version": 7
 }
