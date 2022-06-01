@@ -284,7 +284,7 @@ fetch-on-startup=true
 hide-panel-icon=false
 hours=0
 minutes=30
-source='wallhaven'
+source='unsplash'
 
 [org/gnome/shell/extensions/space-iflow-randomwallpaper/unsplash]
 unsplash-keyword='lofi'
