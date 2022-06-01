@@ -51,7 +51,7 @@ sudo systemctl enable gdm
 sudo systemctl enable touchegg
 
 echo "ideapad_laptop" | sudo tee -a /etc/modules
-echo "$USERNAME ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/bus/platform/drivers/ideapad_acpi/VPC????\:??/conservation_mode" | sudo tee -a /etc/sudoers.d/$USERNAME
+echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/bus/platform/drivers/ideapad_acpi/VPC????\:??/conservation_mode" | sudo tee -a /etc/sudoers.d/$USER
 sudo bash -c 'echo 259:2 > /sys/power/resume'
 sudo mkinitcpio -P
 sudo grub-mkconfig -o /boot/grub/grub.cfg
