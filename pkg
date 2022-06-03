@@ -5,7 +5,6 @@ reflector
 openssh
 wget
 exa fd fzf ripgrep bat zoxide
-clash-for-windows-bin
 nftables
 
 clang
