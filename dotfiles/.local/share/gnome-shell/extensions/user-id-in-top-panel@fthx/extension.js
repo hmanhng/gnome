@@ -15,7 +15,7 @@ class Extension {
     }
 
     enable() {
-      this.id_label = new St.Label({text: GLib.get_real_name() + " :: " + GLib.get_user_name() + "@" + GLib.get_host_name(),
+      this.id_label = new St.Label({text: GLib.get_user_name() + "@" + GLib.get_host_name(),
                                     y_align: Clutter.ActorAlign.CENTER, style_class: "user-label"});
       this.aggregate_menu = Main.panel.statusArea["aggregateMenu"];
       this.aggregate_menu._indicators.insert_child_above(this.id_label, this.aggregate_menu._power);
