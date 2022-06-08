@@ -177,8 +177,8 @@ night-light-enabled=true
 night-light-temperature=uint32 3700
 
 [org/gnome/settings-daemon/plugins/media-keys]
-custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']
-home=['<Super>e']
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/']
+home=@as []
 rotate-video-lock-static=@as []
 volume-step=5
 www=['<Super>w']
@@ -197,6 +197,11 @@ name='kitty'
 binding='<Alt>F1'
 command='rofi -terminal "kitty" -show drun -show-icons -location 1 -theme "themes" -font "Ubuntu 15"'
 name='rofi '
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3]
+binding='<Super>e'
+command='nautilus'
+name='nautilus'
 
 [org/gnome/settings-daemon/plugins/power]
 power-button-action='hibernate'
