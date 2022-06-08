@@ -190,12 +190,12 @@ name='guake'
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
 binding='<Super>Return'
-command='kitty'
-name='kitty'
+command='gnome-terminal'
+name='gnome-terminal'
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2]
 binding='<Alt>F1'
-command='rofi -terminal "kitty" -show drun -show-icons -location 1 -theme "themes" -font "Ubuntu 15"'
+command='rofi -terminal "gnome-terminal" -show drun -show-icons -location 1 -theme "themes" -font "Ubuntu 15"'
 name='rofi '
 
 [org/gnome/settings-daemon/plugins/power]
@@ -318,8 +318,58 @@ switch-to-application-2=@as []
 switch-to-application-3=@as []
 switch-to-application-4=@as []
 
+[org/gnome/terminal/legacy/profiles:]
+list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9']
+
+[org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+background-color='rgb(51,51,51)'
+background-transparency-percent=6
+bold-is-bright=true
+custom-command=''
+default-size-columns=90
+font='Iosevka Term 14'
+foreground-color='rgb(222,222,222)'
+login-shell=false
+palette=['rgb(28,31,36)', 'rgb(255,108,107)', 'rgb(152,190,101)', 'rgb(218,133,72)', 'rgb(255,128,128)', 'rgb(198,120,221)', 'rgb(86,153,175)', 'rgb(252,252,250)', 'rgb(91,98,104)', 'rgb(218,133,72)', 'rgb(77,181,219)', 'rgb(236,190,123)', 'rgb(252,152,103)', 'rgb(169,161,225)', 'rgb(70,217,255)', 'rgb(223,223,223)']
+scroll-on-output=false
+scrollbar-policy='never'
+use-custom-command=false
+use-system-font=false
+use-theme-colors=false
+use-transparent-background=true
+visible-name='hmanhng'
+
 [org/gnome/tweaks]
 show-extensions-notice=false
+
+[org/xfce/mousepad/preferences/view]
+auto-indent=true
+color-scheme='kate'
+font-name='Iosevka Term 14'
+highlight-current-line=true
+insert-spaces=true
+match-braces=true
+show-line-endings=true
+show-line-numbers=true
+show-whitespace=true
+smart-backspace=true
+tab-width=uint32 2
+use-default-monospace-font=false
+word-wrap=true
+
+[org/xfce/mousepad/preferences/window]
+remember-position=true
+statusbar-visible=true
+toolbar-icon-size='button'
+toolbar-visible=true
+
+[org/xfce/mousepad/state/window]
+fullscreen=false
+height=uint32 667
+left=uint32 100
+maximized=false
+top=uint32 136
+width=uint32 1014
 
 [system/proxy]
 mode='none'

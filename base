@@ -11,6 +11,7 @@ xdg-desktop-portal xdg-desktop-portal-gnome
 zsh starship
 touchegg
 flatpak
+kitty
 
 gdm
 gnome-shell
@@ -20,7 +21,6 @@ gnome-control-center
 gnome-keyring
 # gnome-menus
 chrome-gnome-shell
-gnome-terminal-transparency
 guake
 
 nautilus
