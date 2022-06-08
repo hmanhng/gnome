@@ -21,7 +21,7 @@ org.gnome.Evince \
 org.xfce.mousepad
 
 #Xdman
-wget --no-check-certificate https://github.com/hmanhng/xdm/raw/main/xdm.sh && sudo sh ./xdm.sh && rm -f xdm.sh
+wget -q --show-progress https://github.com/hmanhng/xdm/raw/main/xdm.sh && sudo sh ./xdm.sh && rm -f xdm.sh
 
 curl -fsSL https://fnm.vercel.app/install | bash
 ~/.fnm/fnm install 16.15.0
@@ -41,9 +41,9 @@ git clone https://github.com/hmanhng/fonts.git ~/.local/share/fonts && rm -rf ~/
 fc-cache --force
 
 # Applications
-wget https://github.com/NyaMisty/AltServer-Linux/releases/download/v0.0.5/AltServer-x86_64 -O ~/Applications/AltServer-x86_64
-wget https://github.com/kapitainsky/RcloneBrowser/releases/download/1.8.0/rclone-browser-1.8.0-a0b66c6-linux-x86_64.AppImage -O ~/Applications/rclone-browser.AppImage
-wget https://github.com/realmazharhussain/gdm-settings/releases/download/v0.5.3/Login_Manager_Settings-nodeps.AppImage -O ~/Applications/gdm-settings.AppImage
+wget -q --show-progress https://github.com/NyaMisty/AltServer-Linux/releases/download/v0.0.5/AltServer-x86_64 -O ~/Applications/AltServer-x86_64
+wget -q --show-progress https://github.com/kapitainsky/RcloneBrowser/releases/download/1.8.0/rclone-browser-1.8.0-a0b66c6-linux-x86_64.AppImage -O ~/Applications/rclone-browser.AppImage
+wget -q --show-progress https://github.com/realmazharhussain/gdm-settings/releases/download/v0.5.3/Login_Manager_Settings-nodeps.AppImage -O ~/Applications/gdm-settings.AppImage
 
 #GDM
 sudo cp ~/Pictures/icon.jpg /var/lib/AccountsService/icons/
