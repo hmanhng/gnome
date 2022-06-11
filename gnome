@@ -7,7 +7,7 @@ until git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -
     sleep 1
 done
 
-until yay -Sy --needed --batchinstall --removemake --nodiffmenu --noconfirm $(cat pkg | egrep -v "^\s*(#|$)"); do
+until yay -Sy --needed --batchinstall --removemake --nodiffmenu --noconfirm $(cat base pkg | egrep -v "^\s*(#|$)"); do
     sleep 1
 done
 
