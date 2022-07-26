@@ -4,13 +4,15 @@
   "dev-version": "2.1.4",
   "gettext-domain": "org.gnome.shell.extensions.status-area-horizontal-spacing",
   "name": "Status Area Horizontal Spacing",
+  "session-modes": [
+    "user",
+    "unlock-dialog"
+  ],
   "settings-schema": "org.gnome.shell.extensions.status-area-horizontal-spacing",
   "shell-version": [
-    "40",
-    "41",
     "42"
   ],
   "url": "https://gitlab.com/p91paul/status-area-horizontal-spacing-gnome-shell-extension",
   "uuid": "status-area-horizontal-spacing@mathematical.coffee.gmail.com",
-  "version": 21
+  "version": 22
 }

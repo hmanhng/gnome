@@ -175,8 +175,15 @@ function enable() {
 }
 
 function disable() {
+    /*
+     * This extension requires unlock-dialog session-mode because its functionality
+     * is useful in lockscreen as well. The rationale is well explained in
+     * https://gitlab.com/p91paul/status-area-horizontal-spacing-gnome-shell-extension/-/merge_requests/5
+     * Preventing disabling when locking also works around a gnome shell crash.
+     */
     removeStyles();
     if (hpaddingChangedID) {
         settings.disconnect(hpaddingChangedID);
     }
+    settings = null;
 }

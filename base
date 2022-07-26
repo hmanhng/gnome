@@ -11,9 +11,9 @@ xdg-desktop-portal xdg-desktop-portal-gnome
 zsh starship
 touchegg
 flatpak
-kitty
 
 gdm
+gnome-terminal
 gnome-shell
 gnome-tweaks
 gnome-session-properties
@@ -23,4 +23,4 @@ gnome-keyring
 chrome-gnome-shell
 guake
 
-nautilus
+nautilus file-roller eog evince

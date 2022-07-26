@@ -13,17 +13,7 @@ done
 
 flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user -y \
-org.videolan.VLC \
-com.obsproject.Studio \
-com.discordapp.Discord \
-org.qbittorrent.qBittorrent \
-com.spotify.Client \
-nl.hjdskes.gcolor3 \
-org.gnome.FileRoller \
-org.onlyoffice.desktopeditors \
-org.gnome.eog \
-org.gnome.Evince \
-org.xfce.mousepad
+org.onlyoffice.desktopeditors
 
 #Xdman
 wget -q --show-progress https://github.com/hmanhng/xdm/raw/main/xdm.sh && sudo sh ./xdm.sh && rm -f xdm.sh
@@ -71,4 +61,4 @@ dconf load / < settings.dconf
 # Zsh
 sudo chsh $USER -s "/bin/zsh"
 
-git clone https://github.com/hmanhng/dotfile.git ~/dotfiles && cd ~/dotfiles && ./install.sh zsh kitty
+git clone https://github.com/hmanhng/dotfile.git ~/dotfiles && cd ~/dotfiles && ./install.sh zsh
