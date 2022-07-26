@@ -19,8 +19,8 @@ com.discordapp.Discord \
 org.qbittorrent.qBittorrent \
 com.spotify.Client \
 nl.hjdskes.gcolor3 \
-org.libreoffice.LibreOffice \
 org.gnome.FileRoller \
+org.onlyoffice.desktopeditors \
 org.gnome.eog \
 org.gnome.Evince \
 org.xfce.mousepad
@@ -31,8 +31,8 @@ wget -q --show-progress https://github.com/hmanhng/xdm/raw/main/xdm.sh && sudo s
 curl -fsSL https://fnm.vercel.app/install | bash
 ~/.fnm/fnm install 16.15.0
 
-git config --global user.email "hmanhng@icloud.com"
-git config --global user.name "hmanhng"
+git config --global user.email "$USER@icloud.com"
+git config --global user.name "$USER"
 
 sudo sed -i 's/#AutoEnable=false/AutoEnable=true/g' /etc/bluetooth/main.conf
 
@@ -42,12 +42,11 @@ sudo cp -rf ~/usr/* /usr && rm -rf ~/usr
 
 # Fonts
 git clone https://github.com/hmanhng/WindowsFonts.git ~/WindowsFonts && rm -rf ~/WindowsFonts/.git && sudo mv ~/WindowsFonts/ /usr/share/fonts/ && sudo chmod 644 /usr/share/fonts/WindowsFonts/*
-git clone https://github.com/hmanhng/fonts.git ~/.local/share/fonts && rm -rf ~/.local/share/fonts/.git
+# git clone https://github.com/hmanhng/fonts.git ~/.local/share/fonts && rm -rf ~/.local/share/fonts/.git
 fc-cache --force
 
 # Applications
 wget -q --show-progress https://github.com/NyaMisty/AltServer-Linux/releases/download/v0.0.5/AltServer-x86_64 -O ~/Applications/AltServer-x86_64
-wget -q --show-progress https://github.com/kapitainsky/RcloneBrowser/releases/download/1.8.0/rclone-browser-1.8.0-a0b66c6-linux-x86_64.AppImage -O ~/Applications/rclone-browser.AppImage
 wget -q --show-progress https://github.com/realmazharhussain/gdm-settings/releases/download/v0.5.3/Login_Manager_Settings-nodeps.AppImage -O ~/Applications/gdm-settings.AppImage
 
 #GDM
@@ -61,7 +60,7 @@ sudo systemctl enable gdm
 sudo systemctl enable touchegg
 
 echo "ideapad_laptop" | sudo tee -a /etc/modules
-echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/bus/platform/drivers/ideapad_acpi/VPC????\:??/conservation_mode" | sudo tee -a /etc/sudoers.d/$USER
+echo "%wheel ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/bus/platform/drivers/ideapad_acpi/VPC????\:??/conservation_mode" | sudo tee -a /etc/sudoers.d/$USER
 sudo bash -c 'echo 259:2 > /sys/power/resume'
 sudo mkinitcpio -P
 sudo grub-mkconfig -o /boot/grub/grub.cfg
@@ -71,3 +70,5 @@ dconf load / < settings.dconf
 
 # Zsh
 sudo chsh $USER -s "/bin/zsh"
+
+git clone https://github.com/hmanhng/dotfile.git ~/dotfiles && cd ~/dotfiles && ./install.sh zsh kitty
