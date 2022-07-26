@@ -6,4 +6,4 @@ npm i -g bash-language-server
 dotnet tool install --global csharp-ls
 
 # dotfiles
-git clone https://github.com/hmanhng/dotfile.git ~/dotfiles && cd ~/dotfiles && ./install.sh
+cd ~/dotfiles && ./install.sh

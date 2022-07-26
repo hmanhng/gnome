@@ -293,7 +293,7 @@ unsplash-keyword='lofi'
 wallhaven-keyword='chill'
 
 [org/gnome/shell/extensions/status-area-horizontal-spacing]
-hpadding=2
+hpadding=0
 
 [org/gnome/shell/extensions/transparent-window-moving]
 window-opacity=230
