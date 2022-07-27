@@ -301,12 +301,12 @@ window-opacity=230
 [org/gnome/shell/extensions/trayIconsReloaded]
 applications='[]'
 icon-margin-horizontal=0
-icon-padding-horizontal=5
-icon-size=22
+icon-padding-horizontal=1
+icon-size=20
 invoke-to-workspace=true
 position-weight=-1
-tray-margin-left=0
-tray-margin-right=0
+tray-margin-left=3
+tray-margin-right=3
 wine-behavior=true
 
 [org/gnome/shell/extensions/user-theme]
