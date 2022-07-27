@@ -8,7 +8,7 @@ until git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -
 done
 
 until yay -Sy --needed --batchinstall --removemake --nodiffmenu --noconfirm $(cat base pkg | egrep -v "^\s*(#|$)"); do
-    sleep 1
+    sleep 10
 done
 
 flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
